@@ -333,10 +333,8 @@
       object-position: center;
       filter: brightness(.38) saturate(.55) sepia(.25);
       transform: scale(1.0);
-      transition: transform 8s ease;
+      transition: transform 7s ease;
     }
-
-    .swiper-slide-active img { transform: scale(1.06); }
 
     .hero_swiper .swiper-scrollbar {
       height: 2px;
@@ -1636,7 +1634,24 @@
     speed: 1200,
     autoplay: { delay: 5000, disableOnInteraction: false },
     slidesPerView: 1,
+    spaceBetween: 0,
+    grabCursor: true,
     scrollbar: { el: '.hero_swiper .swiper-scrollbar', draggable: true },
+    on: {
+      slideChangeTransitionStart: function () {
+        document.querySelectorAll('.hero_swiper .swiper-slide img').forEach(img => {
+          img.style.transform = 'scale(1.0)';
+        });
+      },
+      slideChangeTransitionEnd: function () {
+        const activeImg = document.querySelector('.hero_swiper .swiper-slide-active img');
+        if (activeImg) activeImg.style.transform = 'scale(1.06)';
+      },
+      init: function () {
+        const activeImg = document.querySelector('.hero_swiper .swiper-slide-active img');
+        if (activeImg) activeImg.style.transform = 'scale(1.06)';
+      }
+    }
   });
 
   /* ── Menu photo Swiper ── */
