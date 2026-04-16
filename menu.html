@@ -1,0 +1,1751 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MENU | BAR PEAT – ドリンク＆フードメニュー</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+JP:wght@300;400;500&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+  <style>
+    /* ══════════════════════════════════════════
+       Design Tokens
+       Royal Scots 構造 × ダークモードカラー
+    ══════════════════════════════════════════ */
+    :root {
+      /* Dark palette */
+      --bg:          #1a1a1a;
+      --bg-mid:      #202020;
+      --bg-section:  #161616;
+      --bg-card:     #242424;
+      --bg-card-alt: #2a2826;
+
+      /* Text */
+      --text:        #f0ece4;
+      --text-muted:  #8a867e;
+      --text-sub:    #c8c2b8;
+
+      /* Gold system */
+      --gold:        #b89a5a;
+      --gold-lt:     #cdb47a;
+      --gold-dk:     #8a7240;
+      --gold-line:   rgba(184,154,90,.35);
+
+      /* Border */
+      --border:      rgba(255,255,255,.08);
+      --border-gold: rgba(184,154,90,.22);
+
+      /* Typography */
+      --ff-en:    'Crimson Text', Georgia, serif;
+      --ff-serif: 'Noto Serif JP', 'Crimson Text', serif;
+      --ff-sans:  'Montserrat', sans-serif;
+
+      /* Layout */
+      --container: 1040px;
+      --tr: .5s;
+
+      /* Spacing */
+      --sect-v:  140px;
+      --sect-sm:  90px;
+    }
+
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--ff-serif);
+      font-size: 1.5rem;
+      font-weight: 300;
+      line-height: 1.85;
+      overflow-x: hidden;
+    }
+    img  { display: block; width: 100%; height: 100%; object-fit: cover; }
+    a    { color: inherit; text-decoration: none; transition: opacity var(--tr); }
+    a:hover { opacity: .65; }
+    ul, ol { list-style: none; }
+
+    /* ══════════════════════════════════════════
+       Layout
+    ══════════════════════════════════════════ */
+    .l_container {
+      width: min(var(--container), 100%);
+      margin-inline: auto;
+      padding-inline: 30px;
+    }
+
+    .l_sect  { padding: var(--sect-v) 0; }
+    .l_sect_sm { padding: var(--sect-sm) 0; }
+
+    /* Thin gold rule between sections */
+    .l_rule {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold-line), transparent);
+    }
+
+    /* ══════════════════════════════════════════
+       Header（index.html と共通）
+    ══════════════════════════════════════════ */
+    #header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 0 40px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(26,26,26,.2);
+      backdrop-filter: blur(0px);
+      transition: background var(--tr), backdrop-filter var(--tr);
+    }
+
+    #header.is_color {
+      background: rgba(22,22,22,.95);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header_logo {
+      font-family: var(--ff-en);
+      font-size: 1.55rem;
+      font-weight: 600;
+      letter-spacing: .22em;
+      color: #fff;
+      line-height: 1;
+    }
+    .header_logo small {
+      display: block;
+      font-family: var(--ff-sans);
+      font-size: .5rem;
+      font-weight: 300;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.4);
+      margin-top: 3px;
+    }
+
+    .header_nav { display: flex; align-items: center; gap: 2.4rem; }
+    .header_nav a {
+      font-family: var(--ff-sans);
+      font-size: .67rem;
+      font-weight: 400;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.65);
+      transition: color var(--tr);
+    }
+    .header_nav a:hover,
+    .header_nav a.is_active { color: var(--gold-lt); opacity: 1; }
+
+    .header_tel {
+      font-family: var(--ff-sans);
+      font-size: .64rem;
+      font-weight: 400;
+      letter-spacing: .14em;
+      color: #fff;
+      background: var(--gold-dk);
+      padding: .55rem 1.4rem;
+      transition: background var(--tr);
+    }
+    .header_tel:hover { background: var(--gold); opacity: 1; }
+
+    .header_hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+    .header_hamburger span {
+      display: block; width: 26px; height: 1px;
+      background: rgba(255,255,255,.8);
+    }
+
+    /* ══════════════════════════════════════════
+       Page Hero
+    ══════════════════════════════════════════ */
+    #hero {
+      position: relative;
+      height: 100svh;
+      min-height: 640px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero_bg {
+      position: absolute; inset: 0;
+      background-image: url('内装＋お酒/line_oa_chat_260324_152705_group_0.jpg');
+      background-size: cover;
+      background-position: center 35%;
+      filter: brightness(.32) saturate(.65);
+      transform: scale(1.05);
+      transition: transform 8s ease;
+    }
+
+    #hero:hover .hero_bg { transform: scale(1.0); }
+
+    /* Vignette overlay */
+    .hero_vignette {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at center,
+        transparent 30%,
+        rgba(26,26,26,.55) 100%
+      );
+    }
+
+    .hero_content {
+      position: relative;
+      z-index: 2;
+      max-width: 760px;
+      padding: 0 20px;
+    }
+
+    .hero_eyebrow {
+      font-family: var(--ff-sans);
+      font-size: .6rem;
+      font-weight: 400;
+      letter-spacing: .46em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp .8s .3s forwards;
+    }
+
+    .hero_title {
+      font-family: var(--ff-en);
+      font-size: clamp(3.5rem, 11vw, 9rem);
+      font-weight: 600;
+      letter-spacing: .18em;
+      line-height: .9;
+      color: #fff;
+      opacity: 0;
+      animation: fadeUp .9s .55s forwards;
+    }
+
+    .hero_title_sub {
+      font-family: var(--ff-en);
+      font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+      font-weight: 400;
+      font-style: italic;
+      letter-spacing: .12em;
+      color: var(--gold-lt);
+      margin-top: .6rem;
+      opacity: 0;
+      animation: fadeUp .8s .75s forwards;
+    }
+
+    .hero_lead {
+      font-family: var(--ff-serif);
+      font-size: clamp(.85rem, 1.5vw, 1.05rem);
+      font-weight: 300;
+      line-height: 2.2;
+      color: rgba(240,236,228,.62);
+      letter-spacing: .04em;
+      margin-top: 2.4rem;
+      opacity: 0;
+      animation: fadeUp .8s 1.0s forwards;
+    }
+
+    /* Decorative line below title */
+    .hero_deco {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.2rem;
+      margin-top: 2.8rem;
+      opacity: 0;
+      animation: fadeIn .9s 1.25s forwards;
+    }
+    .hero_deco::before,
+    .hero_deco::after {
+      content: '';
+      flex: 0 0 50px;
+      height: 1px;
+      background: var(--gold-line);
+    }
+    .hero_deco span {
+      font-family: var(--ff-sans);
+      font-size: .52rem;
+      font-weight: 400;
+      letter-spacing: .32em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    /* Scroll indicator */
+    .hero_scroll {
+      position: absolute;
+      bottom: 2.8rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .7rem;
+      opacity: 0;
+      animation: fadeIn 1s 1.6s forwards;
+    }
+    .hero_scroll span {
+      font-family: var(--ff-sans);
+      font-size: .5rem;
+      font-weight: 400;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.35);
+    }
+    .hero_scroll_line {
+      width: 1px;
+      height: 52px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: scrollPulse 2s 1.8s ease infinite;
+    }
+    @keyframes scrollPulse {
+      0%   { transform:scaleY(0); transform-origin:top; opacity:1; }
+      50%  { transform:scaleY(1); transform-origin:top; opacity:1; }
+      51%  { transform:scaleY(1); transform-origin:bottom; }
+      100% { transform:scaleY(0); transform-origin:bottom; opacity:.3; }
+    }
+
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(24px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity:0; } to { opacity:1; }
+    }
+
+    /* ══════════════════════════════════════════
+       Section Heading System
+    ══════════════════════════════════════════ */
+    .s_label {
+      display: block;
+      font-family: var(--ff-sans);
+      font-size: .58rem;
+      font-weight: 400;
+      letter-spacing: .38em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+    }
+
+    .s_title {
+      font-family: var(--ff-en);
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      font-weight: 600;
+      letter-spacing: .08em;
+      line-height: 1.1;
+      color: var(--text);
+      position: relative;
+      display: inline-block;
+      padding-bottom: 22px;
+    }
+
+    /* 下線アニメーション（c_borderTitle継承） */
+    .s_title::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 36px; height: 1px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .9s cubic-bezier(.25,.46,.45,.94);
+    }
+    .s_title.is_animated::after { transform: scaleX(1); }
+
+    .s_title_center {
+      display: block;
+      text-align: center;
+      padding-bottom: 22px;
+    }
+    .s_title_center::after {
+      left: 50%;
+      transform: translateX(-50%) scaleX(0);
+      transform-origin: center;
+    }
+    .s_title_center.is_animated::after {
+      transform: translateX(-50%) scaleX(1);
+    }
+
+    .s_title_jp {
+      display: block;
+      font-family: var(--ff-serif);
+      font-size: clamp(.88rem, 1.5vw, 1.1rem);
+      font-weight: 300;
+      letter-spacing: .12em;
+      color: var(--text-muted);
+      margin-top: .5rem;
+    }
+
+    .s_body {
+      font-family: var(--ff-serif);
+      font-size: 1.05rem;
+      font-weight: 300;
+      line-height: 2.2;
+      color: var(--text-sub);
+      letter-spacing: .04em;
+    }
+    .s_body p + p { margin-top: 1.6em; }
+
+    /* ══════════════════════════════════════════
+       In-page Anchor Nav
+    ══════════════════════════════════════════ */
+    .anchor_nav {
+      position: sticky;
+      top: 70px;
+      z-index: 90;
+      background: rgba(26,26,26,.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .anchor_nav_inner {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+    }
+
+    .anchor_nav a {
+      display: block;
+      padding: 1.1rem 2rem;
+      font-family: var(--ff-sans);
+      font-size: .6rem;
+      font-weight: 400;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      border-right: 1px solid var(--border);
+      transition: color var(--tr), background var(--tr);
+      position: relative;
+    }
+    .anchor_nav a:last-child { border-right: none; }
+    .anchor_nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transition: transform var(--tr);
+    }
+    .anchor_nav a:hover { color: var(--text); opacity: 1; }
+    .anchor_nav a:hover::after { transform: scaleX(1); }
+    .anchor_nav a.is_current { color: var(--gold-lt); opacity: 1; }
+    .anchor_nav a.is_current::after { transform: scaleX(1); }
+
+    /* ══════════════════════════════════════════
+       1. WHISKY Section
+    ══════════════════════════════════════════ */
+    #whisky { background: var(--bg); }
+
+    .whisky_main {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 90px;
+      align-items: center;
+    }
+
+    .whisky_photo_wrap {
+      position: relative;
+    }
+
+    .whisky_photo_main {
+      height: 540px;
+      overflow: hidden;
+      border: 1px solid var(--border-gold);
+    }
+    .whisky_photo_main img { transition: transform .9s ease; }
+    .whisky_photo_main:hover img { transform: scale(1.04); opacity: 1; }
+
+    .whisky_photo_sub {
+      position: absolute;
+      bottom: -2.4rem;
+      right: -2.4rem;
+      width: 55%;
+      height: 220px;
+      overflow: hidden;
+      border: 1px solid var(--border-gold);
+      box-shadow: 0 20px 60px rgba(0,0,0,.5);
+    }
+    .whisky_photo_sub img { transition: transform .9s ease; }
+    .whisky_photo_sub:hover img { transform: scale(1.06); opacity: 1; }
+
+    /* Pickup cards */
+    .whisky_pickup {
+      margin-top: 3.2rem;
+    }
+    .whisky_pickup_label {
+      font-family: var(--ff-sans);
+      font-size: .58rem;
+      font-weight: 400;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+    }
+    .whisky_pickup_label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border-gold);
+    }
+
+    .pickup_cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .pickup_card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 1.8rem 1.6rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color var(--tr), background var(--tr);
+    }
+    .pickup_card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: var(--gold-dk);
+      transition: background var(--tr);
+    }
+    .pickup_card:hover {
+      background: var(--bg-card-alt);
+      border-color: var(--border-gold);
+    }
+    .pickup_card:hover::before { background: var(--gold); }
+
+    .pickup_card .region {
+      font-family: var(--ff-sans);
+      font-size: .55rem;
+      font-weight: 400;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: .5rem;
+    }
+    .pickup_card .name {
+      font-family: var(--ff-en);
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: .04em;
+      line-height: 1.2;
+      margin-bottom: .4rem;
+    }
+    .pickup_card .desc {
+      font-family: var(--ff-serif);
+      font-size: .82rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+
+    /* Beginner message */
+    .whisky_message {
+      margin-top: 2.4rem;
+      padding: 1.8rem 2.2rem;
+      border: 1px solid var(--border-gold);
+      background: rgba(184,154,90,.05);
+      display: flex;
+      align-items: center;
+      gap: 1.6rem;
+    }
+    .whisky_message_icon {
+      font-family: var(--ff-en);
+      font-size: 2rem;
+      color: var(--gold);
+      flex-shrink: 0;
+      line-height: 1;
+    }
+    .whisky_message p {
+      font-family: var(--ff-serif);
+      font-size: .95rem;
+      color: var(--text-sub);
+      line-height: 1.9;
+      letter-spacing: .04em;
+    }
+    .whisky_message strong {
+      font-weight: 500;
+      color: var(--gold-lt);
+    }
+
+    /* ══════════════════════════════════════════
+       2. COCKTAIL Section（Zigzag）
+    ══════════════════════════════════════════ */
+    #cocktail { background: var(--bg-section); }
+
+    .cocktail_header { text-align: center; margin-bottom: 100px; }
+
+    .cocktail_zigzag { display: flex; flex-direction: column; gap: 120px; }
+
+    .zigzag_item {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .zigzag_item:nth-child(even) .zigzag_text { order: -1; }
+
+    .zigzag_photo {
+      height: 440px;
+      overflow: hidden;
+      border: 1px solid var(--border-gold);
+      position: relative;
+    }
+    .zigzag_photo img { transition: transform .9s ease; }
+    .zigzag_photo:hover img { transform: scale(1.05); opacity: 1; }
+
+    /* Number badge */
+    .zigzag_num {
+      position: absolute;
+      top: 1.2rem; left: 1.2rem;
+      font-family: var(--ff-en);
+      font-size: 3.5rem;
+      font-weight: 600;
+      color: rgba(184,154,90,.18);
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .cocktail_list {
+      margin-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+    .cocktail_list li {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0 1.2rem;
+      padding: 1.1rem 0;
+      border-bottom: 1px solid var(--border);
+      align-items: baseline;
+    }
+    .cocktail_list .c_name {
+      font-family: var(--ff-en);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: .04em;
+      white-space: nowrap;
+    }
+    .cocktail_list .c_note {
+      font-family: var(--ff-serif);
+      font-size: .82rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ══════════════════════════════════════════
+       3. FOOD Section
+    ══════════════════════════════════════════ */
+    #food { background: var(--bg); }
+
+    .food_header { text-align: center; margin-bottom: 80px; }
+
+    /* Featured item – Ham */
+    .food_featured {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 80px;
+      align-items: center;
+      margin-bottom: 100px;
+    }
+
+    .food_featured_img {
+      position: relative;
+      height: 500px;
+      overflow: hidden;
+      border: 1px solid var(--border-gold);
+    }
+    .food_featured_img img { transition: transform .9s ease; }
+    .food_featured_img:hover img { transform: scale(1.04); opacity: 1; }
+
+    .food_no1_badge {
+      position: absolute;
+      top: 0; right: 0;
+      background: var(--gold);
+      color: var(--bg);
+      font-family: var(--ff-sans);
+      font-size: .55rem;
+      font-weight: 500;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      padding: .55rem 1.3rem;
+    }
+
+    .food_featured_name {
+      font-family: var(--ff-en);
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      font-weight: 600;
+      letter-spacing: .06em;
+      color: var(--text);
+      line-height: 1.1;
+      margin-bottom: .4rem;
+    }
+    .food_featured_name_jp {
+      font-family: var(--ff-serif);
+      font-size: 1rem;
+      color: var(--text-muted);
+      letter-spacing: .1em;
+      margin-bottom: 2rem;
+    }
+
+    /* Price table */
+    .price_table {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-top: 2rem;
+    }
+    .price_item {
+      background: var(--bg-card);
+      padding: 1.4rem 1.2rem;
+      text-align: center;
+    }
+    .price_item .size {
+      font-family: var(--ff-sans);
+      font-size: .55rem;
+      font-weight: 400;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: .5rem;
+    }
+    .price_item .price {
+      font-family: var(--ff-en);
+      font-size: 1.7rem;
+      font-weight: 400;
+      color: var(--text);
+      letter-spacing: .04em;
+    }
+    .price_item .yen {
+      font-family: var(--ff-serif);
+      font-size: .8rem;
+      color: var(--text-muted);
+    }
+
+    /* Other food grid */
+    .food_others_title {
+      font-family: var(--ff-sans);
+      font-size: .6rem;
+      font-weight: 400;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .food_others_title::before,
+    .food_others_title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border-gold);
+    }
+
+    .food_grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+    .food_card {
+      background: var(--bg-card);
+      padding: 2rem 1.8rem;
+      transition: background var(--tr);
+    }
+    .food_card:hover { background: var(--bg-card-alt); }
+
+    .food_card .f_icon {
+      font-size: 1.4rem;
+      margin-bottom: .8rem;
+      opacity: .65;
+    }
+    .food_card .f_name {
+      font-family: var(--ff-en);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: .04em;
+      margin-bottom: .2rem;
+    }
+    .food_card .f_name_jp {
+      font-family: var(--ff-serif);
+      font-size: .8rem;
+      color: var(--text-muted);
+      margin-bottom: .8rem;
+    }
+    .food_card .f_desc {
+      font-family: var(--ff-serif);
+      font-size: .82rem;
+      color: var(--text-muted);
+      line-height: 1.9;
+    }
+    .food_card .f_sep {
+      width: 16px; height: 1px;
+      background: var(--gold-dk);
+      margin: .8rem 0;
+    }
+
+    /* ══════════════════════════════════════════
+       4. OTHER & CIGAR Section
+    ══════════════════════════════════════════ */
+    #other { background: var(--bg-mid); }
+
+    .other_grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+    }
+
+    .other_list {
+      margin-top: 1.8rem;
+      border-top: 1px solid var(--border);
+    }
+    .other_list li {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .other_list li::before {
+      content: '—';
+      color: var(--gold);
+      flex-shrink: 0;
+      font-family: var(--ff-en);
+    }
+    .other_list .o_name {
+      font-family: var(--ff-en);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: .04em;
+    }
+    .other_list .o_note {
+      font-family: var(--ff-serif);
+      font-size: .8rem;
+      color: var(--text-muted);
+      margin-left: auto;
+    }
+
+    /* Cigar panel */
+    .cigar_panel {
+      border: 1px solid var(--border-gold);
+      background: rgba(184,154,90,.03);
+    }
+
+    .cigar_photo {
+      height: 240px;
+      overflow: hidden;
+    }
+    .cigar_photo img { transition: transform .9s ease; }
+    .cigar_photo:hover img { transform: scale(1.04); opacity: 1; }
+
+    .cigar_body {
+      padding: 2.4rem 2.2rem;
+    }
+
+    .cigar_welcome {
+      font-family: var(--ff-en);
+      font-size: 1.05rem;
+      font-style: italic;
+      font-weight: 400;
+      color: var(--gold-lt);
+      line-height: 1.7;
+      margin-top: 1.2rem;
+      padding-left: 1.2rem;
+      border-left: 2px solid var(--gold-dk);
+    }
+
+    /* ══════════════════════════════════════════
+       5. SYSTEM / CHARGE Section
+    ══════════════════════════════════════════ */
+    #system {
+      background: var(--bg-section);
+      padding: var(--sect-sm) 0;
+    }
+
+    .system_inner {
+      border: 1px solid var(--border-gold);
+      padding: 60px 70px;
+      max-width: 820px;
+      margin-inline: auto;
+      position: relative;
+    }
+
+    /* Corner decoration */
+    .system_inner::before,
+    .system_inner::after {
+      content: '';
+      position: absolute;
+      width: 20px; height: 20px;
+      border-color: var(--gold-dk);
+      border-style: solid;
+    }
+    .system_inner::before {
+      top: -1px; left: -1px;
+      border-width: 2px 0 0 2px;
+    }
+    .system_inner::after {
+      bottom: -1px; right: -1px;
+      border-width: 0 2px 2px 0;
+    }
+
+    .system_header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .system_label {
+      font-family: var(--ff-sans);
+      font-size: .58rem;
+      font-weight: 400;
+      letter-spacing: .38em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: .8rem;
+    }
+    .system_title {
+      font-family: var(--ff-en);
+      font-size: 2.2rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      color: var(--text);
+    }
+
+    .system_grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      background: var(--border);
+      margin-bottom: 2.4rem;
+    }
+
+    .system_item {
+      background: var(--bg-card);
+      padding: 2rem 2.2rem;
+    }
+
+    .system_item .si_label {
+      font-family: var(--ff-sans);
+      font-size: .58rem;
+      font-weight: 400;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: .8rem;
+    }
+    .system_item .si_value {
+      font-family: var(--ff-en);
+      font-size: 2rem;
+      font-weight: 400;
+      color: var(--text);
+      letter-spacing: .06em;
+      line-height: 1;
+    }
+    .system_item .si_unit {
+      font-family: var(--ff-serif);
+      font-size: .85rem;
+      color: var(--text-muted);
+      margin-left: .2rem;
+    }
+    .system_item .si_note {
+      font-family: var(--ff-serif);
+      font-size: .82rem;
+      color: var(--text-muted);
+      margin-top: .6rem;
+      line-height: 1.7;
+    }
+
+    /* Free charge highlight */
+    .charge_highlight {
+      background: rgba(184,154,90,.08);
+      border: 1px solid var(--border-gold);
+      padding: 1.4rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.4rem;
+      margin-bottom: 2.4rem;
+    }
+    .charge_hl_icon {
+      font-family: var(--ff-en);
+      font-size: 2.2rem;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+    .charge_hl_text .main {
+      font-family: var(--ff-serif);
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--gold-lt);
+      letter-spacing: .06em;
+    }
+    .charge_hl_text .sub {
+      font-family: var(--ff-serif);
+      font-size: .82rem;
+      color: var(--text-muted);
+      margin-top: .2rem;
+      line-height: 1.7;
+    }
+
+    /* Credit cards */
+    .credit_row {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+    }
+    .credit_label {
+      font-family: var(--ff-sans);
+      font-size: .58rem;
+      font-weight: 400;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .credit_cards {
+      display: flex;
+      gap: .5rem;
+      flex-wrap: wrap;
+    }
+    .credit_card {
+      font-family: var(--ff-sans);
+      font-size: .58rem;
+      font-weight: 400;
+      letter-spacing: .1em;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      padding: .3rem .8rem;
+      transition: border-color var(--tr), color var(--tr);
+    }
+    .credit_card:hover { border-color: var(--border-gold); color: var(--gold-lt); opacity: 1; }
+
+    /* ══════════════════════════════════════════
+       Footer
+    ══════════════════════════════════════════ */
+    #footer {
+      background: #111;
+      border-top: 1px solid var(--border);
+      padding: 60px 0 0;
+    }
+
+    .footer_top {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 60px;
+      padding-bottom: 50px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .footer_logo {
+      font-family: var(--ff-en);
+      font-size: 1.8rem;
+      font-weight: 600;
+      letter-spacing: .2em;
+      color: var(--text);
+    }
+    .footer_logo small {
+      display: block;
+      font-family: var(--ff-sans);
+      font-size: .52rem;
+      font-weight: 300;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    .footer_addr {
+      font-family: var(--ff-serif);
+      font-size: .9rem;
+      color: var(--text-muted);
+      line-height: 2;
+      margin-top: 1.4rem;
+    }
+
+    .footer_nav_group {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+    .footer_nav_label {
+      font-family: var(--ff-sans);
+      font-size: .55rem;
+      font-weight: 400;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 1.2rem;
+      padding-bottom: .6rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .footer_nav_group ul li { margin-bottom: .6rem; }
+    .footer_nav_group ul li a {
+      font-family: var(--ff-serif);
+      font-size: .9rem;
+      color: rgba(240,236,228,.45);
+      transition: color var(--tr);
+    }
+    .footer_nav_group ul li a:hover { color: var(--text); opacity: 1; }
+
+    .footer_copy {
+      background: #0a0a0a;
+      text-align: center;
+      padding: 1.4rem;
+    }
+    .footer_copy p {
+      font-family: var(--ff-sans);
+      font-size: .56rem;
+      font-weight: 400;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* ══════════════════════════════════════════
+       Side CTA
+    ══════════════════════════════════════════ */
+    .side_btn {
+      position: fixed;
+      right: 0; bottom: 8%;
+      z-index: 900;
+      writing-mode: vertical-rl;
+      background: var(--gold-dk);
+      color: #fff;
+      font-family: var(--ff-sans);
+      font-size: .58rem;
+      font-weight: 400;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      padding: 1.2rem .7rem;
+      transition: background var(--tr);
+    }
+    .side_btn:hover { background: var(--gold); opacity: 1; }
+
+    /* ══════════════════════════════════════════
+       Reveal animation
+    ══════════════════════════════════════════ */
+    .js_reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity .85s ease, transform .85s ease;
+    }
+    .js_reveal.is_visible { opacity: 1; transform: translateY(0); }
+    .js_reveal[data-delay="1"] { transition-delay: .1s; }
+    .js_reveal[data-delay="2"] { transition-delay: .2s; }
+    .js_reveal[data-delay="3"] { transition-delay: .3s; }
+
+    /* ══════════════════════════════════════════
+       Responsive
+    ══════════════════════════════════════════ */
+    @media (max-width: 900px) {
+      :root { --sect-v: 90px; --sect-sm: 60px; }
+
+      .whisky_main,
+      .zigzag_item,
+      .food_featured,
+      .other_grid,
+      .footer_top { grid-template-columns: 1fr; gap: 50px; }
+
+      .zigzag_item:nth-child(even) .zigzag_text { order: 0; }
+
+      .whisky_photo_sub { position: static; width: 100%; height: 180px; margin-top: 8px; }
+      .whisky_photo_main { height: 340px; }
+
+      .food_featured_img { height: 340px; }
+
+      .food_grid { grid-template-columns: 1fr 1fr; }
+      .pickup_cards { grid-template-columns: 1fr; }
+      .system_grid { grid-template-columns: 1fr; }
+      .system_inner { padding: 40px 30px; }
+
+      .footer_nav_group { grid-template-columns: 1fr 1fr; }
+      .anchor_nav_inner { flex-wrap: wrap; justify-content: center; }
+      .anchor_nav a { padding: .9rem 1.2rem; font-size: .55rem; }
+    }
+
+    @media (max-width: 640px) {
+      #header { padding: 0 20px; }
+      .header_nav, .header_tel { display: none; }
+      .header_hamburger { display: flex; }
+
+      .hero_lead { display: none; }
+
+      .food_grid { grid-template-columns: 1fr; }
+      .cocktail_zigzag { gap: 70px; }
+      .zigzag_photo { height: 280px; }
+      .price_table { grid-template-columns: 1fr; }
+      .footer_nav_group { grid-template-columns: 1fr; }
+      .side_btn { display: none; }
+      .system_inner::before, .system_inner::after { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── SIDE BTN ── -->
+<a href="tel:0473783932" class="side_btn">Reserve &amp; Tel</a>
+
+<!-- ════════════════ HEADER ════════════════ -->
+<header id="header">
+  <a href="index.html" class="header_logo">
+    BAR PEAT
+    <small>Bar &middot; Motoyawata</small>
+  </a>
+  <nav class="header_nav">
+    <a href="index.html">Top</a>
+    <a href="index.html#concept">Concept</a>
+    <a href="menu.html" class="is_active">Menu</a>
+    <a href="index.html#access">Access</a>
+  </nav>
+  <a href="tel:0473783932" class="header_tel">047-378-3932</a>
+  <button class="header_hamburger" aria-label="メニュー">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- ════════════════ HERO ════════════════ -->
+<section id="hero">
+  <div class="hero_bg"></div>
+  <div class="hero_vignette"></div>
+
+  <div class="hero_content">
+    <span class="hero_eyebrow">BAR PEAT &ensp;/&ensp; Drink &amp; Food</span>
+    <h1 class="hero_title">MENU</h1>
+    <p class="hero_title_sub">Drink &amp; Food</p>
+    <p class="hero_lead">
+      約500種類のボトルが並ぶ圧巻のコレクションと、<br />
+      確かな腕で作られる本格カクテル。<br />
+      美味しいものが好きな店主こだわりの一皿とともに。
+    </p>
+    <div class="hero_deco">
+      <span>Whisky · Cocktail · Food · Cigar</span>
+    </div>
+  </div>
+
+  <div class="hero_scroll">
+    <span>Scroll</span>
+    <div class="hero_scroll_line"></div>
+  </div>
+</section>
+
+<!-- ════════════════ ANCHOR NAV ════════════════ -->
+<nav class="anchor_nav">
+  <div class="anchor_nav_inner">
+    <a href="#whisky">Whisky</a>
+    <a href="#cocktail">Cocktail</a>
+    <a href="#food">Food</a>
+    <a href="#other">Other &amp; Cigar</a>
+    <a href="#system">Charge</a>
+  </div>
+</nav>
+
+<!-- ════════════════ WHISKY ════════════════ -->
+<section id="whisky" class="l_sect">
+  <div class="l_container">
+
+    <div class="whisky_main">
+      <!-- Photo block -->
+      <div class="whisky_photo_wrap js_reveal">
+        <div class="whisky_photo_main">
+          <img src="内装＋お酒/line_oa_chat_260324_152705_group_1.jpg" alt="バックバーのボトル" />
+        </div>
+        <div class="whisky_photo_sub">
+          <img src="お酒/line_oa_chat_260324_152758_group_0.jpg" alt="ウイスキーグラス" />
+        </div>
+      </div>
+
+      <!-- Text block -->
+      <div class="js_reveal" data-delay="1">
+        <span class="s_label">— Whisky</span>
+        <h2 class="s_title">
+          WHISKY
+          <span class="s_title_jp">約500種 ウイスキーコレクション</span>
+        </h2>
+
+        <div class="s_body" style="margin-top:2.4rem;">
+          <p>
+            オフィシャルボトルからボトラーズものまで、
+            スコッチ・アイリッシュ・バーボン・ジャパニーズと多彩なラインナップを取り揃えています。
+            なかでもスペイサイドのシングルモルトが充実しており、
+            ヴィンテージや希少なレアボトルとの出会いも楽しめます。
+          </p>
+          <p>
+            「どれを選べばいいか分からない」そんな方こそ、ぜひカウンターへ。
+            マスターが今夜の気分に合う一本をご提案します。
+          </p>
+        </div>
+
+        <!-- Pickup cards -->
+        <div class="whisky_pickup">
+          <div class="whisky_pickup_label">Master's Pickup</div>
+          <div class="pickup_cards">
+            <div class="pickup_card">
+              <div class="region">Speyside</div>
+              <div class="name">Speyside Malt</div>
+              <p class="desc">
+                マスターが最も愛するスタイル。
+                フルーティで華やかな香りが
+                初心者にも親しみやすい。
+              </p>
+            </div>
+            <div class="pickup_card">
+              <div class="region">Islay</div>
+              <div class="name">Islay Malt</div>
+              <p class="desc">
+                店名の由来でもあるピート香。
+                アードベッグに代表されるアイラモルトは
+                通好みの力強い一杯。
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Beginner message -->
+        <div class="whisky_message">
+          <div class="whisky_message_icon">🥃</div>
+          <p>
+            <strong>初心者の方にも、お好みの味をお探しします。</strong><br />
+            甘いお酒が好き、スモーキーなものは苦手、
+            など何でもお気軽にお申し付けください。
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="l_rule"></div>
+
+<!-- ════════════════ COCKTAIL ════════════════ -->
+<section id="cocktail" class="l_sect">
+  <div class="l_container">
+
+    <div class="cocktail_header js_reveal">
+      <span class="s_label">— Cocktail</span>
+      <h2 class="s_title s_title_center">
+        COCKTAIL
+        <span class="s_title_jp">確かな腕で作られる、格別の一杯</span>
+      </h2>
+    </div>
+
+    <div class="cocktail_zigzag">
+
+      <!-- Item 1 -->
+      <div class="zigzag_item js_reveal">
+        <div class="zigzag_photo">
+          <img src="お酒/line_oa_chat_260324_152758_group_1.jpg" alt="カクテル" />
+          <span class="zigzag_num">01</span>
+        </div>
+        <div class="zigzag_text">
+          <span class="s_label">— Classic</span>
+          <h3 class="s_title" style="font-size:clamp(1.8rem,3.5vw,2.8rem);">
+            Classic Cocktails
+            <span class="s_title_jp">定番クラシックカクテル</span>
+          </h3>
+          <div class="s_body" style="margin-top:1.8rem;">
+            <p>
+              簡単なステアのドリンクから本格的なシェイクカクテルまで、
+              確かな腕前で作られる格別の一杯。
+              こだわりのオーダーにも誠実に応えます。
+            </p>
+          </div>
+          <ul class="cocktail_list">
+            <li>
+              <span class="c_name">Gin Rickey</span>
+              <span class="c_note">タンカレーベース。サクッと楽しみたい夜の最初の一杯に。</span>
+            </li>
+            <li>
+              <span class="c_name">Gin &amp; Tonic</span>
+              <span class="c_note">ライム無しなど、こだわりのオーダーにも柔軟に対応。</span>
+            </li>
+            <li>
+              <span class="c_name">Martini</span>
+              <span class="c_note">ドライ・ウェット、お好みのスタイルでどうぞ。</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Item 2 -->
+      <div class="zigzag_item js_reveal">
+        <div class="zigzag_photo">
+          <img src="お酒/line_oa_chat_260324_152758_group_2.jpg" alt="カクテル" />
+          <span class="zigzag_num">02</span>
+        </div>
+        <div class="zigzag_text">
+          <span class="s_label">— Original</span>
+          <h3 class="s_title" style="font-size:clamp(1.8rem,3.5vw,2.8rem);">
+            Original &amp; Seasonal
+            <span class="s_title_jp">オリジナル・季節のカクテル</span>
+          </h3>
+          <div class="s_body" style="margin-top:1.8rem;">
+            <p>
+              季節のフルーツや厳選したリキュールを使った
+              オリジナルカクテルもご用意。
+              バーテンダーとの会話の中から、
+              あなただけの一杯が生まれることも。
+            </p>
+          </div>
+          <ul class="cocktail_list">
+            <li>
+              <span class="c_name">Violet Fizz</span>
+              <span class="c_note">バイオレットリキュールの爽やかな紫が美しい一杯。</span>
+            </li>
+            <li>
+              <span class="c_name">Seasonal Fruit</span>
+              <span class="c_note">旬のフルーツを使ったその日限りのスペシャルカクテル。</span>
+            </li>
+            <li>
+              <span class="c_name">Short Cocktails</span>
+              <span class="c_note">マンハッタン、ニューヨークサワーなどショートスタイルも。</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="l_rule"></div>
+
+<!-- ════════════════ FOOD ════════════════ -->
+<section id="food" class="l_sect">
+  <div class="l_container">
+
+    <div class="food_header js_reveal">
+      <span class="s_label">— Food</span>
+      <h2 class="s_title s_title_center">
+        FOOD
+        <span class="s_title_jp">美味しいものが好きな店主のこだわり</span>
+      </h2>
+    </div>
+
+    <!-- Featured: Jamon Serrano -->
+    <div class="food_featured js_reveal">
+      <div class="food_featured_img">
+        <img src="内装＋お酒/line_oa_chat_260324_152705_group_7.jpg" alt="生ハム ハモンセラーノ" />
+        <span class="food_no1_badge">No.1 Popular</span>
+      </div>
+      <div>
+        <span class="s_label">— Featured Item</span>
+        <div class="food_featured_name">Jamón Serrano</div>
+        <div class="food_featured_name_jp">生ハム（ハモンセラーノ）</div>
+        <div class="s_body">
+          <p>
+            当店1番人気のおつまみ。
+            ワインやシェリーはもちろん、
+            ウイスキーにも驚くほどよく合います。
+            食へのこだわりが深い店主が厳選した一品を、
+            ぜひグラスと合わせてお楽しみください。
+          </p>
+        </div>
+        <div class="price_table">
+          <div class="price_item">
+            <div class="size">Regular</div>
+            <div class="price">¥2,860<span class="yen">（税込）</span></div>
+          </div>
+          <div class="price_item">
+            <div class="size">Half</div>
+            <div class="price">¥1,980<span class="yen">（税込）</span></div>
+          </div>
+          <div class="price_item">
+            <div class="size">Mini</div>
+            <div class="price">¥1,210<span class="yen">（税込）</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Other foods -->
+    <div class="js_reveal">
+      <div class="food_others_title">Other Food Menu</div>
+      <div class="food_grid">
+        <div class="food_card">
+          <div class="f_icon">🍝</div>
+          <div class="f_name">Pasta</div>
+          <div class="f_name_jp">パスタ各種</div>
+          <div class="f_sep"></div>
+          <p class="f_desc">その日の仕入れと気分で仕上げる、やさしい味わいの一皿。お酒の邪魔をしない絶妙な塩加減。</p>
+        </div>
+        <div class="food_card">
+          <div class="f_icon">🦪</div>
+          <div class="f_name">Moules</div>
+          <div class="f_name_jp">ムール貝</div>
+          <div class="f_sep"></div>
+          <p class="f_desc">ワインやジンとの相性は抜群。バルの気分でカジュアルに楽しめる一品。</p>
+        </div>
+        <div class="food_card">
+          <div class="f_icon">🥜</div>
+          <div class="f_name">Mixed Nuts</div>
+          <div class="f_name_jp">ミックスナッツ</div>
+          <div class="f_sep"></div>
+          <p class="f_desc">グラス片手に気軽につまめる定番スナック。会話が弾む夜のお供に。</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="l_rule"></div>
+
+<!-- ════════════════ OTHER & CIGAR ════════════════ -->
+<section id="other" class="l_sect">
+  <div class="l_container">
+
+    <div class="c_heading_center js_reveal" style="text-align:center;margin-bottom:80px;">
+      <span class="s_label">— Other &amp; Cigar</span>
+      <h2 class="s_title s_title_center">
+        OTHER &amp; CIGAR
+        <span class="s_title_jp">その他のドリンク・嗜好品</span>
+      </h2>
+    </div>
+
+    <div class="other_grid">
+      <!-- Other drinks -->
+      <div class="js_reveal">
+        <span class="s_label">— Other Drinks</span>
+        <ul class="other_list">
+          <li>
+            <span class="o_name">Guinness</span>
+            <span class="o_note">ギネスビール</span>
+          </li>
+          <li>
+            <span class="o_name">Red Wine</span>
+            <span class="o_note">赤ワイン（グラス）</span>
+          </li>
+          <li>
+            <span class="o_name">Harper Highball</span>
+            <span class="o_note">ハーパーハイボール</span>
+          </li>
+          <li>
+            <span class="o_name">Sherry</span>
+            <span class="o_note">シェリー各種</span>
+          </li>
+          <li>
+            <span class="o_name">Brandy / Cognac</span>
+            <span class="o_note">ブランデー・コニャック</span>
+          </li>
+          <li>
+            <span class="o_name">Rum</span>
+            <span class="o_note">ラム各種</span>
+          </li>
+          <li>
+            <span class="o_name">Soft Drinks</span>
+            <span class="o_note">ノンアルコール各種</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Cigar panel -->
+      <div class="cigar_panel js_reveal" data-delay="1">
+        <div class="cigar_photo">
+          <img src="内装＋お酒/line_oa_chat_260324_152705_group_9.jpg" alt="シガー・パイプ" />
+        </div>
+        <div class="cigar_body">
+          <span class="s_label">— Cigar &amp; Pipe</span>
+          <h3 style="font-family:var(--ff-en);font-size:1.6rem;font-weight:600;letter-spacing:.06em;color:var(--text);margin-bottom:.8rem;">
+            Cigar &amp; Pipe Welcome
+          </h3>
+          <div class="s_body" style="font-size:.92rem;">
+            <p>BAR PEATは全席喫煙可。</p>
+            <p>シガーやパイプの愛好家の方も、どうぞお気軽にご来店ください。ウイスキーの深い余韻と、紫煙をくゆらせる静かな夜をお楽しみいただけます。</p>
+          </div>
+          <blockquote class="cigar_welcome">
+            "Smoke gently. Sip slowly.<br />
+            The night is long."
+          </blockquote>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="l_rule"></div>
+
+<!-- ════════════════ SYSTEM / CHARGE ════════════════ -->
+<section id="system" class="l_sect_sm">
+  <div class="l_container">
+
+    <div class="system_inner js_reveal">
+      <div class="system_header">
+        <span class="system_label">— System &amp; Charge</span>
+        <div class="system_title">料金システム</div>
+      </div>
+
+      <!-- Highlight: Free charge -->
+      <div class="charge_highlight">
+        <div class="charge_hl_icon">✦</div>
+        <div class="charge_hl_text">
+          <div class="main">20時までのご来店はチャージ無料</div>
+          <div class="sub">早い時間帯にゆっくりとお越しください。開店〜20:00の間はチャージ料金がかかりません。</div>
+        </div>
+      </div>
+
+      <div class="system_grid">
+        <div class="system_item">
+          <div class="si_label">Charge</div>
+          <div class="si_value">500<span class="si_unit">円</span></div>
+          <div class="si_note">お一人様・1ドリンクオーダーにつき。<br />20時までのご来店は無料。</div>
+        </div>
+        <div class="system_item">
+          <div class="si_label">Budget</div>
+          <div class="si_value">2,000<span class="si_unit">円〜</span></div>
+          <div class="si_note">予算目安：2,000〜3,999円程度。<br />お酒の種類によって異なります。</div>
+        </div>
+      </div>
+
+      <!-- Credit cards -->
+      <div class="credit_row">
+        <span class="credit_label">Card Accepted</span>
+        <ul class="credit_cards">
+          <li class="credit_card">VISA</li>
+          <li class="credit_card">Master</li>
+          <li class="credit_card">JCB</li>
+          <li class="credit_card">AMEX</li>
+          <li class="credit_card">Diners</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════ FOOTER ════════════════ -->
+<footer id="footer">
+  <div class="l_container">
+    <div class="footer_top">
+      <div>
+        <div class="footer_logo">
+          BAR PEAT
+          <small>バー ピート ／ 本八幡</small>
+        </div>
+        <p class="footer_addr">
+          〒272-0023<br />
+          千葉県市川市南八幡3-4-8<br />
+          HKアルファビル 2F<br />
+          TEL: 047-378-3932
+        </p>
+      </div>
+      <div class="footer_nav_group">
+        <div>
+          <p class="footer_nav_label">Menu</p>
+          <ul>
+            <li><a href="#whisky">Whisky</a></li>
+            <li><a href="#cocktail">Cocktail</a></li>
+            <li><a href="#food">Food</a></li>
+            <li><a href="#other">Other &amp; Cigar</a></li>
+            <li><a href="#system">Charge</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer_nav_label">Navigation</p>
+          <ul>
+            <li><a href="index.html">トップ</a></li>
+            <li><a href="index.html#concept">コンセプト</a></li>
+            <li><a href="index.html#gallery">ギャラリー</a></li>
+            <li><a href="index.html#access">アクセス</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer_nav_label">Hours</p>
+          <ul>
+            <li><a href="index.html#access">18:00 〜 翌03:00</a></li>
+            <li><a href="index.html#access">定休日：毎週日曜日</a></li>
+            <li><a href="tel:0473783932">047-378-3932</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer_copy">
+    <p>&copy; BAR PEAT All Rights Reserved. &ensp; 千葉県市川市南八幡3-4-8 HKアルファビル 2F</p>
+  </div>
+</footer>
+
+<!-- ════════════════ JS ════════════════ -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+  /* ── Header scroll ── */
+  const header = document.getElementById('header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('is_color', window.scrollY > 60);
+  });
+
+  /* ── Scroll Reveal ── */
+  const revealEls = document.querySelectorAll('.js_reveal');
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('is_visible');
+        revealObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  revealEls.forEach(el => revealObs.observe(el));
+
+  /* ── Border title animation ── */
+  const titleEls = document.querySelectorAll('.s_title');
+  const titleObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('is_animated');
+        titleObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  titleEls.forEach(el => titleObs.observe(el));
+
+  /* ── Anchor nav active on scroll ── */
+  const sections = ['whisky','cocktail','food','other','system'];
+  const anchorLinks = document.querySelectorAll('.anchor_nav a');
+
+  const sectionObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        anchorLinks.forEach(a => a.classList.remove('is_current'));
+        const link = document.querySelector(`.anchor_nav a[href="#${e.target.id}"]`);
+        if (link) link.classList.add('is_current');
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) sectionObs.observe(el);
+  });
+</script>
+
+</body>
+</html>
