@@ -7,61 +7,77 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+JP:wght@300;400;500&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Shippori+Mincho:wght@400;500;600&family=Noto+Serif+JP:wght@300;400;500&family=Zen+Old+Mincho:wght@400;500&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
   <style>
     /* ══════════════════════════════════════════
-       Design Tokens
-       Royal Scots 構造 × ダークモードカラー
+       Design Tokens — BAR PEAT スタイリング指示書準拠
+       ピートブラック × エイジドアンバー × アッシュホワイト
     ══════════════════════════════════════════ */
     :root {
-      /* Dark palette */
-      --bg:          #1a1a1a;
-      --bg-mid:      #202020;
-      --bg-section:  #161616;
-      --bg-card:     #242424;
-      --bg-card-alt: #2a2826;
+      /* ── Base（背景） ── */
+      --color-base:       #1A1A1A;   /* ピートブラック */
+      --color-base-light: #2A1B14;   /* ダークマホガニー */
+      --color-card:       #231810;   /* カード */
+      --color-card-alt:   #301f15;   /* カードホバー */
 
-      /* Text */
-      --text:        #f0ece4;
-      --text-muted:  #8a867e;
-      --text-sub:    #c8c2b8;
+      /* ── Accent（琥珀） ── */
+      --color-accent:       #C68E17;
+      --color-accent-muted: #D4AF37;
+      --color-accent-dk:    #8a6010;
 
-      /* Gold system */
-      --gold:        #b89a5a;
-      --gold-lt:     #cdb47a;
-      --gold-dk:     #8a7240;
-      --gold-line:   rgba(184,154,90,.35);
+      /* ── Text ── */
+      --color-text-main:  #E8E6E1;
+      --color-text-muted: #A3A09B;
+      --color-text-dim:   #706d68;
 
-      /* Border */
-      --border:      rgba(255,255,255,.08);
-      --border-gold: rgba(184,154,90,.22);
+      /* ── Border ── */
+      --color-border:     rgba(198,142,23,.18);
+      --color-border-str: rgba(198,142,23,.32);
 
-      /* Typography */
-      --ff-en:    'Crimson Text', Georgia, serif;
-      --ff-serif: 'Noto Serif JP', 'Crimson Text', serif;
-      --ff-sans:  'Montserrat', sans-serif;
+      /* ── エイリアス（既存クラス互換） ── */
+      --bg:          var(--color-base);
+      --bg-mid:      #211510;
+      --bg-section:  #151210;
+      --bg-card:     var(--color-card);
+      --bg-card-alt: var(--color-card-alt);
+      --text:        var(--color-text-main);
+      --text-muted:  var(--color-text-muted);
+      --text-sub:    #c8bfb2;
+      --gold:        var(--color-accent);
+      --gold-lt:     var(--color-accent-muted);
+      --gold-dk:     var(--color-accent-dk);
+      --gold-line:   rgba(198,142,23,.28);
+      --border:      rgba(198,142,23,.12);
+      --border-gold: var(--color-border);
 
-      /* Layout */
+      /* ── Typography ── */
+      --ff-heading-jp: 'Shippori Mincho', 'Noto Serif JP', serif;
+      --ff-en:         'Playfair Display', 'Cormorant Garamond', serif;
+      --ff-body:       'Zen Old Mincho', 'Yu Mincho', 'Noto Serif JP', serif;
+      --ff-sans:       'Montserrat', sans-serif;
+      --ff-serif:      var(--ff-body);
+
+      /* ── Layout ── */
       --container: 1040px;
       --tr: .5s;
 
-      /* Spacing */
-      --sect-v:  140px;
-      --sect-sm:  90px;
+      /* ── Spacing（1.5〜2倍） ── */
+      --sect-v:  200px;
+      --sect-sm: 130px;
     }
 
     /* ── Reset ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--ff-serif);
+      background: var(--color-base);
+      color: var(--color-text-main);
+      font-family: var(--ff-body);
       font-size: 1.5rem;
-      font-weight: 300;
-      line-height: 1.85;
+      font-weight: 400;
+      line-height: 2.0;
       overflow-x: hidden;
     }
     img  { display: block; width: 100%; height: 100%; object-fit: cover; }
@@ -189,7 +205,7 @@
       background-image: url('内装＋お酒/line_oa_chat_260324_152705_group_0.jpg');
       background-size: cover;
       background-position: center 35%;
-      filter: brightness(.32) saturate(.65);
+      filter: brightness(.28) saturate(.5) sepia(.3);
       transform: scale(1.05);
       transition: transform 8s ease;
     }
@@ -335,24 +351,24 @@
     .s_label {
       display: block;
       font-family: var(--ff-sans);
-      font-size: .58rem;
+      font-size: .56rem;
       font-weight: 400;
-      letter-spacing: .38em;
+      letter-spacing: .42em;
       text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 1.2rem;
+      color: var(--color-accent);
+      margin-bottom: 1.4rem;
     }
 
     .s_title {
       font-family: var(--ff-en);
       font-size: clamp(2.4rem, 5vw, 3.8rem);
-      font-weight: 600;
-      letter-spacing: .08em;
+      font-weight: 700;
+      letter-spacing: .1em;
       line-height: 1.1;
-      color: var(--text);
+      color: var(--color-text-main);
       position: relative;
       display: inline-block;
-      padding-bottom: 22px;
+      padding-bottom: 26px;
     }
 
     /* 下線アニメーション（c_borderTitle継承） */
@@ -384,23 +400,23 @@
 
     .s_title_jp {
       display: block;
-      font-family: var(--ff-serif);
-      font-size: clamp(.88rem, 1.5vw, 1.1rem);
-      font-weight: 300;
-      letter-spacing: .12em;
-      color: var(--text-muted);
-      margin-top: .5rem;
+      font-family: var(--ff-heading-jp);
+      font-size: clamp(.9rem, 1.5vw, 1.1rem);
+      font-weight: 400;
+      letter-spacing: .16em;
+      color: var(--color-text-muted);
+      margin-top: .7rem;
     }
 
     .s_body {
-      font-family: var(--ff-serif);
-      font-size: 1.05rem;
-      font-weight: 300;
-      line-height: 2.2;
-      color: var(--text-sub);
-      letter-spacing: .04em;
+      font-family: var(--ff-body);
+      font-size: 1.0rem;
+      font-weight: 400;
+      line-height: 2.4;
+      color: var(--color-text-muted);
+      letter-spacing: .06em;
     }
-    .s_body p + p { margin-top: 1.6em; }
+    .s_body p + p { margin-top: 1.8em; }
 
     /* ══════════════════════════════════════════
        In-page Anchor Nav
@@ -457,7 +473,7 @@
     .whisky_main {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 90px;
+      gap: 120px;
       align-items: center;
     }
 
@@ -549,28 +565,28 @@
     .pickup_card .name {
       font-family: var(--ff-en);
       font-size: 1.4rem;
-      font-weight: 600;
-      color: var(--text);
-      letter-spacing: .04em;
+      font-weight: 700;
+      color: var(--color-text-main);
+      letter-spacing: .06em;
       line-height: 1.2;
       margin-bottom: .4rem;
     }
     .pickup_card .desc {
-      font-family: var(--ff-serif);
+      font-family: var(--ff-body);
       font-size: .82rem;
-      color: var(--text-muted);
-      line-height: 1.8;
+      color: var(--color-text-muted);
+      line-height: 2.0;
     }
 
     /* Beginner message */
     .whisky_message {
-      margin-top: 2.4rem;
-      padding: 1.8rem 2.2rem;
-      border: 1px solid var(--border-gold);
-      background: rgba(184,154,90,.05);
+      margin-top: 3rem;
+      padding: 2.2rem 2.6rem;
+      border: 1px solid var(--color-border);
+      background: rgba(198,142,23,.05);
       display: flex;
       align-items: center;
-      gap: 1.6rem;
+      gap: 1.8rem;
     }
     .whisky_message_icon {
       font-family: var(--ff-en);
@@ -580,15 +596,15 @@
       line-height: 1;
     }
     .whisky_message p {
-      font-family: var(--ff-serif);
+      font-family: var(--ff-body);
       font-size: .95rem;
-      color: var(--text-sub);
-      line-height: 1.9;
-      letter-spacing: .04em;
+      color: var(--color-text-muted);
+      line-height: 2.2;
+      letter-spacing: .06em;
     }
     .whisky_message strong {
       font-weight: 500;
-      color: var(--gold-lt);
+      color: var(--color-accent-muted);
     }
 
     /* ══════════════════════════════════════════
@@ -596,14 +612,14 @@
     ══════════════════════════════════════════ */
     #cocktail { background: var(--bg-section); }
 
-    .cocktail_header { text-align: center; margin-bottom: 100px; }
+    .cocktail_header { text-align: center; margin-bottom: 140px; }
 
-    .cocktail_zigzag { display: flex; flex-direction: column; gap: 120px; }
+    .cocktail_zigzag { display: flex; flex-direction: column; gap: 160px; }
 
     .zigzag_item {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 80px;
+      gap: 110px;
       align-items: center;
     }
 
@@ -645,16 +661,16 @@
     .cocktail_list .c_name {
       font-family: var(--ff-en);
       font-size: 1.25rem;
-      font-weight: 600;
-      color: var(--text);
-      letter-spacing: .04em;
+      font-weight: 700;
+      color: var(--color-text-main);
+      letter-spacing: .06em;
       white-space: nowrap;
     }
     .cocktail_list .c_note {
-      font-family: var(--ff-serif);
+      font-family: var(--ff-body);
       font-size: .82rem;
-      color: var(--text-muted);
-      line-height: 1.6;
+      color: var(--color-text-muted);
+      line-height: 1.9;
     }
 
     /* ══════════════════════════════════════════
@@ -662,15 +678,15 @@
     ══════════════════════════════════════════ */
     #food { background: var(--bg); }
 
-    .food_header { text-align: center; margin-bottom: 80px; }
+    .food_header { text-align: center; margin-bottom: 110px; }
 
     /* Featured item – Ham */
     .food_featured {
       display: grid;
       grid-template-columns: 1.15fr 1fr;
-      gap: 80px;
+      gap: 110px;
       align-items: center;
-      margin-bottom: 100px;
+      margin-bottom: 140px;
     }
 
     .food_featured_img {
@@ -685,31 +701,31 @@
     .food_no1_badge {
       position: absolute;
       top: 0; right: 0;
-      background: var(--gold);
-      color: var(--bg);
+      background: var(--color-accent);
+      color: var(--color-base);
       font-family: var(--ff-sans);
       font-size: .55rem;
       font-weight: 500;
       letter-spacing: .2em;
       text-transform: uppercase;
-      padding: .55rem 1.3rem;
+      padding: .6rem 1.4rem;
     }
 
     .food_featured_name {
       font-family: var(--ff-en);
       font-size: clamp(1.8rem, 3vw, 2.8rem);
-      font-weight: 600;
-      letter-spacing: .06em;
-      color: var(--text);
+      font-weight: 700;
+      letter-spacing: .08em;
+      color: var(--color-text-main);
       line-height: 1.1;
       margin-bottom: .4rem;
     }
     .food_featured_name_jp {
-      font-family: var(--ff-serif);
+      font-family: var(--ff-heading-jp);
       font-size: 1rem;
-      color: var(--text-muted);
-      letter-spacing: .1em;
-      margin-bottom: 2rem;
+      color: var(--color-text-muted);
+      letter-spacing: .14em;
+      margin-bottom: 2.4rem;
     }
 
     /* Price table */
@@ -894,9 +910,9 @@
     }
 
     .system_inner {
-      border: 1px solid var(--border-gold);
-      padding: 60px 70px;
-      max-width: 820px;
+      border: 1px solid var(--color-border);
+      padding: 80px 90px;
+      max-width: 860px;
       margin-inline: auto;
       position: relative;
     }
@@ -935,10 +951,10 @@
     }
     .system_title {
       font-family: var(--ff-en);
-      font-size: 2.2rem;
-      font-weight: 600;
+      font-size: 2.4rem;
+      font-weight: 700;
       letter-spacing: .1em;
-      color: var(--text);
+      color: var(--color-text-main);
     }
 
     .system_grid {
@@ -987,13 +1003,13 @@
 
     /* Free charge highlight */
     .charge_highlight {
-      background: rgba(184,154,90,.08);
-      border: 1px solid var(--border-gold);
-      padding: 1.4rem 2rem;
+      background: rgba(198,142,23,.07);
+      border: 1px solid var(--color-border);
+      padding: 2rem 2.4rem;
       display: flex;
       align-items: center;
-      gap: 1.4rem;
-      margin-bottom: 2.4rem;
+      gap: 1.8rem;
+      margin-bottom: 3rem;
     }
     .charge_hl_icon {
       font-family: var(--ff-en);
@@ -1002,18 +1018,18 @@
       flex-shrink: 0;
     }
     .charge_hl_text .main {
-      font-family: var(--ff-serif);
-      font-size: 1.05rem;
+      font-family: var(--ff-heading-jp);
+      font-size: 1.1rem;
       font-weight: 500;
-      color: var(--gold-lt);
-      letter-spacing: .06em;
+      color: var(--color-accent-muted);
+      letter-spacing: .1em;
     }
     .charge_hl_text .sub {
-      font-family: var(--ff-serif);
-      font-size: .82rem;
-      color: var(--text-muted);
-      margin-top: .2rem;
-      line-height: 1.7;
+      font-family: var(--ff-body);
+      font-size: .84rem;
+      color: var(--color-text-muted);
+      margin-top: .35rem;
+      line-height: 2.0;
     }
 
     /* Credit cards */
@@ -1052,9 +1068,9 @@
        Footer
     ══════════════════════════════════════════ */
     #footer {
-      background: #111;
-      border-top: 1px solid var(--border);
-      padding: 60px 0 0;
+      background: #100b08;
+      border-top: 1px solid var(--color-border);
+      padding: 80px 0 0;
     }
 
     .footer_top {
@@ -1116,17 +1132,18 @@
     .footer_nav_group ul li a:hover { color: var(--text); opacity: 1; }
 
     .footer_copy {
-      background: #0a0a0a;
+      background: #080503;
+      border-top: 1px solid rgba(198,142,23,.07);
       text-align: center;
-      padding: 1.4rem;
+      padding: 1.6rem;
     }
     .footer_copy p {
       font-family: var(--ff-sans);
-      font-size: .56rem;
+      font-size: .54rem;
       font-weight: 400;
-      letter-spacing: .18em;
+      letter-spacing: .2em;
       text-transform: uppercase;
-      color: var(--text-muted);
+      color: var(--color-text-dim);
     }
 
     /* ══════════════════════════════════════════
@@ -1166,7 +1183,7 @@
        Responsive
     ══════════════════════════════════════════ */
     @media (max-width: 900px) {
-      :root { --sect-v: 90px; --sect-sm: 60px; }
+      :root { --sect-v: 120px; --sect-sm: 80px; }
 
       .whisky_main,
       .zigzag_item,

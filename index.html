@@ -8,28 +8,52 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+JP:wght@300;400;500&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Shippori+Mincho:wght@400;500;600&family=Noto+Serif+JP:wght@300;400;500&family=Zen+Old+Mincho:wght@400;500&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
 
   <!-- Swiper -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
   <style>
     /* ════════════════════════════════════════
-       Variables  （Royal Scots カラーシステム継承）
+       Variables  — BAR PEAT ピートブラック × エイジドアンバー
     ════════════════════════════════════════ */
     :root {
-      --color-base:    #333;
-      --color-theme:   #867a4a;
-      --color-theme-lt:#a8986a;
-      --color-bg:      #fff;
-      --color-bg-gray: #efeeed;
-      --color-border:  #d0cdca;
-      --color-muted:   #88807a;
-      --color-footer:  #333;
+      /* ── Base（背景） ── */
+      --color-base:       #1A1A1A;   /* ピートブラック：全体背景 */
+      --color-base-light: #2A1B14;   /* ダークマホガニー：セクション・カード */
+      --color-card:       #231810;   /* カード背景 */
+      --color-card-alt:   #301f15;   /* カードホバー背景 */
 
-      --ff-serif: 'Noto Serif JP', 'Crimson Text', Georgia, serif;
-      --ff-en:    'Crimson Text', Georgia, serif;
-      --ff-sans:  'Montserrat', sans-serif;
+      /* ── Accent（金） ── */
+      --color-accent:       #C68E17; /* ウイスキー琥珀 */
+      --color-accent-muted: #D4AF37; /* アンティークゴールド */
+      --color-accent-dk:    #8a6010; /* 深みのある金 */
+
+      /* ── Text ── */
+      --color-text-main:  #E8E6E1;  /* アッシュホワイト */
+      --color-text-muted: #A3A09B;  /* サブテキスト */
+      --color-text-dim:   #706d68;  /* 最も控えめ */
+
+      /* ── Border ── */
+      --color-border:     rgba(198,142,23,.18);
+      --color-border-str: rgba(198,142,23,.32);
+
+      /* ── Footer ── */
+      --color-footer:    #100b08;
+
+      /* ── Typography ── */
+      --ff-heading-jp: 'Shippori Mincho', 'Noto Serif JP', serif;
+      --ff-en:         'Playfair Display', 'Cormorant Garamond', serif;
+      --ff-body:       'Zen Old Mincho', 'Yu Mincho', 'Noto Serif JP', serif;
+      --ff-sans:       'Montserrat', sans-serif;
+
+      /* ── 旧変数エイリアス（既存クラスとの互換性） ── */
+      --ff-serif:       var(--ff-heading-jp);
+      --color-theme:    var(--color-accent);
+      --color-theme-lt: var(--color-accent-muted);
+      --color-bg:       var(--color-base);
+      --color-bg-gray:  var(--color-base-light);
+      --color-muted:    var(--color-text-muted);
 
       --container: 1040px;
       --tr: .5s;
@@ -41,12 +65,12 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
-      font-family: var(--ff-serif);
+      font-family: var(--ff-body);
       font-size: 1.4rem;
-      font-weight: 300;
-      line-height: 1.8;
-      color: var(--color-base);
-      background: var(--color-bg);
+      font-weight: 400;
+      line-height: 1.95;
+      color: var(--color-text-main);
+      background: var(--color-base);
       overflow-x: hidden;
     }
     img { display: block; width: 100%; height: 100%; object-fit: cover; }
@@ -63,40 +87,40 @@
       padding-inline: 25px;
     }
 
-    .l_sect   { padding: 120px 0; }
-    .l_sect02 { padding: 80px 0; }
-    .l_sect03 { padding: 160px 0; }
-    .l_bgGray { background: var(--color-bg-gray); }
+    .l_sect   { padding: 180px 0; }
+    .l_sect02 { padding: 120px 0; }
+    .l_sect03 { padding: 240px 0; }
+    .l_bgGray { background: var(--color-base-light); }
 
     /* ════════════════════════════════════════
        Heading System （c_borderTitle）
     ════════════════════════════════════════ */
     .c_headingLv1 {
       text-align: center;
-      margin-bottom: 60px;
+      margin-bottom: 90px;
     }
 
     .c_headingLv1 .en {
       display: block;
-      font-family: var(--ff-en);
-      font-size: 1.1rem;
+      font-family: var(--ff-sans);
+      font-size: .62rem;
       font-weight: 400;
-      letter-spacing: .2em;
-      color: var(--color-theme);
-      margin-bottom: .6rem;
+      letter-spacing: .38em;
+      color: var(--color-accent);
+      margin-bottom: 1rem;
       text-transform: uppercase;
     }
 
     .c_borderTitle {
       display: inline-block;
-      font-family: var(--ff-serif);
-      font-size: 2.6rem;
-      font-weight: 400;
-      letter-spacing: .08em;
+      font-family: var(--ff-heading-jp);
+      font-size: 2.8rem;
+      font-weight: 500;
+      letter-spacing: .12em;
       line-height: 1.3;
-      color: var(--color-base);
+      color: var(--color-text-main);
       position: relative;
-      padding-bottom: 22px;
+      padding-bottom: 28px;
     }
 
     .c_borderTitle::after {
@@ -131,21 +155,21 @@
     }
 
     .c_headingLv2 .ja {
-      font-family: var(--ff-serif);
+      font-family: var(--ff-heading-jp);
       font-size: 2rem;
-      font-weight: 400;
-      letter-spacing: .06em;
-      line-height: 1.4;
-      color: var(--color-base);
+      font-weight: 500;
+      letter-spacing: .1em;
+      line-height: 1.5;
+      color: var(--color-text-main);
     }
 
     .c_lead {
-      font-family: var(--ff-serif);
-      font-size: 1.4rem;
-      font-weight: 300;
-      line-height: 2.0;
-      color: var(--color-base);
-      letter-spacing: .04em;
+      font-family: var(--ff-body);
+      font-size: 1.05rem;
+      font-weight: 400;
+      line-height: 2.4;
+      color: var(--color-text-muted);
+      letter-spacing: .06em;
     }
 
     .c_lead p + p { margin-top: 1.4em; }
@@ -206,68 +230,68 @@
       top: 0; left: 0; right: 0;
       z-index: 1000;
       padding: 0 40px;
-      height: 70px;
+      height: 76px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      transition: background var(--tr), box-shadow var(--tr);
-      background: rgba(51,51,51,.15);
+      transition: background var(--tr), box-shadow var(--tr), border-color var(--tr);
+      background: rgba(26,26,26,.08);
     }
 
     #header.is_color {
-      background: rgba(51,51,51,.96);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      box-shadow: 0 2px 20px rgba(0,0,0,.15);
+      background: rgba(16,11,8,.96);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--color-border);
     }
 
     .header_logo {
       font-family: var(--ff-en);
-      font-size: 1.6rem;
-      font-weight: 600;
-      letter-spacing: .22em;
-      color: #fff;
+      font-size: 1.55rem;
+      font-weight: 700;
+      letter-spacing: .24em;
+      color: var(--color-text-main);
       line-height: 1;
     }
 
     .header_logo small {
       display: block;
       font-family: var(--ff-sans);
-      font-size: .5rem;
+      font-size: .48rem;
       font-weight: 300;
-      letter-spacing: .3em;
+      letter-spacing: .32em;
       text-transform: uppercase;
-      color: rgba(255,255,255,.55);
-      margin-top: 3px;
+      color: var(--color-text-dim);
+      margin-top: 4px;
     }
 
     .header_nav { display: flex; align-items: center; gap: 2.4rem; }
 
     .header_nav a {
       font-family: var(--ff-sans);
-      font-size: .68rem;
+      font-size: .66rem;
       font-weight: 400;
-      letter-spacing: .2em;
+      letter-spacing: .22em;
       text-transform: uppercase;
-      color: rgba(255,255,255,.75);
+      color: var(--color-text-muted);
       transition: color var(--tr);
     }
 
-    .header_nav a:hover { color: #fff; opacity: 1; }
+    .header_nav a:hover { color: var(--color-accent-muted); opacity: 1; }
 
     .header_reserve {
       font-family: var(--ff-sans);
-      font-size: .65rem;
+      font-size: .62rem;
       font-weight: 400;
       letter-spacing: .15em;
       text-transform: uppercase;
-      color: #fff;
-      background: var(--color-theme);
-      padding: .55rem 1.4rem;
+      color: var(--color-base);
+      background: var(--color-accent);
+      padding: .58rem 1.5rem;
       transition: background var(--tr);
     }
 
-    .header_reserve:hover { background: #5a5030; opacity: 1; }
+    .header_reserve:hover { background: var(--color-accent-muted); opacity: 1; }
 
     .header_hamburger {
       display: none;
@@ -307,7 +331,7 @@
       width: 100%; height: 100%;
       object-fit: cover;
       object-position: center;
-      filter: brightness(.5) saturate(.75);
+      filter: brightness(.38) saturate(.55) sepia(.25);
       transform: scale(1.06);
       transition: transform 7s ease;
     }
@@ -354,21 +378,22 @@
 
     .hero_title {
       font-family: var(--ff-en);
-      font-size: clamp(4rem, 10vw, 8rem);
-      font-weight: 600;
-      letter-spacing: .18em;
+      font-size: clamp(4.5rem, 11vw, 9rem);
+      font-weight: 700;
+      letter-spacing: .2em;
       line-height: 1;
+      color: var(--color-text-main);
       opacity: 0;
       animation: hFadeUp .9s .65s forwards;
     }
 
     .hero_sub {
-      font-family: var(--ff-serif);
-      font-size: clamp(.85rem, 1.8vw, 1.1rem);
-      font-weight: 300;
-      letter-spacing: .3em;
-      color: rgba(255,255,255,.65);
-      margin-top: 1.2rem;
+      font-family: var(--ff-heading-jp);
+      font-size: clamp(.88rem, 1.8vw, 1.1rem);
+      font-weight: 400;
+      letter-spacing: .32em;
+      color: var(--color-text-muted);
+      margin-top: 1.4rem;
       opacity: 0;
       animation: hFadeUp .9s .9s forwards;
     }
@@ -424,7 +449,9 @@
        Info Strip
     ════════════════════════════════════════ */
     .info_strip {
-      background: var(--color-base);
+      background: var(--color-base-light);
+      border-top: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
       padding: 0;
     }
 
@@ -443,34 +470,34 @@
 
     .info_strip_item .val {
       font-family: var(--ff-en);
-      font-size: 2.2rem;
+      font-size: 2.4rem;
       font-weight: 400;
-      color: var(--color-theme-lt);
+      color: var(--color-accent);
       line-height: 1;
       letter-spacing: .06em;
     }
 
     .info_strip_item .unit {
-      font-family: var(--ff-serif);
-      font-size: .85rem;
-      color: var(--color-theme-lt);
+      font-family: var(--ff-body);
+      font-size: .88rem;
+      color: var(--color-accent);
     }
 
     .info_strip_item .lbl {
       display: block;
       font-family: var(--ff-sans);
-      font-size: .58rem;
+      font-size: .56rem;
       font-weight: 400;
-      letter-spacing: .22em;
+      letter-spacing: .26em;
       text-transform: uppercase;
-      color: rgba(255,255,255,.38);
-      margin-top: .5rem;
+      color: var(--color-text-dim);
+      margin-top: .6rem;
     }
 
     /* ════════════════════════════════════════
        Concept
     ════════════════════════════════════════ */
-    #concept { padding: 120px 0; }
+    #concept { padding: 180px 0; background: var(--color-base); }
 
     .concept_grid {
       display: grid;
@@ -507,36 +534,36 @@
     .concept_tag {
       display: inline-block;
       font-family: var(--ff-sans);
-      font-size: .6rem;
+      font-size: .58rem;
       font-weight: 400;
-      letter-spacing: .22em;
+      letter-spacing: .28em;
       text-transform: uppercase;
-      color: var(--color-theme);
-      border-bottom: 1px solid var(--color-theme);
-      padding-bottom: 3px;
-      margin-bottom: 1.8rem;
+      color: var(--color-accent);
+      border-bottom: 1px solid var(--color-accent-dk);
+      padding-bottom: 4px;
+      margin-bottom: 2rem;
     }
 
     .concept_quote {
-      margin-top: 2.2rem;
-      padding: 1.4rem 1.8rem;
-      border-left: 2px solid var(--color-theme);
-      background: var(--color-bg-gray);
+      margin-top: 2.6rem;
+      padding: 1.8rem 2rem;
+      border-left: 2px solid var(--color-accent-dk);
+      background: var(--color-base-light);
     }
 
     .concept_quote p {
       font-family: var(--ff-en);
-      font-size: 1.3rem;
+      font-size: 1.25rem;
       font-style: italic;
-      color: var(--color-theme);
-      line-height: 1.7;
+      color: var(--color-accent-muted);
+      line-height: 1.85;
       letter-spacing: .04em;
     }
 
     /* ════════════════════════════════════════
        Menu
     ════════════════════════════════════════ */
-    #menu { padding: 120px 0; background: var(--color-bg-gray); }
+    #menu { padding: 180px 0; background: var(--color-base-light); }
 
     /* Tab UI */
     .c_tabBtnList {
@@ -573,7 +600,7 @@
     }
 
     .c_tabBtnList button.is_active,
-    .c_tabBtnList button:hover { color: var(--color-base); }
+    .c_tabBtnList button:hover { color: var(--color-text-main); }
     .c_tabBtnList button.is_active::after { transform: scaleX(1); }
 
     .c_tabPanel { display: none; }
@@ -589,12 +616,12 @@
     }
 
     .drink_card {
-      background: #fff;
-      padding: 2.8rem 2.4rem;
+      background: var(--color-card);
+      padding: 3.2rem 2.8rem;
       transition: background var(--tr);
     }
 
-    .drink_card:hover { background: #faf9f8; }
+    .drink_card:hover { background: var(--color-card-alt); }
 
     .drink_card .cat {
       font-family: var(--ff-sans);
@@ -609,25 +636,26 @@
     .drink_card .name {
       font-family: var(--ff-en);
       font-size: 1.6rem;
-      font-weight: 600;
-      letter-spacing: .04em;
-      color: var(--color-base);
+      font-weight: 500;
+      letter-spacing: .06em;
+      color: var(--color-text-main);
       margin-bottom: .3rem;
       line-height: 1.2;
     }
 
     .drink_card .name_jp {
-      font-family: var(--ff-serif);
-      font-size: .9rem;
-      color: var(--color-muted);
+      font-family: var(--ff-body);
+      font-size: .88rem;
+      color: var(--color-text-muted);
       margin-bottom: 1rem;
+      letter-spacing: .06em;
     }
 
     .drink_card .desc {
-      font-family: var(--ff-serif);
-      font-size: .95rem;
-      color: var(--color-muted);
-      line-height: 1.9;
+      font-family: var(--ff-body);
+      font-size: .9rem;
+      color: var(--color-text-muted);
+      line-height: 2.1;
     }
 
     .drink_card .sep {
@@ -671,11 +699,11 @@
     .food_list li {
       display: flex;
       gap: 1rem;
-      padding: 1.1rem 0;
+      padding: 1.4rem 0;
       border-bottom: 1px solid var(--color-border);
-      font-family: var(--ff-serif);
-      font-size: 1.1rem;
-      color: var(--color-base);
+      font-family: var(--ff-body);
+      font-size: 1rem;
+      color: var(--color-text-muted);
       align-items: flex-start;
     }
 
@@ -698,7 +726,7 @@
 
     /* Photo Swiper in menu */
     .menu_swiper_wrap {
-      margin-top: 60px;
+      margin-top: 90px;
       position: relative;
     }
 
@@ -749,7 +777,7 @@
     /* ════════════════════════════════════════
        Access
     ════════════════════════════════════════ */
-    #access { padding: 120px 0; }
+    #access { padding: 180px 0; }
 
     .access_grid {
       display: grid;
@@ -771,16 +799,17 @@
     }
 
     .access_route {
-      margin-top: 1.8rem;
-      background: var(--color-bg-gray);
-      padding: 1.6rem 2rem;
+      margin-top: 2rem;
+      background: var(--color-base-light);
+      padding: 2rem 2.4rem;
+      border: 1px solid var(--color-border);
     }
 
     .access_route p {
-      font-family: var(--ff-serif);
-      font-size: .95rem;
-      color: var(--color-base);
-      line-height: 2;
+      font-family: var(--ff-body);
+      font-size: .92rem;
+      color: var(--color-text-muted);
+      line-height: 2.1;
       display: flex;
       gap: .6rem;
     }
@@ -820,11 +849,11 @@
     }
 
     .info_table td {
-      font-family: var(--ff-serif);
-      font-size: 1.0rem;
-      color: var(--color-base);
-      padding: 1.2rem 0;
-      line-height: 1.8;
+      font-family: var(--ff-body);
+      font-size: .98rem;
+      color: var(--color-text-main);
+      padding: 1.4rem 0;
+      line-height: 2.0;
       vertical-align: top;
     }
 
@@ -874,7 +903,7 @@
     ════════════════════════════════════════ */
     #cta {
       position: relative;
-      padding: 140px 0;
+      padding: 200px 0;
       text-align: center;
       overflow: hidden;
     }
@@ -997,19 +1026,20 @@
     .footer_nav_group ul li a:hover { color: #fff; opacity: 1; }
 
     .footer_copy {
-      background: #fff;
+      background: var(--color-footer);
+      border-top: 1px solid rgba(198,142,23,.08);
       text-align: center;
-      padding: 1.4rem;
+      padding: 1.6rem;
       margin-top: 0;
     }
 
     .footer_copy p {
       font-family: var(--ff-sans);
-      font-size: .58rem;
+      font-size: .56rem;
       font-weight: 400;
-      letter-spacing: .16em;
+      letter-spacing: .18em;
       text-transform: uppercase;
-      color: var(--color-muted);
+      color: var(--color-text-dim);
     }
 
     /* ════════════════════════════════════════
@@ -1032,7 +1062,7 @@
       transition: background var(--tr);
     }
 
-    .side_btn:hover { background: var(--color-base); opacity: 1; }
+    .side_btn:hover { background: var(--color-accent-dk); opacity: 1; }
 
     /* ════════════════════════════════════════
        Scroll Reveal
@@ -1063,8 +1093,8 @@
       .header_reserve { display: none; }
       .header_hamburger { display: flex; }
 
-      .l_sect, .l_sect03 { padding: 70px 0; }
-      .l_sect02 { padding: 50px 0; }
+      .l_sect, .l_sect03 { padding: 100px 0; }
+      .l_sect02 { padding: 70px 0; }
 
       .c_borderTitle { font-size: 2rem; }
 
