@@ -4,1208 +4,1661 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BAR PEAT | バー ピート – 本八幡 オーセンティックバー</title>
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Noto+Serif+JP:wght@300;400;500&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+JP:wght@300;400;500&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <!-- Swiper -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
   <style>
-    /* ─────────────────────────────────────────
-       CSS Variables & Reset
-    ───────────────────────────────────────── */
+    /* ════════════════════════════════════════
+       Variables  （Royal Scots カラーシステム継承）
+    ════════════════════════════════════════ */
     :root {
-      --bg:        #080808;
-      --bg-alt:    #0f0f0f;
-      --bg-card:   #141414;
-      --gold:      #b8975a;
-      --gold-lt:   #d4b07a;
-      --gold-dk:   #8a6e3e;
-      --white:     #f0ece4;
-      --muted:     #7a7570;
-      --border:    rgba(184,151,90,.18);
-      --ff-serif:  'Cormorant Garamond', 'Noto Serif JP', Georgia, serif;
-      --ff-sans:   'Montserrat', 'Noto Serif JP', sans-serif;
-      --transition: .4s cubic-bezier(.25,.46,.45,.94);
+      --color-base:    #333;
+      --color-theme:   #867a4a;
+      --color-theme-lt:#a8986a;
+      --color-bg:      #fff;
+      --color-bg-gray: #efeeed;
+      --color-border:  #d0cdca;
+      --color-muted:   #88807a;
+      --color-footer:  #333;
+
+      --ff-serif: 'Noto Serif JP', 'Crimson Text', Georgia, serif;
+      --ff-en:    'Crimson Text', Georgia, serif;
+      --ff-sans:  'Montserrat', sans-serif;
+
+      --container: 1040px;
+      --tr: .5s;
     }
 
+    /* ════════════════════════════════════════
+       Reset & Base
+    ════════════════════════════════════════ */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; font-size: 16px; }
-
+    html { scroll-behavior: smooth; }
     body {
-      background: var(--bg);
-      color: var(--white);
-      font-family: var(--ff-sans);
+      font-family: var(--ff-serif);
+      font-size: 1.4rem;
       font-weight: 300;
       line-height: 1.8;
+      color: var(--color-base);
+      background: var(--color-bg);
       overflow-x: hidden;
     }
+    img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    a   { color: inherit; text-decoration: none; transition: opacity var(--tr); }
+    a:hover { opacity: .7; }
+    ul, ol { list-style: none; }
 
-    img { display: block; width: 100%; object-fit: cover; }
-    a   { color: inherit; text-decoration: none; }
+    /* ════════════════════════════════════════
+       Layout
+    ════════════════════════════════════════ */
+    .l_container {
+      width: min(var(--container), 100%);
+      margin-inline: auto;
+      padding-inline: 25px;
+    }
 
-    /* ─────────────────────────────────────────
-       Utility
-    ───────────────────────────────────────── */
-    .section-label {
+    .l_sect   { padding: 120px 0; }
+    .l_sect02 { padding: 80px 0; }
+    .l_sect03 { padding: 160px 0; }
+    .l_bgGray { background: var(--color-bg-gray); }
+
+    /* ════════════════════════════════════════
+       Heading System （c_borderTitle）
+    ════════════════════════════════════════ */
+    .c_headingLv1 {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .c_headingLv1 .en {
       display: block;
+      font-family: var(--ff-en);
+      font-size: 1.1rem;
+      font-weight: 400;
+      letter-spacing: .2em;
+      color: var(--color-theme);
+      margin-bottom: .6rem;
+      text-transform: uppercase;
+    }
+
+    .c_borderTitle {
+      display: inline-block;
+      font-family: var(--ff-serif);
+      font-size: 2.6rem;
+      font-weight: 400;
+      letter-spacing: .08em;
+      line-height: 1.3;
+      color: var(--color-base);
+      position: relative;
+      padding-bottom: 22px;
+    }
+
+    .c_borderTitle::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%) scaleX(0);
+      transform-origin: center;
+      width: 40px;
+      height: 1px;
+      background: var(--color-theme);
+      transition: transform .8s cubic-bezier(.25,.46,.45,.94);
+    }
+
+    .c_borderTitle.is_animated::after {
+      transform: translateX(-50%) scaleX(1);
+    }
+
+    .c_headingLv2 {
+      margin-bottom: 40px;
+    }
+
+    .c_headingLv2 .en {
+      display: block;
+      font-family: var(--ff-en);
+      font-size: .95rem;
+      letter-spacing: .18em;
+      color: var(--color-theme);
+      text-transform: uppercase;
+      margin-bottom: .4rem;
+    }
+
+    .c_headingLv2 .ja {
+      font-family: var(--ff-serif);
+      font-size: 2rem;
+      font-weight: 400;
+      letter-spacing: .06em;
+      line-height: 1.4;
+      color: var(--color-base);
+    }
+
+    .c_lead {
+      font-family: var(--ff-serif);
+      font-size: 1.4rem;
+      font-weight: 300;
+      line-height: 2.0;
+      color: var(--color-base);
+      letter-spacing: .04em;
+    }
+
+    .c_lead p + p { margin-top: 1.4em; }
+
+    /* ════════════════════════════════════════
+       Buttons
+    ════════════════════════════════════════ */
+    .c_btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .6rem;
+      min-width: 240px;
+      min-height: 44px;
+      padding: .7rem 2rem;
+      font-family: var(--ff-sans);
+      font-size: .85rem;
+      font-weight: 400;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      border: 1px solid var(--color-base);
+      color: var(--color-base);
+      background: transparent;
+      transition: var(--tr);
+      cursor: pointer;
+      position: relative;
+    }
+
+    .c_btn::after {
+      content: '→';
+      font-size: .8rem;
+    }
+
+    .c_btn:hover {
+      background: var(--color-base);
+      color: #fff;
+      opacity: 1;
+    }
+
+    .c_btn__bgTheme {
+      background: var(--color-theme);
+      border-color: var(--color-theme);
+      color: #fff;
+    }
+
+    .c_btn__bgTheme:hover {
+      background: var(--color-base);
+      border-color: var(--color-base);
+      color: #fff;
+      opacity: 1;
+    }
+
+    /* ════════════════════════════════════════
+       Header
+    ════════════════════════════════════════ */
+    #header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 0 40px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background var(--tr), box-shadow var(--tr);
+      background: rgba(51,51,51,.15);
+    }
+
+    #header.is_color {
+      background: rgba(51,51,51,.96);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 2px 20px rgba(0,0,0,.15);
+    }
+
+    .header_logo {
+      font-family: var(--ff-en);
+      font-size: 1.6rem;
+      font-weight: 600;
+      letter-spacing: .22em;
+      color: #fff;
+      line-height: 1;
+    }
+
+    .header_logo small {
+      display: block;
+      font-family: var(--ff-sans);
+      font-size: .5rem;
+      font-weight: 300;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.55);
+      margin-top: 3px;
+    }
+
+    .header_nav { display: flex; align-items: center; gap: 2.4rem; }
+
+    .header_nav a {
+      font-family: var(--ff-sans);
+      font-size: .68rem;
+      font-weight: 400;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.75);
+      transition: color var(--tr);
+    }
+
+    .header_nav a:hover { color: #fff; opacity: 1; }
+
+    .header_reserve {
       font-family: var(--ff-sans);
       font-size: .65rem;
       font-weight: 400;
-      letter-spacing: .35em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 1rem;
-    }
-
-    .section-title {
-      font-family: var(--ff-serif);
-      font-size: clamp(2rem, 5vw, 3.2rem);
-      font-weight: 300;
-      letter-spacing: .06em;
-      line-height: 1.2;
-      color: var(--white);
-    }
-
-    .section-title em {
-      font-style: italic;
-      color: var(--gold-lt);
-    }
-
-    .gold-line {
-      display: block;
-      width: 40px;
-      height: 1px;
-      background: var(--gold);
-      margin: 1.6rem 0;
-    }
-
-    .container {
-      width: min(1100px, 92%);
-      margin-inline: auto;
-    }
-
-    /* ─────────────────────────────────────────
-       Navigation
-    ───────────────────────────────────────── */
-    #nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      padding: 1.4rem 5%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: background var(--transition), padding var(--transition);
-    }
-
-    #nav.scrolled {
-      background: rgba(8,8,8,.92);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      padding: .9rem 5%;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .nav-logo {
-      font-family: var(--ff-serif);
-      font-size: 1.4rem;
-      font-weight: 400;
       letter-spacing: .15em;
-      color: var(--gold-lt);
-    }
-
-    .nav-links {
-      list-style: none;
-      display: flex;
-      gap: 2.4rem;
-    }
-
-    .nav-links a {
-      font-size: .68rem;
-      font-weight: 400;
-      letter-spacing: .22em;
       text-transform: uppercase;
-      color: rgba(240,236,228,.65);
-      transition: color var(--transition);
-      position: relative;
-      padding-bottom: 4px;
+      color: #fff;
+      background: var(--color-theme);
+      padding: .55rem 1.4rem;
+      transition: background var(--tr);
     }
 
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0;
-      width: 0; height: 1px;
-      background: var(--gold);
-      transition: width var(--transition);
-    }
+    .header_reserve:hover { background: #5a5030; opacity: 1; }
 
-    .nav-links a:hover { color: var(--gold-lt); }
-    .nav-links a:hover::after { width: 100%; }
-
-    /* hamburger */
-    .hamburger {
+    .header_hamburger {
       display: none;
       flex-direction: column;
-      gap: 5px;
+      gap: 6px;
       cursor: pointer;
       padding: 4px;
-    }
-    .hamburger span {
-      display: block;
-      width: 24px;
-      height: 1px;
-      background: var(--gold-lt);
-      transition: var(--transition);
+      background: none;
+      border: none;
     }
 
-    /* ─────────────────────────────────────────
-       Hero
-    ───────────────────────────────────────── */
+    .header_hamburger span {
+      display: block; width: 26px; height: 1px;
+      background: #fff; transition: var(--tr);
+    }
+
+    /* ════════════════════════════════════════
+       Hero Slider
+    ════════════════════════════════════════ */
     #hero {
       position: relative;
       height: 100svh;
       min-height: 600px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       overflow: hidden;
     }
 
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      background-image: url('内装＋お酒/line_oa_chat_260324_152705_group_0.jpg');
-      background-size: cover;
-      background-position: center 30%;
-      transform: scale(1.04);
-      transition: transform 6s ease;
-      filter: brightness(.38) saturate(.8);
+    .hero_swiper {
+      width: 100%; height: 100%;
     }
 
-    #hero:hover .hero-bg { transform: scale(1.0); }
-
-    .hero-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        180deg,
-        rgba(8,8,8,.2) 0%,
-        rgba(8,8,8,.1) 40%,
-        rgba(8,8,8,.7) 100%
-      );
-    }
-
-    .hero-content {
+    .hero_swiper .swiper-slide {
       position: relative;
-      text-align: center;
-      padding: 0 1rem;
+      overflow: hidden;
     }
 
-    .hero-eyebrow {
+    .hero_swiper .swiper-slide img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: brightness(.5) saturate(.75);
+      transform: scale(1.06);
+      transition: transform 7s ease;
+    }
+
+    .swiper-slide-active img { transform: scale(1.0); }
+
+    .hero_swiper .swiper-scrollbar {
+      height: 2px;
+      background: rgba(255,255,255,.2);
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      border-radius: 0;
+    }
+
+    .hero_swiper .swiper-scrollbar-drag {
+      background: var(--color-theme);
+      border-radius: 0;
+    }
+
+    .hero_content {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #fff;
+    }
+
+    .hero_eyebrow {
       font-family: var(--ff-sans);
       font-size: .62rem;
       font-weight: 400;
-      letter-spacing: .45em;
+      letter-spacing: .42em;
       text-transform: uppercase;
-      color: var(--gold);
-      display: block;
-      margin-bottom: 1.6rem;
+      color: var(--color-theme-lt);
+      margin-bottom: 1.8rem;
       opacity: 0;
-      animation: fadeUp .9s .3s forwards;
+      animation: hFadeUp .9s .4s forwards;
     }
 
-    .hero-title {
-      font-family: var(--ff-serif);
-      font-size: clamp(3.2rem, 10vw, 7.5rem);
-      font-weight: 300;
+    .hero_title {
+      font-family: var(--ff-en);
+      font-size: clamp(4rem, 10vw, 8rem);
+      font-weight: 600;
       letter-spacing: .18em;
-      line-height: 1.0;
-      color: var(--white);
+      line-height: 1;
       opacity: 0;
-      animation: fadeUp .9s .55s forwards;
+      animation: hFadeUp .9s .65s forwards;
     }
 
-    .hero-sub {
+    .hero_sub {
       font-family: var(--ff-serif);
-      font-size: clamp(.9rem, 2vw, 1.1rem);
+      font-size: clamp(.85rem, 1.8vw, 1.1rem);
       font-weight: 300;
-      letter-spacing: .28em;
-      color: rgba(240,236,228,.6);
+      letter-spacing: .3em;
+      color: rgba(255,255,255,.65);
       margin-top: 1.2rem;
       opacity: 0;
-      animation: fadeUp .9s .8s forwards;
+      animation: hFadeUp .9s .9s forwards;
     }
 
-    .hero-divider {
-      width: 1px;
-      height: 60px;
-      background: linear-gradient(to bottom, transparent, var(--gold), transparent);
-      margin: 2.4rem auto 0;
+    .hero_scroll {
+      position: absolute;
+      bottom: 3rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .6rem;
       opacity: 0;
-      animation: fadeIn 1.2s 1.2s forwards;
+      animation: hFadeIn 1s 1.4s forwards;
     }
 
-    @keyframes fadeUp {
-      from { opacity:0; transform:translateY(22px); }
+    .hero_scroll span {
+      font-family: var(--ff-sans);
+      font-size: .52rem;
+      font-weight: 400;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.5);
+    }
+
+    .hero_scroll::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 48px;
+      background: linear-gradient(to bottom, rgba(255,255,255,.5), transparent);
+      animation: scrollLine 1.8s 1.6s ease infinite;
+    }
+
+    @keyframes scrollLine {
+      0%   { transform: scaleY(0); transform-origin: top; }
+      50%  { transform: scaleY(1); transform-origin: top; }
+      51%  { transform: scaleY(1); transform-origin: bottom; }
+      100% { transform: scaleY(0); transform-origin: bottom; }
+    }
+
+    @keyframes hFadeUp {
+      from { opacity:0; transform:translateY(20px); }
       to   { opacity:1; transform:translateY(0); }
     }
-    @keyframes fadeIn {
+    @keyframes hFadeIn {
       from { opacity:0; } to { opacity:1; }
     }
 
-    /* ─────────────────────────────────────────
-       Concept
-    ───────────────────────────────────────── */
-    #concept {
-      padding: 9rem 0 8rem;
-      background: var(--bg);
-      position: relative;
+    /* ════════════════════════════════════════
+       Info Strip
+    ════════════════════════════════════════ */
+    .info_strip {
+      background: var(--color-base);
+      padding: 0;
     }
 
-    #concept::before {
-      content: 'PEAT';
-      position: absolute;
-      top: 4rem; left: 50%;
-      transform: translateX(-50%);
-      font-family: var(--ff-serif);
-      font-size: clamp(5rem, 15vw, 12rem);
-      font-weight: 300;
-      letter-spacing: .12em;
-      color: rgba(184,151,90,.04);
-      white-space: nowrap;
-      pointer-events: none;
-      user-select: none;
-    }
-
-    .concept-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: center;
-    }
-
-    .concept-text { position: relative; }
-
-    .concept-body {
-      font-family: var(--ff-serif);
-      font-size: 1.08rem;
-      font-weight: 300;
-      line-height: 2.1;
-      color: rgba(240,236,228,.78);
-      margin-top: .6rem;
-    }
-
-    .concept-body p + p { margin-top: 1.4rem; }
-
-    .concept-quote {
-      margin-top: 2.4rem;
-      padding-left: 1.6rem;
-      border-left: 1px solid var(--gold);
-    }
-
-    .concept-quote p {
-      font-family: var(--ff-serif);
-      font-size: 1.02rem;
-      font-style: italic;
-      color: var(--gold-lt);
-      line-height: 1.9;
-    }
-
-    .concept-images {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    .concept-img-main {
-      grid-column: 1 / -1;
-      height: 280px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-    }
-
-    .concept-img-sub {
-      height: 170px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-    }
-
-    .concept-img-main img,
-    .concept-img-sub img {
-      height: 100%;
-      transition: transform .7s ease;
-    }
-
-    .concept-img-main:hover img,
-    .concept-img-sub:hover img { transform: scale(1.06); }
-
-    /* ─────────────────────────────────────────
-       Features Strip
-    ───────────────────────────────────────── */
-    .features-strip {
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      padding: 2.8rem 0;
+    .info_strip_inner {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
     }
 
-    .feature-item {
+    .info_strip_item {
+      padding: 2.4rem 2rem;
+      border-right: 1px solid rgba(255,255,255,.08);
       text-align: center;
-      padding: 1rem 1.5rem;
-      border-right: 1px solid var(--border);
     }
 
-    .feature-item:last-child { border-right: none; }
+    .info_strip_item:last-child { border-right: none; }
 
-    .feature-num {
-      font-family: var(--ff-serif);
-      font-size: 2.4rem;
-      font-weight: 300;
-      color: var(--gold);
+    .info_strip_item .val {
+      font-family: var(--ff-en);
+      font-size: 2.2rem;
+      font-weight: 400;
+      color: var(--color-theme-lt);
       line-height: 1;
+      letter-spacing: .06em;
     }
 
-    .feature-unit {
-      font-size: .62rem;
-      font-weight: 400;
-      letter-spacing: .12em;
-      color: var(--gold);
+    .info_strip_item .unit {
+      font-family: var(--ff-serif);
+      font-size: .85rem;
+      color: var(--color-theme-lt);
     }
 
-    .feature-label {
+    .info_strip_item .lbl {
       display: block;
-      font-size: .65rem;
-      font-weight: 400;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-top: .5rem;
-    }
-
-    /* ─────────────────────────────────────────
-       Menu
-    ───────────────────────────────────────── */
-    #menu {
-      padding: 9rem 0 8rem;
-      background: var(--bg-alt);
-      position: relative;
-      overflow: hidden;
-    }
-
-    #menu::after {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 1px;
-      background: linear-gradient(to right, transparent, var(--gold), transparent);
-    }
-
-    .menu-header {
-      text-align: center;
-      margin-bottom: 5rem;
-    }
-
-    .menu-tabs {
-      display: flex;
-      justify-content: center;
-      gap: 0;
-      margin-bottom: 4rem;
-      border: 1px solid var(--border);
-      width: fit-content;
-      margin-inline: auto;
-    }
-
-    .menu-tab {
-      padding: .65rem 2.2rem;
-      font-size: .65rem;
+      font-family: var(--ff-sans);
+      font-size: .58rem;
       font-weight: 400;
       letter-spacing: .22em;
       text-transform: uppercase;
-      color: var(--muted);
+      color: rgba(255,255,255,.38);
+      margin-top: .5rem;
+    }
+
+    /* ════════════════════════════════════════
+       Concept
+    ════════════════════════════════════════ */
+    #concept { padding: 120px 0; }
+
+    .concept_grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .concept_images {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 280px 180px;
+      gap: 8px;
+    }
+
+    .concept_img_main {
+      grid-column: 1 / -1;
+      overflow: hidden;
+    }
+
+    .concept_img_main img,
+    .concept_img_sub img {
+      transition: transform .8s ease;
+    }
+
+    .concept_img_main:hover img,
+    .concept_img_sub:hover img {
+      transform: scale(1.05);
+      opacity: 1;
+    }
+
+    .concept_img_sub { overflow: hidden; }
+
+    .concept_tag {
+      display: inline-block;
+      font-family: var(--ff-sans);
+      font-size: .6rem;
+      font-weight: 400;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--color-theme);
+      border-bottom: 1px solid var(--color-theme);
+      padding-bottom: 3px;
+      margin-bottom: 1.8rem;
+    }
+
+    .concept_quote {
+      margin-top: 2.2rem;
+      padding: 1.4rem 1.8rem;
+      border-left: 2px solid var(--color-theme);
+      background: var(--color-bg-gray);
+    }
+
+    .concept_quote p {
+      font-family: var(--ff-en);
+      font-size: 1.3rem;
+      font-style: italic;
+      color: var(--color-theme);
+      line-height: 1.7;
+      letter-spacing: .04em;
+    }
+
+    /* ════════════════════════════════════════
+       Menu
+    ════════════════════════════════════════ */
+    #menu { padding: 120px 0; background: var(--color-bg-gray); }
+
+    /* Tab UI */
+    .c_tabBtnList {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      margin-bottom: 60px;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .c_tabBtnList button {
+      background: none;
+      border: none;
       cursor: pointer;
-      transition: var(--transition);
-      border-right: 1px solid var(--border);
-      background: transparent;
-      border-top: none;
-      border-bottom: none;
-      border-left: none;
+      font-family: var(--ff-sans);
+      font-size: .7rem;
+      font-weight: 400;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+      padding: .9rem 2.4rem;
+      position: relative;
+      transition: color var(--tr);
     }
 
-    .menu-tab:last-child { border-right: none; }
-
-    .menu-tab.active,
-    .menu-tab:hover {
-      background: var(--gold);
-      color: var(--bg);
+    .c_tabBtnList button::after {
+      content: '';
+      position: absolute;
+      bottom: -1px; left: 0; right: 0;
+      height: 2px;
+      background: var(--color-theme);
+      transform: scaleX(0);
+      transition: transform var(--tr);
     }
 
-    /* drink cards */
-    .menu-panel { display: none; }
-    .menu-panel.active { display: block; }
+    .c_tabBtnList button.is_active,
+    .c_tabBtnList button:hover { color: var(--color-base); }
+    .c_tabBtnList button.is_active::after { transform: scaleX(1); }
 
-    .drink-grid {
+    .c_tabPanel { display: none; }
+    .c_tabPanel.is_active { display: block; }
+
+    /* Drink cards */
+    .drink_grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      margin-bottom: 3.5rem;
+      background: var(--color-border);
+      border: 1px solid var(--color-border);
     }
 
-    .drink-card {
-      background: var(--bg-card);
-      padding: 2.2rem 2rem;
-      transition: background var(--transition);
+    .drink_card {
+      background: #fff;
+      padding: 2.8rem 2.4rem;
+      transition: background var(--tr);
     }
 
-    .drink-card:hover { background: #1a1814; }
+    .drink_card:hover { background: #faf9f8; }
 
-    .drink-icon {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-      opacity: .7;
-    }
-
-    .drink-name {
-      font-family: var(--ff-serif);
-      font-size: 1.25rem;
+    .drink_card .cat {
+      font-family: var(--ff-sans);
+      font-size: .58rem;
       font-weight: 400;
-      color: var(--gold-lt);
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--color-theme);
+      margin-bottom: 1rem;
+    }
+
+    .drink_card .name {
+      font-family: var(--ff-en);
+      font-size: 1.6rem;
+      font-weight: 600;
       letter-spacing: .04em;
-      margin-bottom: .5rem;
+      color: var(--color-base);
+      margin-bottom: .3rem;
+      line-height: 1.2;
     }
 
-    .drink-name-jp {
+    .drink_card .name_jp {
       font-family: var(--ff-serif);
-      font-size: .8rem;
-      color: var(--muted);
-      letter-spacing: .08em;
-      margin-bottom: .9rem;
+      font-size: .9rem;
+      color: var(--color-muted);
+      margin-bottom: 1rem;
     }
 
-    .drink-desc {
-      font-size: .78rem;
-      color: rgba(240,236,228,.55);
-      line-height: 1.8;
+    .drink_card .desc {
+      font-family: var(--ff-serif);
+      font-size: .95rem;
+      color: var(--color-muted);
+      line-height: 1.9;
     }
 
-    /* food section */
-    .food-section {
+    .drink_card .sep {
+      width: 20px; height: 1px;
+      background: var(--color-theme);
+      margin: 1rem 0;
+    }
+
+    /* Food section */
+    .food_layout {
       display: grid;
-      grid-template-columns: 1fr 1.2fr;
-      gap: 4rem;
+      grid-template-columns: 1fr 1fr;
+      gap: 70px;
       align-items: center;
-      margin-top: 2rem;
     }
 
-    .food-image {
-      height: 340px;
-      overflow: hidden;
-      border: 1px solid var(--border);
+    .food_image {
       position: relative;
+      height: 420px;
+      overflow: hidden;
     }
 
-    .food-image img { height: 100%; transition: transform .7s ease; }
-    .food-image:hover img { transform: scale(1.05); }
+    .food_image img { transition: transform .8s ease; }
+    .food_image:hover img { transform: scale(1.04); opacity: 1; }
 
-    .food-badge {
+    .food_badge {
       position: absolute;
-      top: 1.2rem; left: 1.2rem;
-      background: var(--gold);
-      color: var(--bg);
+      top: 1.4rem; left: 1.4rem;
+      background: var(--color-theme);
+      color: #fff;
+      font-family: var(--ff-sans);
       font-size: .58rem;
       font-weight: 400;
       letter-spacing: .2em;
       text-transform: uppercase;
-      padding: .4rem .9rem;
+      padding: .4rem 1rem;
     }
 
-    .food-list {
-      list-style: none;
-      margin-top: 1.4rem;
-    }
+    .food_list { margin-top: 2rem; }
 
-    .food-list li {
+    .food_list li {
       display: flex;
-      align-items: flex-start;
-      gap: .8rem;
-      padding: .9rem 0;
-      border-bottom: 1px solid var(--border);
+      gap: 1rem;
+      padding: 1.1rem 0;
+      border-bottom: 1px solid var(--color-border);
       font-family: var(--ff-serif);
-      font-size: 1rem;
-      color: rgba(240,236,228,.75);
+      font-size: 1.1rem;
+      color: var(--color-base);
+      align-items: flex-start;
     }
 
-    .food-list li::before {
-      content: '–';
-      color: var(--gold);
+    .food_list li::before {
+      content: '・';
+      color: var(--color-theme);
       flex-shrink: 0;
-      margin-top: .05em;
     }
 
-    /* photo gallery row */
-    .menu-gallery {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 6px;
-      margin-top: 4rem;
+    .food_list li strong {
+      font-weight: 500;
+      display: block;
+      margin-bottom: .15rem;
     }
 
-    .menu-gallery-item {
-      height: 160px;
-      overflow: hidden;
-      border: 1px solid var(--border);
+    .food_list li span {
+      font-size: .88rem;
+      color: var(--color-muted);
     }
 
-    .menu-gallery-item img { height: 100%; transition: transform .6s ease; }
-    .menu-gallery-item:hover img { transform: scale(1.08); }
-
-    /* ─────────────────────────────────────────
-       Access / Info
-    ───────────────────────────────────────── */
-    #info {
-      padding: 9rem 0 8rem;
-      background: var(--bg);
+    /* Photo Swiper in menu */
+    .menu_swiper_wrap {
+      margin-top: 60px;
       position: relative;
     }
 
-    #info::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 1px;
-      background: linear-gradient(to right, transparent, var(--gold), transparent);
+    .menu_swiper {
+      overflow: hidden;
     }
 
-    .info-grid {
+    .menu_swiper .swiper-slide {
+      width: 300px;
+      height: 220px;
+      overflow: hidden;
+    }
+
+    .menu_swiper .swiper-slide img {
+      transition: transform .6s ease;
+    }
+
+    .menu_swiper .swiper-slide:hover img { transform: scale(1.06); opacity: 1; }
+
+    .menu_swiper .swiper-scrollbar {
+      height: 2px;
+      background: var(--color-border);
+      bottom: -20px;
+      border-radius: 0;
+    }
+
+    .menu_swiper .swiper-scrollbar-drag {
+      background: var(--color-theme);
+      border-radius: 0;
+    }
+
+    /* ════════════════════════════════════════
+       Gallery
+    ════════════════════════════════════════ */
+    #gallery { padding: 0; }
+
+    .gallery_grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 280px;
+    }
+
+    .gallery_item { overflow: hidden; position: relative; }
+    .gallery_item img { transition: transform .8s ease; }
+    .gallery_item:hover img { transform: scale(1.06); opacity: 1; }
+    .gallery_item:nth-child(1) { grid-column: span 2; }
+
+    /* ════════════════════════════════════════
+       Access
+    ════════════════════════════════════════ */
+    #access { padding: 120px 0; }
+
+    .access_grid {
       display: grid;
       grid-template-columns: 1.1fr 1fr;
-      gap: 5rem;
+      gap: 80px;
       align-items: start;
     }
 
-    .info-map {
-      border: 1px solid var(--border);
+    .access_map {
+      height: 380px;
       overflow: hidden;
-      height: 360px;
+      border: 1px solid var(--color-border);
     }
 
-    .info-map iframe {
-      width: 100%;
-      height: 100%;
+    .access_map iframe {
+      width: 100%; height: 100%;
       border: 0;
-      filter: invert(.85) hue-rotate(180deg) saturate(.6) brightness(.85);
+      filter: sepia(.3) saturate(.7);
     }
 
-    .info-table {
+    .access_route {
+      margin-top: 1.8rem;
+      background: var(--color-bg-gray);
+      padding: 1.6rem 2rem;
+    }
+
+    .access_route p {
+      font-family: var(--ff-serif);
+      font-size: .95rem;
+      color: var(--color-base);
+      line-height: 2;
+      display: flex;
+      gap: .6rem;
+    }
+
+    .access_route p + p {
+      margin-top: .6rem;
+      padding-top: .6rem;
+      border-top: 1px solid var(--color-border);
+    }
+
+    .access_route .icon {
+      color: var(--color-theme);
+      flex-shrink: 0;
+    }
+
+    .info_table {
       width: 100%;
       border-collapse: collapse;
     }
 
-    .info-table tr {
-      border-bottom: 1px solid var(--border);
+    .info_table tr {
+      border-bottom: 1px solid var(--color-border);
     }
 
-    .info-table th {
+    .info_table th {
       font-family: var(--ff-sans);
       font-size: .62rem;
       font-weight: 400;
       letter-spacing: .2em;
       text-transform: uppercase;
-      color: var(--gold);
+      color: var(--color-theme);
       text-align: left;
-      padding: 1.1rem 1.2rem 1.1rem 0;
-      width: 36%;
+      padding: 1.2rem 1.4rem 1.2rem 0;
+      width: 34%;
       vertical-align: top;
       white-space: nowrap;
     }
 
-    .info-table td {
+    .info_table td {
       font-family: var(--ff-serif);
-      font-size: .97rem;
-      color: rgba(240,236,228,.8);
-      padding: 1.1rem 0;
-      line-height: 1.7;
+      font-size: 1.0rem;
+      color: var(--color-base);
+      padding: 1.2rem 0;
+      line-height: 1.8;
       vertical-align: top;
     }
 
-    .info-table td strong {
+    .info_table td strong {
+      font-weight: 500;
       display: block;
-      font-weight: 400;
-      color: var(--white);
-      margin-bottom: .15rem;
     }
 
-    .info-access-note {
-      margin-top: 2rem;
-      padding: 1.6rem;
-      border: 1px solid var(--border);
-      background: var(--bg-card);
+    .info_table td small {
+      display: block;
+      font-size: .82rem;
+      color: var(--color-muted);
+      margin-top: .15rem;
     }
 
-    .info-access-note p {
-      font-family: var(--ff-serif);
-      font-size: .88rem;
-      color: rgba(240,236,228,.6);
-      line-height: 1.9;
-    }
-
-    .info-access-note p + p { margin-top: .6rem; }
-
-    .access-icon {
-      display: inline-block;
-      width: 1.2rem;
-      color: var(--gold);
-    }
-
-    .charge-note {
+    .badge_charge {
       display: inline-block;
       margin-top: .4rem;
-      font-size: .75rem;
-      color: var(--gold);
-      border: 1px solid var(--gold-dk);
-      padding: .15rem .6rem;
-      letter-spacing: .05em;
+      font-family: var(--ff-sans);
+      font-size: .6rem;
+      font-weight: 400;
+      letter-spacing: .1em;
+      color: var(--color-theme);
+      border: 1px solid var(--color-theme);
+      padding: .2rem .7rem;
     }
 
-    /* ─────────────────────────────────────────
-       CTA Banner
-    ───────────────────────────────────────── */
-    .cta-banner {
+    .card_list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .4rem;
+      margin-top: .5rem;
+    }
+
+    .card_list li {
+      font-family: var(--ff-sans);
+      font-size: .58rem;
+      font-weight: 400;
+      letter-spacing: .08em;
+      color: var(--color-muted);
+      border: 1px solid var(--color-border);
+      padding: .15rem .55rem;
+    }
+
+    /* ════════════════════════════════════════
+       CTA Section
+    ════════════════════════════════════════ */
+    #cta {
       position: relative;
-      padding: 7rem 0;
-      overflow: hidden;
+      padding: 140px 0;
       text-align: center;
+      overflow: hidden;
     }
 
-    .cta-bg {
-      position: absolute;
-      inset: 0;
+    .cta_bg {
+      position: absolute; inset: 0;
       background-image: url('内装＋お酒/line_oa_chat_260324_152705_group_3.jpg');
       background-size: cover;
       background-position: center;
-      filter: brightness(.22) saturate(.6);
+      filter: brightness(.28) saturate(.6);
     }
 
-    .cta-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to right, rgba(8,8,8,.6), transparent, rgba(8,8,8,.6));
+    .cta_content {
+      position: relative;
+      z-index: 1;
+      color: #fff;
     }
 
-    .cta-content { position: relative; }
+    .cta_content .c_borderTitle { color: #fff; }
+    .cta_content .c_borderTitle::after { background: rgba(255,255,255,.5); }
 
-    .cta-content .section-label { justify-content: center; display: flex; }
+    .cta_content .en { color: var(--color-theme-lt); }
 
-    .cta-title {
-      font-family: var(--ff-serif);
-      font-size: clamp(1.8rem, 4vw, 3rem);
-      font-weight: 300;
-      letter-spacing: .08em;
-      margin: .8rem 0 1.8rem;
-    }
-
-    .cta-tel {
+    .cta_tel {
       display: inline-flex;
       align-items: center;
-      gap: .8rem;
-      font-family: var(--ff-serif);
-      font-size: clamp(1.6rem, 4vw, 2.4rem);
-      font-weight: 300;
-      letter-spacing: .12em;
-      color: var(--gold-lt);
-      border: 1px solid var(--border);
-      padding: 1rem 2.6rem;
-      transition: var(--transition);
-    }
-
-    .cta-tel:hover {
-      background: rgba(184,151,90,.12);
-      border-color: var(--gold);
-    }
-
-    .cta-note {
-      display: block;
-      margin-top: 1.2rem;
-      font-size: .7rem;
+      gap: 1rem;
+      font-family: var(--ff-en);
+      font-size: clamp(2rem, 5vw, 3.2rem);
       font-weight: 400;
-      letter-spacing: .16em;
-      color: var(--muted);
+      letter-spacing: .1em;
+      color: #fff;
+      margin: 2rem 0 1rem;
+      transition: opacity var(--tr);
     }
 
-    /* ─────────────────────────────────────────
-       Footer
-    ───────────────────────────────────────── */
-    footer {
-      background: #050505;
-      border-top: 1px solid var(--border);
-      padding: 3.5rem 0 2rem;
-    }
+    .cta_tel:hover { opacity: .7; }
 
-    .footer-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 2rem;
-    }
-
-    .footer-logo {
-      font-family: var(--ff-serif);
-      font-size: 1.6rem;
-      font-weight: 300;
-      letter-spacing: .2em;
-      color: var(--gold-lt);
-    }
-
-    .footer-logo small {
-      display: block;
-      font-size: .62rem;
-      font-weight: 300;
-      letter-spacing: .3em;
-      color: var(--muted);
-      margin-top: .3rem;
-      text-transform: uppercase;
-    }
-
-    .footer-nav {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-    }
-
-    .footer-nav a {
-      font-size: .62rem;
-      font-weight: 400;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      color: var(--muted);
-      transition: color var(--transition);
-    }
-
-    .footer-nav a:hover { color: var(--gold-lt); }
-
-    .footer-copy {
-      text-align: center;
-      margin-top: 2.5rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid var(--border);
-      font-size: .6rem;
+    .cta_note {
+      font-family: var(--ff-sans);
+      font-size: .65rem;
       font-weight: 400;
       letter-spacing: .18em;
-      color: var(--muted);
       text-transform: uppercase;
+      color: rgba(255,255,255,.45);
     }
 
-    /* ─────────────────────────────────────────
+    /* ════════════════════════════════════════
+       Footer
+    ════════════════════════════════════════ */
+    #footer {
+      background: var(--color-footer);
+      padding: 60px 0 0;
+    }
+
+    .footer_top {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 60px;
+      padding-bottom: 50px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+
+    .footer_logo {
+      font-family: var(--ff-en);
+      font-size: 1.8rem;
+      font-weight: 600;
+      letter-spacing: .2em;
+      color: #fff;
+    }
+
+    .footer_logo small {
+      display: block;
+      font-family: var(--ff-sans);
+      font-size: .55rem;
+      font-weight: 300;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.35);
+      margin-top: 4px;
+    }
+
+    .footer_addr {
+      font-family: var(--ff-serif);
+      font-size: .95rem;
+      color: rgba(255,255,255,.45);
+      line-height: 1.9;
+      margin-top: 1.4rem;
+    }
+
+    .footer_nav_group {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .footer_nav_label {
+      font-family: var(--ff-sans);
+      font-size: .58rem;
+      font-weight: 400;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.35);
+      margin-bottom: 1.2rem;
+      padding-bottom: .6rem;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+
+    .footer_nav_group ul li {
+      margin-bottom: .6rem;
+    }
+
+    .footer_nav_group ul li a {
+      font-family: var(--ff-serif);
+      font-size: .92rem;
+      color: rgba(255,255,255,.55);
+      transition: color var(--tr);
+    }
+
+    .footer_nav_group ul li a:hover { color: #fff; opacity: 1; }
+
+    .footer_copy {
+      background: #fff;
+      text-align: center;
+      padding: 1.4rem;
+      margin-top: 0;
+    }
+
+    .footer_copy p {
+      font-family: var(--ff-sans);
+      font-size: .58rem;
+      font-weight: 400;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+    }
+
+    /* ════════════════════════════════════════
+       Side Button
+    ════════════════════════════════════════ */
+    .side_btn {
+      position: fixed;
+      right: 0;
+      bottom: 8%;
+      z-index: 900;
+      writing-mode: vertical-rl;
+      background: var(--color-theme);
+      color: #fff;
+      font-family: var(--ff-sans);
+      font-size: .6rem;
+      font-weight: 400;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      padding: 1.2rem .7rem;
+      transition: background var(--tr);
+    }
+
+    .side_btn:hover { background: var(--color-base); opacity: 1; }
+
+    /* ════════════════════════════════════════
        Scroll Reveal
-    ───────────────────────────────────────── */
-    .reveal {
+    ════════════════════════════════════════ */
+    .js_reveal {
       opacity: 0;
-      transform: translateY(30px);
+      transform: translateY(28px);
       transition: opacity .8s ease, transform .8s ease;
     }
 
-    .reveal.visible {
+    .js_reveal.is_visible {
       opacity: 1;
       transform: translateY(0);
     }
 
-    /* ─────────────────────────────────────────
+    .js_reveal:nth-child(2) { transition-delay: .1s; }
+    .js_reveal:nth-child(3) { transition-delay: .2s; }
+    .js_reveal:nth-child(4) { transition-delay: .3s; }
+
+    /* ════════════════════════════════════════
        Responsive
-    ───────────────────────────────────────── */
-    @media (max-width: 900px) {
-      .concept-grid,
-      .food-section,
-      .info-grid { grid-template-columns: 1fr; gap: 3rem; }
+    ════════════════════════════════════════ */
+    @media (max-width: 768px) {
+      body { font-size: 1.2rem; }
 
-      .features-strip { grid-template-columns: repeat(2,1fr); }
-      .feature-item:nth-child(2) { border-right: none; }
-      .feature-item:nth-child(3) { border-top: 1px solid var(--border); }
-      .feature-item:nth-child(4) { border-top: 1px solid var(--border); border-right: none; }
+      #header { padding: 0 20px; }
+      .header_nav { display: none; }
+      .header_reserve { display: none; }
+      .header_hamburger { display: flex; }
 
-      .drink-grid { grid-template-columns: 1fr 1fr; }
+      .l_sect, .l_sect03 { padding: 70px 0; }
+      .l_sect02 { padding: 50px 0; }
 
-      .menu-gallery { grid-template-columns: repeat(3,1fr); }
-      .menu-gallery-item:nth-child(n+4) { display: none; }
+      .c_borderTitle { font-size: 2rem; }
 
-      .footer-inner { flex-direction: column; align-items: center; text-align: center; }
-      .footer-nav { flex-wrap: wrap; justify-content: center; }
+      .concept_grid,
+      .food_layout,
+      .access_grid,
+      .footer_top { grid-template-columns: 1fr; gap: 40px; }
+
+      .concept_images {
+        grid-template-rows: 220px 140px;
+        gap: 6px;
+      }
+
+      .drink_grid { grid-template-columns: 1fr; }
+
+      .gallery_grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: 200px;
+      }
+
+      .gallery_item:nth-child(1) { grid-column: span 2; }
+
+      .info_strip_inner { grid-template-columns: repeat(2, 1fr); }
+      .info_strip_item:nth-child(2) { border-right: none; }
+      .info_strip_item:nth-child(3) { border-top: 1px solid rgba(255,255,255,.08); }
+      .info_strip_item:nth-child(4) { border-top: 1px solid rgba(255,255,255,.08); border-right: none; }
+
+      .footer_nav_group { grid-template-columns: 1fr 1fr; }
+
+      .side_btn { display: none; }
+
+      .menu_swiper .swiper-slide { width: 240px; height: 180px; }
+
+      .food_image { height: 280px; }
     }
 
-    @media (max-width: 620px) {
-      .nav-links { display: none; }
-      .hamburger { display: flex; }
-
-      .drink-grid { grid-template-columns: 1fr; }
-      .menu-tabs { flex-wrap: wrap; }
-
-      .concept-images { grid-template-columns: 1fr; }
-      .concept-img-sub { display: none; }
-
-      .menu-gallery { grid-template-columns: repeat(2,1fr); }
-
-      .features-strip { grid-template-columns: repeat(2,1fr); }
+    @media (max-width: 480px) {
+      .c_tabBtnList { gap: 0; }
+      .c_tabBtnList button { padding: .9rem 1.2rem; font-size: .62rem; }
+      .gallery_grid { grid-template-columns: 1fr; }
+      .gallery_item:nth-child(1) { grid-column: span 1; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ══════════════════ NAV ══════════════════ -->
-  <header id="nav">
-    <a href="#" class="nav-logo">BAR PEAT</a>
-    <nav>
-      <ul class="nav-links">
-        <li><a href="#concept">Concept</a></li>
-        <li><a href="#menu">Menu</a></li>
-        <li><a href="#info">Access</a></li>
-      </ul>
-    </nav>
-    <button class="hamburger" aria-label="メニュー">
-      <span></span><span></span><span></span>
-    </button>
-  </header>
+<!-- ══ SIDE BTN ══ -->
+<a href="tel:0473783932" class="side_btn">Reserve &amp; Tel</a>
 
-  <!-- ══════════════════ HERO ══════════════════ -->
-  <section id="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <span class="hero-eyebrow">Authentic Bar · Motoyawata · Since</span>
-      <h1 class="hero-title">BAR PEAT</h1>
-      <p class="hero-sub">バー ピート &ensp;|&ensp; 本八幡</p>
-      <div class="hero-divider"></div>
-    </div>
-  </section>
+<!-- ══════════════ HEADER ══════════════ -->
+<header id="header">
+  <a href="#" class="header_logo">
+    BAR PEAT
+    <small>Bar &middot; Motoyawata</small>
+  </a>
+  <nav class="header_nav">
+    <a href="#concept">Concept</a>
+    <a href="#menu">Menu</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#access">Access</a>
+  </nav>
+  <a href="tel:0473783932" class="header_reserve">047-378-3932</a>
+  <button class="header_hamburger" aria-label="メニュー">
+    <span></span><span></span><span></span>
+  </button>
+</header>
 
-  <!-- ══════════════════ FEATURES STRIP ══════════════════ -->
-  <div class="features-strip container">
-    <div class="feature-item">
-      <div class="feature-num">500<span class="feature-unit">+</span></div>
-      <span class="feature-label">Bottles</span>
+<!-- ══════════════ HERO ══════════════ -->
+<section id="hero">
+  <div class="swiper hero_swiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <img src="内装＋お酒/line_oa_chat_260324_152705_group_0.jpg" alt="BAR PEAT 店内" />
+      </div>
+      <div class="swiper-slide">
+        <img src="内装＋お酒/line_oa_chat_260324_152705_group_1.jpg" alt="BAR PEAT カウンター" />
+      </div>
+      <div class="swiper-slide">
+        <img src="内装＋お酒/line_oa_chat_260324_152705_group_2.jpg" alt="BAR PEAT バックバー" />
+      </div>
+      <div class="swiper-slide">
+        <img src="内装＋お酒/line_oa_chat_260324_152705_group_3.jpg" alt="BAR PEAT 雰囲気" />
+      </div>
     </div>
-    <div class="feature-item">
-      <div class="feature-num">18<span class="feature-unit"> 席</span></div>
-      <span class="feature-label">Seats</span>
-    </div>
-    <div class="feature-item">
-      <div class="feature-num">18<span class="feature-unit">:00</span></div>
-      <span class="feature-label">Open</span>
-    </div>
-    <div class="feature-item">
-      <div class="feature-num">3<span class="feature-unit">:00</span></div>
-      <span class="feature-label">Close</span>
-    </div>
+    <div class="swiper-scrollbar"></div>
   </div>
 
-  <!-- ══════════════════ CONCEPT ══════════════════ -->
-  <section id="concept">
-    <div class="container">
-      <div class="concept-grid reveal">
-
-        <div class="concept-text">
-          <span class="section-label">— Our Concept</span>
-          <h2 class="section-title">大人の隠れ家、<br /><em>静かな一夜</em>へ。</h2>
-          <span class="gold-line"></span>
-          <div class="concept-body">
-            <p>
-              本八幡駅南口から徒歩わずか2分。喧騒を抜けた先のビル2階に、
-              長年地元の方に愛され続ける本格オーセンティックバーがあります。
-            </p>
-            <p>
-              店名「PEAT（ピート）」は、スコッチウイスキーの製造に使われる泥炭に由来します。
-              ウイスキー愛好家に向けた、静かな誇りを込めた名前です。
-            </p>
-            <p>
-              壮観なバックバーに並ぶ約500種のボトル。緩くカーブを描くカウンター越しに、
-              本八幡の商店街会長も務めるオーナー・モリオカさんが、
-              あなたの好みの一杯を、自然体で導いてくれます。
-            </p>
-          </div>
-          <blockquote class="concept-quote">
-            <p>
-              「初心者の方も、ウイスキーマニアも—<br />
-              どうぞ、ご自分のペースで。」
-            </p>
-          </blockquote>
-        </div>
-
-        <div class="concept-images">
-          <div class="concept-img-main">
-            <img src="内装＋お酒/line_oa_chat_260324_152705_group_1.jpg" alt="BAR PEAT 店内" />
-          </div>
-          <div class="concept-img-sub">
-            <img src="内装＋お酒/line_oa_chat_260324_152705_group_4.jpg" alt="バックバー" />
-          </div>
-          <div class="concept-img-sub">
-            <img src="内装＋お酒/line_oa_chat_260324_152705_group_5.jpg" alt="ウイスキーボトル" />
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════ MENU ══════════════════ -->
-  <section id="menu">
-    <div class="container">
-      <div class="menu-header reveal">
-        <span class="section-label">— Our Menu</span>
-        <h2 class="section-title">500種のボトルと、<br /><em>確かな一杯</em>。</h2>
-        <span class="gold-line" style="margin-inline:auto;"></span>
-      </div>
-
-      <!-- Tabs -->
-      <div class="menu-tabs reveal">
-        <button class="menu-tab active" data-tab="drinks">Drinks</button>
-        <button class="menu-tab" data-tab="food">Food</button>
-      </div>
-
-      <!-- Drinks Panel -->
-      <div class="menu-panel active" id="tab-drinks">
-        <div class="drink-grid reveal">
-          <div class="drink-card">
-            <div class="drink-icon">🥃</div>
-            <div class="drink-name">Single Malt Whisky</div>
-            <div class="drink-name-jp">シングルモルトウイスキー</div>
-            <p class="drink-desc">スペイサイドを中心に、オフィシャルからボトラーズ、レアなヴィンテージものまで充実したラインナップ。バーテンダーが好みの一本をご案内します。</p>
-          </div>
-          <div class="drink-card">
-            <div class="drink-icon">🍸</div>
-            <div class="drink-name">Classic Cocktails</div>
-            <div class="drink-name-jp">クラシックカクテル</div>
-            <p class="drink-desc">ジンリッキー、マティーニをはじめとする定番から、確かなステア技術が光るカクテルまで。静かに語りかけるような一杯をどうぞ。</p>
-          </div>
-          <div class="drink-card">
-            <div class="drink-icon">🫙</div>
-            <div class="drink-name">Rare & Vintage</div>
-            <div class="drink-name-jp">レア・ヴィンテージ</div>
-            <p class="drink-desc">長年かけて集めた希少ボトルも多数。その時だけの出会いをお楽しみください。マスターへご相談ください。</p>
-          </div>
-          <div class="drink-card">
-            <div class="drink-icon">🍷</div>
-            <div class="drink-name">Wine & Sherry</div>
-            <div class="drink-name-jp">ワイン・シェリー</div>
-            <p class="drink-desc">フードとの相性も考えたセレクション。生ハムやムール貝と合わせて、バル気分のひとときも。</p>
-          </div>
-          <div class="drink-card">
-            <div class="drink-icon">🫧</div>
-            <div class="drink-name">Gin & Others</div>
-            <div class="drink-name-jp">ジン・その他スピリッツ</div>
-            <p class="drink-desc">個性豊かなジンをはじめ、ラム、コニャックなど多彩なスピリッツも取り揃えています。</p>
-          </div>
-          <div class="drink-card">
-            <div class="drink-icon">🍵</div>
-            <div class="drink-name">Non-Alcoholic</div>
-            <div class="drink-name-jp">ノンアルコール</div>
-            <p class="drink-desc">お酒が苦手な方もご安心ください。バーの空間と会話を、ソフトドリンクで楽しんでいただけます。</p>
-          </div>
-        </div>
-
-        <!-- Photo Gallery -->
-        <div class="menu-gallery reveal">
-          <div class="menu-gallery-item">
-            <img src="お酒/line_oa_chat_260324_152758_group_0.jpg" alt="お酒" />
-          </div>
-          <div class="menu-gallery-item">
-            <img src="お酒/line_oa_chat_260324_152758_group_1.jpg" alt="お酒" />
-          </div>
-          <div class="menu-gallery-item">
-            <img src="お酒/line_oa_chat_260324_152758_group_2.jpg" alt="お酒" />
-          </div>
-          <div class="menu-gallery-item">
-            <img src="お酒/line_oa_chat_260324_152758_group_3.jpg" alt="お酒" />
-          </div>
-          <div class="menu-gallery-item">
-            <img src="お酒/line_oa_chat_260324_152758_group_4.jpg" alt="お酒" />
-          </div>
-        </div>
-      </div>
-
-      <!-- Food Panel -->
-      <div class="menu-panel" id="tab-food">
-        <div class="food-section reveal">
-          <div class="food-image">
-            <img src="内装＋お酒/line_oa_chat_260324_152705_group_7.jpg" alt="フード" />
-            <span class="food-badge">No.1 Popular</span>
-          </div>
-          <div class="food-text">
-            <span class="section-label">— Kitchen</span>
-            <h3 class="section-title" style="font-size:clamp(1.5rem,3vw,2rem);">美味しいものが好きな<br /><em>マスターの料理</em>。</h3>
-            <span class="gold-line"></span>
-            <p style="font-family:var(--ff-serif);font-size:.97rem;color:rgba(240,236,228,.7);line-height:2;">
-              食へのこだわりが深いオーナーが手がけるおつまみは、どれもお酒との相性を考えた逸品ばかり。
-              シガーやパイプをお楽しみの方もどうぞ。
-            </p>
-            <ul class="food-list">
-              <li><strong style="color:var(--gold-lt);">生ハム（ハモンセラーノ）</strong>— 1番人気。ウイスキーやシェリーとの相性は抜群。</li>
-              <li>パスタ各種 — その日の素材で仕上げる一皿。</li>
-              <li>ムール貝 — ワインやジンと合わせて。</li>
-              <li>その他おつまみ — 季節や仕入れによってご用意。</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ══════════════════ ACCESS / INFO ══════════════════ -->
-  <section id="info">
-    <div class="container">
-      <div style="text-align:center;margin-bottom:4rem;" class="reveal">
-        <span class="section-label">— Access & Information</span>
-        <h2 class="section-title">店舗情報・<em>アクセス</em></h2>
-        <span class="gold-line" style="margin-inline:auto;"></span>
-      </div>
-
-      <div class="info-grid">
-
-        <!-- Map -->
-        <div class="reveal">
-          <div class="info-map">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d811.1247502369455!2d139.9274!3d35.7274!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188587e44d5e2b%3A0x1!2z5Y2D5YWl55S677yI5Lya44Ov44O844OR44O844OI77yJ!5e0!3m2!1sja!2sjp!4v1700000000000"
-              allowfullscreen="" loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-              title="BAR PEAT アクセスマップ">
-            </iframe>
-          </div>
-          <div class="info-access-note">
-            <p><span class="access-icon">🚃</span>JR総武線「本八幡駅」南口より徒歩2分</p>
-            <p style="font-size:.78rem;padding-left:1.7rem;color:rgba(240,236,228,.45);">マクドナルドの十字路を左折 → 西友の次の十字路 左側2階</p>
-            <p><span class="access-icon">🚃</span>京成本線「京成八幡駅」より徒歩6分</p>
-            <p style="font-size:.78rem;padding-left:1.7rem;color:rgba(240,236,228,.45);">※駐車場はございません。公共交通機関をご利用ください。</p>
-          </div>
-        </div>
-
-        <!-- Table -->
-        <div class="reveal">
-          <table class="info-table">
-            <tr>
-              <th>所在地</th>
-              <td>千葉県市川市南八幡3-4-8<br />HKアルファビル 2F</td>
-            </tr>
-            <tr>
-              <th>電話</th>
-              <td><a href="tel:0473783932" style="color:var(--gold-lt);letter-spacing:.1em;">047-378-3932</a></td>
-            </tr>
-            <tr>
-              <th>営業時間</th>
-              <td>
-                <strong>18:00 〜 翌03:00</strong>
-              </td>
-            </tr>
-            <tr>
-              <th>定休日</th>
-              <td>
-                毎週 <strong>日曜日</strong><br />
-                <span style="font-size:.78rem;color:var(--muted);">連休の場合は最終日が休業</span>
-              </td>
-            </tr>
-            <tr>
-              <th>チャージ</th>
-              <td>
-                500円<br />
-                <span class="charge-note">20時までのご来店は無料</span>
-              </td>
-            </tr>
-            <tr>
-              <th>予算目安</th>
-              <td>2,000円 〜 3,999円</td>
-            </tr>
-            <tr>
-              <th>お支払い</th>
-              <td>
-                クレジットカード可<br />
-                <span style="font-size:.78rem;color:var(--muted);">VISA / Master / JCB / AMEX / Diners</span>
-              </td>
-            </tr>
-            <tr>
-              <th>席数</th>
-              <td>
-                全18席<br />
-                <span style="font-size:.78rem;color:var(--muted);">カーブカウンター10席 ＋ 4人掛けテーブル×2</span>
-              </td>
-            </tr>
-            <tr>
-              <th>その他</th>
-              <td>
-                全席喫煙可 ／ 貸切可<br />
-                シガー・パイプ歓迎
-              </td>
-            </tr>
-          </table>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════ CTA ══════════════════ -->
-  <div class="cta-banner">
-    <div class="cta-bg"></div>
-    <div class="cta-overlay"></div>
-    <div class="container cta-content reveal">
-      <span class="section-label">— Reservation & Inquiry</span>
-      <p class="cta-title">ご予約・お問い合わせ</p>
-      <a href="tel:0473783932" class="cta-tel">
-        <span>☎</span> 047-378-3932
-      </a>
-      <span class="cta-note">営業時間内にお気軽にお電話ください &ensp;|&ensp; 貸切のご相談も承ります</span>
-    </div>
+  <div class="hero_content">
+    <span class="hero_eyebrow">Authentic Bar &middot; Motoyawata &middot; Since Est.</span>
+    <h1 class="hero_title">BAR PEAT</h1>
+    <p class="hero_sub">バー ピート &ensp;&mdash;&ensp; 本八幡 南口より徒歩2分</p>
   </div>
 
-  <!-- ══════════════════ FOOTER ══════════════════ -->
-  <footer>
-    <div class="container">
-      <div class="footer-inner">
-        <div class="footer-logo">
+  <div class="hero_scroll">
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ══════════════ INFO STRIP ══════════════ -->
+<div class="info_strip">
+  <div class="l_container">
+    <div class="info_strip_inner">
+      <div class="info_strip_item">
+        <div class="val">500<span class="unit">+</span></div>
+        <span class="lbl">Bottles</span>
+      </div>
+      <div class="info_strip_item">
+        <div class="val">18<span class="unit"> 席</span></div>
+        <span class="lbl">Seats</span>
+      </div>
+      <div class="info_strip_item">
+        <div class="val">18<span class="unit">:00</span></div>
+        <span class="lbl">Open</span>
+      </div>
+      <div class="info_strip_item">
+        <div class="val">03<span class="unit">:00</span></div>
+        <span class="lbl">Close (L.O.)</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ CONCEPT ══════════════ -->
+<section id="concept" class="l_sect">
+  <div class="l_container">
+
+    <div class="c_headingLv1 js_reveal">
+      <span class="en">Concept</span>
+      <h2 class="c_borderTitle">大人の隠れ家バー</h2>
+    </div>
+
+    <div class="concept_grid">
+      <div class="concept_images js_reveal">
+        <div class="concept_img_main">
+          <img src="内装＋お酒/line_oa_chat_260324_152705_group_1.jpg" alt="BAR PEAT 店内" />
+        </div>
+        <div class="concept_img_sub">
+          <img src="内装＋お酒/line_oa_chat_260324_152705_group_4.jpg" alt="バックバー" />
+        </div>
+        <div class="concept_img_sub">
+          <img src="内装＋お酒/line_oa_chat_260324_152705_group_5.jpg" alt="ウイスキー" />
+        </div>
+      </div>
+
+      <div class="js_reveal">
+        <span class="concept_tag">About BAR PEAT</span>
+        <div class="c_headingLv2">
+          <span class="en">A quiet sanctuary<br />for discerning adults</span>
+          <span class="ja">静かな一夜を、あなたへ。</span>
+        </div>
+        <div class="c_lead">
+          <p>
+            本八幡駅南口から徒歩わずか2分。喧騒を抜けたビルの2階に、
+            長年にわたって地域の方々に愛され続けてきた本格オーセンティックバーがあります。
+          </p>
+          <p>
+            店名「<strong>PEAT（ピート）</strong>」は、スコッチウイスキーの製造に使われる泥炭に由来。
+            ウイスキー好きにこそ伝わる、静かな誇りを込めた名前です。
+          </p>
+          <p>
+            壮観なバックバーに並ぶ約500種のボトル。緩くカーブを描く10席のカウンター越しに、
+            本八幡商店街の会長も務めるオーナーが、
+            あなたの好みに寄り添いながら最良の一杯をお届けします。
+          </p>
+        </div>
+        <blockquote class="concept_quote">
+          <p>
+            "From first-timers to seasoned whisky lovers —<br />
+            at your own pace, at your own pleasure."
+          </p>
+        </blockquote>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════ MENU ══════════════ -->
+<section id="menu" class="l_sect">
+  <div class="l_container">
+
+    <div class="c_headingLv1 js_reveal">
+      <span class="en">Menu</span>
+      <h2 class="c_borderTitle">500種のボトルと確かな一杯</h2>
+    </div>
+
+    <!-- Tabs -->
+    <div class="c_tabBtnList js_reveal">
+      <button class="is_active" data-tab="drinks">Drinks</button>
+      <button data-tab="food">Food</button>
+      <button data-tab="cigar">Cigar &amp; Pipe</button>
+    </div>
+
+    <!-- Drinks -->
+    <div class="c_tabPanel is_active" id="tab-drinks">
+      <div class="drink_grid js_reveal">
+        <div class="drink_card">
+          <div class="cat">Whisky</div>
+          <div class="name">Single Malt</div>
+          <div class="name_jp">シングルモルトウイスキー</div>
+          <div class="sep"></div>
+          <p class="desc">スペイサイドモルトを中心に、オフィシャル・ボトラーズ・ヴィンテージまで幅広く取り揃え。マスターが好みの味わいへ導きます。</p>
+        </div>
+        <div class="drink_card">
+          <div class="cat">Cocktail</div>
+          <div class="name">Classic &amp; Original</div>
+          <div class="name_jp">クラシック&amp;オリジナルカクテル</div>
+          <div class="sep"></div>
+          <p class="desc">ジンリッキー、マティーニなど定番から、確かなステア技術が光る一杯まで。静かに語りかけるようなカクテルをどうぞ。</p>
+        </div>
+        <div class="drink_card">
+          <div class="cat">Rare</div>
+          <div class="name">Rare &amp; Vintage</div>
+          <div class="name_jp">レア・ヴィンテージボトル</div>
+          <div class="sep"></div>
+          <p class="desc">長年かけて蒐集した希少ボトルも多数。その時だけの出会いをお楽しみください。マスターへお気軽にご相談を。</p>
+        </div>
+        <div class="drink_card">
+          <div class="cat">Wine</div>
+          <div class="name">Wine &amp; Sherry</div>
+          <div class="name_jp">ワイン・シェリー</div>
+          <div class="sep"></div>
+          <p class="desc">フードとの相性を考えたセレクション。生ハムやムール貝と合わせ、バル気分の一時も楽しめます。</p>
+        </div>
+        <div class="drink_card">
+          <div class="cat">Spirits</div>
+          <div class="name">Gin &amp; Spirits</div>
+          <div class="name_jp">ジン・その他スピリッツ</div>
+          <div class="sep"></div>
+          <p class="desc">個性豊かなジンをはじめ、ラム、コニャックなど多彩なスピリッツも取り揃え。新たな出会いをぜひ。</p>
+        </div>
+        <div class="drink_card">
+          <div class="cat">Others</div>
+          <div class="name">Non-Alcoholic</div>
+          <div class="name_jp">ノンアルコール</div>
+          <div class="sep"></div>
+          <p class="desc">お酒が苦手な方もご安心ください。バーの空間と会話を、ソフトドリンクでゆっくりとお楽しみいただけます。</p>
+        </div>
+      </div>
+
+      <!-- Swiper photos -->
+      <div class="menu_swiper_wrap js_reveal">
+        <div class="swiper menu_swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="お酒/line_oa_chat_260324_152758_group_0.jpg" alt="お酒" />
+            </div>
+            <div class="swiper-slide">
+              <img src="お酒/line_oa_chat_260324_152758_group_1.jpg" alt="お酒" />
+            </div>
+            <div class="swiper-slide">
+              <img src="お酒/line_oa_chat_260324_152758_group_2.jpg" alt="お酒" />
+            </div>
+            <div class="swiper-slide">
+              <img src="お酒/line_oa_chat_260324_152758_group_3.jpg" alt="お酒" />
+            </div>
+            <div class="swiper-slide">
+              <img src="お酒/line_oa_chat_260324_152758_group_4.jpg" alt="お酒" />
+            </div>
+            <div class="swiper-slide">
+              <img src="内装＋お酒/line_oa_chat_260324_152705_group_6.jpg" alt="お酒" />
+            </div>
+            <div class="swiper-slide">
+              <img src="内装＋お酒/line_oa_chat_260324_152705_group_8.jpg" alt="お酒" />
+            </div>
+          </div>
+          <div class="swiper-scrollbar"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Food -->
+    <div class="c_tabPanel" id="tab-food">
+      <div class="food_layout js_reveal">
+        <div class="food_image">
+          <img src="内装＋お酒/line_oa_chat_260324_152705_group_7.jpg" alt="フード" />
+          <span class="food_badge">No.1 Popular</span>
+        </div>
+        <div>
+          <span class="concept_tag">Kitchen</span>
+          <div class="c_headingLv2">
+            <span class="en">Master's Kitchen</span>
+            <span class="ja">美味しいものが好きな<br />マスターの料理。</span>
+          </div>
+          <div class="c_lead">
+            <p>食へのこだわりが深いオーナーが手がける料理は、どれもお酒との相性を考えた逸品ばかり。シンプルながら素材の味が生きた一皿が、グラスの中の物語を豊かにします。</p>
+          </div>
+          <ul class="food_list">
+            <li>
+              <div>
+                <strong>生ハム（ハモンセラーノ）</strong>
+                <span>1番人気。ウイスキー・シェリー・ワインとの相性は抜群。</span>
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>パスタ各種</strong>
+                <span>その日の素材で仕上げる、やさしい一皿。</span>
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>ムール貝</strong>
+                <span>ワインやジンと合わせて。バルの気分で。</span>
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>その他おつまみ</strong>
+                <span>季節や仕入れによって随時ご用意。マスターへどうぞ。</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cigar -->
+    <div class="c_tabPanel" id="tab-cigar">
+      <div class="food_layout js_reveal">
+        <div class="food_image">
+          <img src="内装＋お酒/line_oa_chat_260324_152705_group_9.jpg" alt="シガー" />
+        </div>
+        <div>
+          <span class="concept_tag">Cigar &amp; Pipe</span>
+          <div class="c_headingLv2">
+            <span class="en">For Connoisseurs</span>
+            <span class="ja">シガー・パイプ愛好家の<br />みなさまへ。</span>
+          </div>
+          <div class="c_lead">
+            <p>BAR PEATは全席喫煙可。シガーやパイプをお楽しみの方も、どうぞお気軽にご来店ください。</p>
+            <p>ウイスキーの煙の香りとともに、ゆったりとした夜をお過ごしいただけます。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════ GALLERY ══════════════ -->
+<section id="gallery">
+  <div class="gallery_grid">
+    <div class="gallery_item">
+      <img src="内装＋お酒/line_oa_chat_260324_152705_group_0.jpg" alt="BAR PEAT" />
+    </div>
+    <div class="gallery_item">
+      <img src="内装＋お酒/line_oa_chat_260324_152705_group_2.jpg" alt="BAR PEAT" />
+    </div>
+    <div class="gallery_item">
+      <img src="内装＋お酒/line_oa_chat_260324_152705_group_6.jpg" alt="BAR PEAT" />
+    </div>
+    <div class="gallery_item">
+      <img src="お酒/line_oa_chat_260324_152758_group_2.jpg" alt="BAR PEAT" />
+    </div>
+    <div class="gallery_item">
+      <img src="お酒/line_oa_chat_260324_152758_group_3.jpg" alt="BAR PEAT" />
+    </div>
+    <div class="gallery_item">
+      <img src="内装＋お酒/line_oa_chat_260324_152705_group_8.jpg" alt="BAR PEAT" />
+    </div>
+    <div class="gallery_item">
+      <img src="お酒/line_oa_chat_260324_152758_group_1.jpg" alt="BAR PEAT" />
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ ACCESS ══════════════ -->
+<section id="access" class="l_sect l_bgGray">
+  <div class="l_container">
+
+    <div class="c_headingLv1 js_reveal">
+      <span class="en">Access &amp; Information</span>
+      <h2 class="c_borderTitle">店舗情報・アクセス</h2>
+    </div>
+
+    <div class="access_grid">
+
+      <div class="js_reveal">
+        <div class="access_map">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d811.1247502369455!2d139.9274!3d35.7274!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188587e44d5e2b%3A0x1!2z5Y2D5YWl55S677yI5Lya44Ov44O844Or44K444OI77yJ!5e0!3m2!1sja!2sjp!4v1700000000000"
+            allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="BAR PEAT アクセスマップ">
+          </iframe>
+        </div>
+        <div class="access_route">
+          <p>
+            <span class="icon">🚃</span>
+            <span><strong>JR総武線「本八幡駅」南口</strong>より徒歩2分<br />
+            <small style="color:var(--color-muted);font-size:.82rem;">マクドナルドの十字路を左折 → 西友の次の十字路 左側 2階</small></span>
+          </p>
+          <p>
+            <span class="icon">🚃</span>
+            <span><strong>京成本線「京成八幡駅」</strong>より徒歩6分</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="js_reveal">
+        <table class="info_table">
+          <tr>
+            <th>所在地</th>
+            <td>
+              千葉県市川市南八幡3-4-8<br />
+              HKアルファビル 2F
+            </td>
+          </tr>
+          <tr>
+            <th>電話</th>
+            <td>
+              <a href="tel:0473783932" style="color:var(--color-theme);letter-spacing:.08em;">047-378-3932</a>
+            </td>
+          </tr>
+          <tr>
+            <th>営業時間</th>
+            <td>
+              <strong>18:00 〜 翌03:00</strong>
+            </td>
+          </tr>
+          <tr>
+            <th>定休日</th>
+            <td>
+              <strong>毎週日曜日</strong>
+              <small>連休の場合は最終日が休業</small>
+            </td>
+          </tr>
+          <tr>
+            <th>チャージ</th>
+            <td>
+              500円
+              <span class="badge_charge">20時までのご来店は無料</span>
+            </td>
+          </tr>
+          <tr>
+            <th>予算目安</th>
+            <td>2,000円 〜 3,999円</td>
+          </tr>
+          <tr>
+            <th>お支払い</th>
+            <td>
+              クレジットカード可
+              <ul class="card_list">
+                <li>VISA</li><li>Master</li><li>JCB</li><li>AMEX</li><li>Diners</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <th>席数</th>
+            <td>
+              <strong>全18席</strong>
+              <small>カーブカウンター10席 ＋ 4人掛けテーブル×2卓</small>
+            </td>
+          </tr>
+          <tr>
+            <th>設備</th>
+            <td>全席喫煙可 ／ 貸切可<br /><small>※駐車場なし</small></td>
+          </tr>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ CTA ══════════════ -->
+<section id="cta">
+  <div class="cta_bg"></div>
+  <div class="l_container cta_content js_reveal">
+    <div class="c_headingLv1">
+      <span class="en">Reservation &amp; Inquiry</span>
+      <h2 class="c_borderTitle" style="color:#fff;">ご予約・お問い合わせ</h2>
+    </div>
+    <a href="tel:0473783932" class="cta_tel">
+      ☎&ensp;047-378-3932
+    </a>
+    <p class="cta_note">営業時間内にお気軽にお電話ください &ensp;|&ensp; 貸切のご相談も承ります</p>
+  </div>
+</section>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer id="footer">
+  <div class="l_container">
+    <div class="footer_top">
+      <div>
+        <div class="footer_logo">
           BAR PEAT
           <small>バー ピート ／ 本八幡</small>
         </div>
-        <nav>
-          <ul class="footer-nav">
-            <li><a href="#concept">Concept</a></li>
-            <li><a href="#menu">Menu</a></li>
-            <li><a href="#info">Access</a></li>
-          </ul>
-        </nav>
+        <p class="footer_addr">
+          〒272-0023<br />
+          千葉県市川市南八幡3-4-8<br />
+          HKアルファビル 2F<br />
+          TEL: 047-378-3932
+        </p>
       </div>
-      <p class="footer-copy">© BAR PEAT All Rights Reserved. &ensp;千葉県市川市南八幡3-4-8 HKアルファビル 2F</p>
+      <div class="footer_nav_group">
+        <div>
+          <p class="footer_nav_label">Navigation</p>
+          <ul>
+            <li><a href="#concept">コンセプト</a></li>
+            <li><a href="#menu">メニュー</a></li>
+            <li><a href="#gallery">ギャラリー</a></li>
+            <li><a href="#access">アクセス</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer_nav_label">Information</p>
+          <ul>
+            <li><a href="#access">営業時間</a></li>
+            <li><a href="#access">定休日</a></li>
+            <li><a href="#access">チャージ</a></li>
+            <li><a href="#access">貸切について</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer_nav_label">Access</p>
+          <ul>
+            <li><a href="#access">本八幡駅より徒歩2分</a></li>
+            <li><a href="#access">京成八幡駅より徒歩6分</a></li>
+            <li><a href="tel:0473783932">047-378-3932</a></li>
+          </ul>
+        </div>
+      </div>
     </div>
-  </footer>
+  </div>
+  <div class="footer_copy">
+    <p>&copy; BAR PEAT All Rights Reserved. &ensp; 千葉県市川市南八幡3-4-8 HKアルファビル 2F</p>
+  </div>
+</footer>
 
-  <!-- ══════════════════ JS ══════════════════ -->
-  <script>
-    /* Nav scroll */
-    const nav = document.getElementById('nav');
-    window.addEventListener('scroll', () => {
-      nav.classList.toggle('scrolled', window.scrollY > 60);
+<!-- ══════════════ JS ══════════════ -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+  /* ── Hero Swiper ── */
+  new Swiper('.hero_swiper', {
+    loop: true,
+    speed: 1400,
+    autoplay: { delay: 5000, disableOnInteraction: false },
+    effect: 'fade',
+    fadeEffect: { crossFade: true },
+    scrollbar: { el: '.hero_swiper .swiper-scrollbar', draggable: true },
+  });
+
+  /* ── Menu photo Swiper ── */
+  new Swiper('.menu_swiper', {
+    loop: false,
+    slidesPerView: 'auto',
+    spaceBetween: 12,
+    freeMode: true,
+    scrollbar: { el: '.menu_swiper .swiper-scrollbar', draggable: true },
+  });
+
+  /* ── Header scroll ── */
+  const header = document.getElementById('header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('is_color', window.scrollY > 60);
+  });
+
+  /* ── Tab UI ── */
+  document.querySelectorAll('.c_tabBtnList button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.c_tabBtnList button').forEach(b => b.classList.remove('is_active'));
+      document.querySelectorAll('.c_tabPanel').forEach(p => p.classList.remove('is_active'));
+      btn.classList.add('is_active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('is_active');
     });
+  });
 
-    /* Scroll reveal */
-    const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12 });
-    reveals.forEach(el => observer.observe(el));
-
-    /* Menu tabs */
-    document.querySelectorAll('.menu-tab').forEach(tab => {
-      tab.addEventListener('click', () => {
-        document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
-        tab.classList.add('active');
-        document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
-      });
+  /* ── Scroll Reveal ── */
+  const revealEls = document.querySelectorAll('.js_reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is_visible');
+        revealObserver.unobserve(entry.target);
+      }
     });
-  </script>
+  }, { threshold: 0.1 });
+  revealEls.forEach(el => revealObserver.observe(el));
+
+  /* ── Border title animation ── */
+  const titleEls = document.querySelectorAll('.c_borderTitle');
+  const titleObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is_animated');
+        titleObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  titleEls.forEach(el => titleObserver.observe(el));
+</script>
 
 </body>
 </html>
