@@ -21,23 +21,23 @@
        Variables
     ════════════════════════════════════════ */
     :root {
-      --color-base:       #1A1A1A;
-      --color-base-light: #2A1B14;
-      --color-card:       #231810;
-      --color-card-alt:   #301f15;
+      --color-base:       #160B0B;
+      --color-base-light: #221010;
+      --color-card:       #1E0E0E;
+      --color-card-alt:   #2A1414;
 
-      --color-accent:       #C68E17;
-      --color-accent-muted: #D4AF37;
-      --color-accent-dk:    #8a6010;
+      --color-accent:       #9B2335;
+      --color-accent-muted: #C03A52;
+      --color-accent-dk:    #6B1522;
 
-      --color-text-main:  #E8E6E1;
-      --color-text-muted: #A3A09B;
-      --color-text-dim:   #706d68;
+      --color-text-main:  #EDE8E2;
+      --color-text-muted: #ADA09A;
+      --color-text-dim:   #726361;
 
-      --color-border:     rgba(198,142,23,.18);
-      --color-border-str: rgba(198,142,23,.32);
+      --color-border:     rgba(155,35,53,.22);
+      --color-border-str: rgba(155,35,53,.42);
 
-      --color-footer:    #100b08;
+      --color-footer:    #0E0707;
 
       --ff-heading-jp: 'Shippori Mincho', 'Noto Serif JP', serif;
       --ff-en:         'Playfair Display', 'Cormorant Garamond', serif;
@@ -73,6 +73,19 @@
     a   { color: inherit; text-decoration: none; transition: opacity var(--tr); }
     a:hover { opacity: .7; }
     ul, ol { list-style: none; }
+
+    /* ── Vintage grain overlay ── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 9997;
+      pointer-events: none;
+      opacity: .038;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 200px 200px;
+    }
 
     /* ════════════════════════════════════════
        Layout
@@ -125,7 +138,7 @@
     .loading_bar {
       width: 160px;
       height: 1px;
-      background: rgba(198,142,23,.15);
+      background: rgba(155,35,53,.18);
       position: relative;
       overflow: hidden;
     }
@@ -222,10 +235,10 @@
       align-items: center;
       justify-content: space-between;
       transition: background var(--tr), box-shadow var(--tr);
-      background: rgba(26,26,26,.08);
+      background: rgba(22,11,11,.08);
     }
     #header.is_color {
-      background: rgba(16,11,8,.96);
+      background: rgba(14,7,7,.96);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--color-border);
@@ -530,7 +543,7 @@
       transform: translateY(-50%);
       z-index: 10;
       width: 38px; height: 38px;
-      background: rgba(16,11,8,.85);
+      background: rgba(14,7,7,.85);
       border: 1px solid var(--color-border);
       display: flex; align-items: center; justify-content: center;
       cursor: pointer;
@@ -890,7 +903,7 @@
 
     .footer_copy {
       background: var(--color-footer);
-      border-top: 1px solid rgba(198,142,23,.08);
+      border-top: 1px solid rgba(155,35,53,.14);
       text-align: center; padding: 1.6rem; margin-top: 0;
     }
     .footer_copy p {
