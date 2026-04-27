@@ -401,44 +401,6 @@
     @keyframes hFadeIn { from { opacity:0; } to { opacity:1; } }
 
     /* ════════════════════════════════════════
-       Info Strip
-    ════════════════════════════════════════ */
-    .info_strip {
-      background: var(--color-base-light);
-      border-top: 1px solid var(--color-border);
-      border-bottom: 1px solid var(--color-border);
-    }
-    .info_strip_inner {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-    }
-    .info_strip_item {
-      padding: 2.4rem 2rem;
-      border-right: 1px solid rgba(255,255,255,.08);
-      text-align: center;
-    }
-    .info_strip_item:last-child { border-right: none; }
-    .info_strip_item .val {
-      font-family: var(--ff-en);
-      font-size: 2.4rem; font-weight: 400;
-      color: var(--color-accent);
-      line-height: 1; letter-spacing: .06em;
-    }
-    .info_strip_item .unit {
-      font-family: var(--ff-body);
-      font-size: .88rem;
-      color: var(--color-accent);
-    }
-    .info_strip_item .lbl {
-      display: block;
-      font-family: var(--ff-sans);
-      font-size: .56rem; font-weight: 400;
-      letter-spacing: .26em; text-transform: uppercase;
-      color: var(--color-text-dim);
-      margin-top: .6rem;
-    }
-
-    /* ════════════════════════════════════════
        About + SNS 2-Column Section（Shannons スタイル）
     ════════════════════════════════════════ */
     #about_sns {
@@ -990,11 +952,7 @@
       .drink_grid { grid-template-columns: 1fr; }
       .gallery_grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 200px; }
       .gallery_item:nth-child(1) { grid-column: span 2; }
-      .info_strip_inner { grid-template-columns: repeat(2, 1fr); }
-      .info_strip_item:nth-child(2) { border-right: none; }
-      .info_strip_item:nth-child(3) { border-top: 1px solid rgba(255,255,255,.08); }
-      .info_strip_item:nth-child(4) { border-top: 1px solid rgba(255,255,255,.08); border-right: none; }
-      .footer_nav_group { grid-template-columns: 1fr 1fr; }
+.footer_nav_group { grid-template-columns: 1fr 1fr; }
       .side_btn { display: none; }
       .menu_swiper .swiper-slide { width: 240px; height: 180px; }
       .food_image { height: 280px; }
@@ -1080,30 +1038,6 @@
     <span>Scroll</span>
   </div>
 </section>
-
-<!-- ══════════════ INFO STRIP ══════════════ -->
-<div class="info_strip">
-  <div class="l_container">
-    <div class="info_strip_inner">
-      <div class="info_strip_item">
-        <div class="val">500<span class="unit">+</span></div>
-        <span class="lbl">Bottles</span>
-      </div>
-      <div class="info_strip_item">
-        <div class="val">18<span class="unit"> 席</span></div>
-        <span class="lbl">Seats</span>
-      </div>
-      <div class="info_strip_item">
-        <div class="val">18<span class="unit">:00</span></div>
-        <span class="lbl">Open</span>
-      </div>
-      <div class="info_strip_item">
-        <div class="val">03<span class="unit">:00</span></div>
-        <span class="lbl">Close (L.O.)</span>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- ══════════════ ABOUT + SNS（Shannons スタイル 2カラム）══════════════ -->
 <section id="about_sns">
