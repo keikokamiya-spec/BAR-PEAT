@@ -13,41 +13,37 @@
   <!-- Swiper -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
   <style>
     /* ════════════════════════════════════════
-       Variables  — BAR PEAT ピートブラック × エイジドアンバー
+       Variables
     ════════════════════════════════════════ */
     :root {
-      /* ── Base（背景） ── */
-      --color-base:       #1A1A1A;   /* ピートブラック：全体背景 */
-      --color-base-light: #2A1B14;   /* ダークマホガニー：セクション・カード */
-      --color-card:       #231810;   /* カード背景 */
-      --color-card-alt:   #301f15;   /* カードホバー背景 */
+      --color-base:       #1A1A1A;
+      --color-base-light: #2A1B14;
+      --color-card:       #231810;
+      --color-card-alt:   #301f15;
 
-      /* ── Accent（金） ── */
-      --color-accent:       #C68E17; /* ウイスキー琥珀 */
-      --color-accent-muted: #D4AF37; /* アンティークゴールド */
-      --color-accent-dk:    #8a6010; /* 深みのある金 */
+      --color-accent:       #C68E17;
+      --color-accent-muted: #D4AF37;
+      --color-accent-dk:    #8a6010;
 
-      /* ── Text ── */
-      --color-text-main:  #E8E6E1;  /* アッシュホワイト */
-      --color-text-muted: #A3A09B;  /* サブテキスト */
-      --color-text-dim:   #706d68;  /* 最も控えめ */
+      --color-text-main:  #E8E6E1;
+      --color-text-muted: #A3A09B;
+      --color-text-dim:   #706d68;
 
-      /* ── Border ── */
       --color-border:     rgba(198,142,23,.18);
       --color-border-str: rgba(198,142,23,.32);
 
-      /* ── Footer ── */
       --color-footer:    #100b08;
 
-      /* ── Typography ── */
       --ff-heading-jp: 'Shippori Mincho', 'Noto Serif JP', serif;
       --ff-en:         'Playfair Display', 'Cormorant Garamond', serif;
       --ff-body:       'Zen Old Mincho', 'Yu Mincho', 'Noto Serif JP', serif;
       --ff-sans:       'Montserrat', sans-serif;
 
-      /* ── 旧変数エイリアス（既存クラスとの互換性） ── */
       --ff-serif:       var(--ff-heading-jp);
       --color-theme:    var(--color-accent);
       --color-theme-lt: var(--color-accent-muted);
@@ -87,19 +83,70 @@
       padding-inline: 25px;
     }
 
-    .l_sect   { padding: 180px 0; }
-    .l_sect02 { padding: 120px 0; }
-    .l_sect03 { padding: 240px 0; }
+    .l_sect   { padding: 120px 0; }
+    .l_sect02 { padding: 80px 0; }
     .l_bgGray { background: var(--color-base-light); }
 
     /* ════════════════════════════════════════
-       Heading System （c_borderTitle）
+       Loading Screen
+    ════════════════════════════════════════ */
+    #js_loading {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: var(--color-base);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity .8s ease, visibility .8s ease;
+    }
+    #js_loading.is_hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .loading_logo {
+      font-family: var(--ff-en);
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: .38em;
+      color: var(--color-accent);
+      margin-bottom: .6rem;
+    }
+    .loading_sub {
+      font-family: var(--ff-sans);
+      font-size: .52rem;
+      letter-spacing: .32em;
+      text-transform: uppercase;
+      color: var(--color-text-dim);
+      margin-bottom: 2.4rem;
+    }
+    .loading_bar {
+      width: 160px;
+      height: 1px;
+      background: rgba(198,142,23,.15);
+      position: relative;
+      overflow: hidden;
+    }
+    .loading_bar::after {
+      content: '';
+      position: absolute;
+      left: 0; top: 0;
+      height: 100%;
+      width: 0;
+      background: var(--color-accent);
+      animation: loadBar 1.5s cubic-bezier(.4,0,.2,1) forwards;
+    }
+    @keyframes loadBar { to { width: 100%; } }
+
+    /* ════════════════════════════════════════
+       Heading System
     ════════════════════════════════════════ */
     .c_headingLv1 {
-      text-align: center;
-      margin-bottom: 90px;
+      text-align: left;
+      margin-bottom: 60px;
     }
-
     .c_headingLv1 .en {
       display: block;
       font-family: var(--ff-sans);
@@ -107,43 +154,33 @@
       font-weight: 400;
       letter-spacing: .38em;
       color: var(--color-accent);
-      margin-bottom: 1rem;
+      margin-bottom: .8rem;
       text-transform: uppercase;
     }
-
     .c_borderTitle {
       display: inline-block;
       font-family: var(--ff-heading-jp);
-      font-size: 2.8rem;
+      font-size: 2.4rem;
       font-weight: 500;
       letter-spacing: .12em;
       line-height: 1.3;
       color: var(--color-text-main);
       position: relative;
-      padding-bottom: 28px;
+      padding-bottom: 24px;
     }
-
     .c_borderTitle::after {
       content: '';
       position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%) scaleX(0);
-      transform-origin: center;
-      width: 40px;
-      height: 1px;
+      bottom: 0; left: 0;
+      transform: scaleX(0);
+      transform-origin: left;
+      width: 40px; height: 1px;
       background: var(--color-theme);
       transition: transform .8s cubic-bezier(.25,.46,.45,.94);
     }
+    .c_borderTitle.is_animated::after { transform: scaleX(1); }
 
-    .c_borderTitle.is_animated::after {
-      transform: translateX(-50%) scaleX(1);
-    }
-
-    .c_headingLv2 {
-      margin-bottom: 40px;
-    }
-
+    .c_headingLv2 { margin-bottom: 30px; }
     .c_headingLv2 .en {
       display: block;
       font-family: var(--ff-en);
@@ -153,10 +190,9 @@
       text-transform: uppercase;
       margin-bottom: .4rem;
     }
-
     .c_headingLv2 .ja {
       font-family: var(--ff-heading-jp);
-      font-size: 2rem;
+      font-size: 1.8rem;
       font-weight: 500;
       letter-spacing: .1em;
       line-height: 1.5;
@@ -165,62 +201,13 @@
 
     .c_lead {
       font-family: var(--ff-body);
-      font-size: 1.05rem;
+      font-size: 1rem;
       font-weight: 400;
       line-height: 2.4;
       color: var(--color-text-muted);
       letter-spacing: .06em;
     }
-
-    .c_lead p + p { margin-top: 1.4em; }
-
-    /* ════════════════════════════════════════
-       Buttons
-    ════════════════════════════════════════ */
-    .c_btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: .6rem;
-      min-width: 240px;
-      min-height: 44px;
-      padding: .7rem 2rem;
-      font-family: var(--ff-sans);
-      font-size: .85rem;
-      font-weight: 400;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      border: 1px solid var(--color-base);
-      color: var(--color-base);
-      background: transparent;
-      transition: var(--tr);
-      cursor: pointer;
-      position: relative;
-    }
-
-    .c_btn::after {
-      content: '→';
-      font-size: .8rem;
-    }
-
-    .c_btn:hover {
-      background: var(--color-base);
-      color: #fff;
-      opacity: 1;
-    }
-
-    .c_btn__bgTheme {
-      background: var(--color-theme);
-      border-color: var(--color-theme);
-      color: #fff;
-    }
-
-    .c_btn__bgTheme:hover {
-      background: var(--color-base);
-      border-color: var(--color-base);
-      color: #fff;
-      opacity: 1;
-    }
+    .c_lead p + p { margin-top: 1.2em; }
 
     /* ════════════════════════════════════════
        Header
@@ -234,17 +221,15 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      transition: background var(--tr), box-shadow var(--tr), border-color var(--tr);
+      transition: background var(--tr), box-shadow var(--tr);
       background: rgba(26,26,26,.08);
     }
-
     #header.is_color {
       background: rgba(16,11,8,.96);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--color-border);
     }
-
     .header_logo {
       font-family: var(--ff-en);
       font-size: 1.55rem;
@@ -253,7 +238,6 @@
       color: var(--color-text-main);
       line-height: 1;
     }
-
     .header_logo small {
       display: block;
       font-family: var(--ff-sans);
@@ -264,9 +248,7 @@
       color: var(--color-text-dim);
       margin-top: 4px;
     }
-
     .header_nav { display: flex; align-items: center; gap: 2.4rem; }
-
     .header_nav a {
       font-family: var(--ff-sans);
       font-size: .66rem;
@@ -276,8 +258,24 @@
       color: var(--color-text-muted);
       transition: color var(--tr);
     }
-
     .header_nav a:hover { color: var(--color-accent-muted); opacity: 1; }
+
+    .header_right {
+      display: flex;
+      align-items: center;
+      gap: 1.6rem;
+    }
+    .header_sns {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .header_sns a {
+      color: var(--color-text-muted);
+      font-size: 1rem;
+      transition: color var(--tr);
+    }
+    .header_sns a:hover { color: var(--color-accent-muted); opacity: 1; }
 
     .header_reserve {
       font-family: var(--ff-sans);
@@ -290,7 +288,6 @@
       padding: .58rem 1.5rem;
       transition: background var(--tr);
     }
-
     .header_reserve:hover { background: var(--color-accent-muted); opacity: 1; }
 
     .header_hamburger {
@@ -302,7 +299,6 @@
       background: none;
       border: none;
     }
-
     .header_hamburger span {
       display: block; width: 26px; height: 1px;
       background: #fff; transition: var(--tr);
@@ -317,16 +313,8 @@
       min-height: 600px;
       overflow: hidden;
     }
-
-    .hero_swiper {
-      width: 100%; height: 100%;
-    }
-
-    .hero_swiper .swiper-slide {
-      position: relative;
-      overflow: hidden;
-    }
-
+    .hero_swiper { width: 100%; height: 100%; }
+    .hero_swiper .swiper-slide { position: relative; overflow: hidden; }
     .hero_swiper .swiper-slide img {
       width: 100%; height: 100%;
       object-fit: cover;
@@ -335,25 +323,18 @@
       transform: scale(1.0);
       transition: transform 7s ease;
     }
-
     .hero_swiper .swiper-scrollbar {
       height: 2px;
       background: rgba(255,255,255,.2);
-      bottom: 0;
-      left: 0;
-      width: 100%;
+      bottom: 0; left: 0; width: 100%;
       border-radius: 0;
     }
-
     .hero_swiper .swiper-scrollbar-drag {
       background: var(--color-theme);
       border-radius: 0;
     }
-
     .hero_content {
-      position: absolute;
-      inset: 0;
-      z-index: 2;
+      position: absolute; inset: 0; z-index: 2;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -361,87 +342,63 @@
       text-align: center;
       color: #fff;
     }
-
     .hero_eyebrow {
       font-family: var(--ff-sans);
-      font-size: .62rem;
-      font-weight: 400;
-      letter-spacing: .42em;
-      text-transform: uppercase;
+      font-size: .62rem; font-weight: 400;
+      letter-spacing: .42em; text-transform: uppercase;
       color: var(--color-theme-lt);
       margin-bottom: 1.8rem;
       opacity: 0;
       animation: hFadeUp .9s .4s forwards;
     }
-
     .hero_title {
       font-family: var(--ff-en);
       font-size: clamp(4.5rem, 11vw, 9rem);
-      font-weight: 700;
-      letter-spacing: .2em;
-      line-height: 1;
+      font-weight: 700; letter-spacing: .2em; line-height: 1;
       color: var(--color-text-main);
       opacity: 0;
       animation: hFadeUp .9s .65s forwards;
     }
-
     .hero_sub {
       font-family: var(--ff-heading-jp);
       font-size: clamp(.88rem, 1.8vw, 1.1rem);
-      font-weight: 400;
-      letter-spacing: .32em;
+      font-weight: 400; letter-spacing: .32em;
       color: var(--color-text-muted);
       margin-top: 1.4rem;
       opacity: 0;
       animation: hFadeUp .9s .9s forwards;
     }
-
     .hero_scroll {
-      position: absolute;
-      bottom: 3rem;
-      left: 50%;
+      position: absolute; bottom: 3rem; left: 50%;
       transform: translateX(-50%);
       z-index: 2;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: .6rem;
+      display: flex; flex-direction: column; align-items: center; gap: .6rem;
       opacity: 0;
       animation: hFadeIn 1s 1.4s forwards;
     }
-
     .hero_scroll span {
       font-family: var(--ff-sans);
-      font-size: .52rem;
-      font-weight: 400;
-      letter-spacing: .3em;
-      text-transform: uppercase;
+      font-size: .52rem; font-weight: 400;
+      letter-spacing: .3em; text-transform: uppercase;
       color: rgba(255,255,255,.5);
     }
-
     .hero_scroll::after {
       content: '';
-      display: block;
-      width: 1px;
-      height: 48px;
+      display: block; width: 1px; height: 48px;
       background: linear-gradient(to bottom, rgba(255,255,255,.5), transparent);
       animation: scrollLine 1.8s 1.6s ease infinite;
     }
-
     @keyframes scrollLine {
       0%   { transform: scaleY(0); transform-origin: top; }
       50%  { transform: scaleY(1); transform-origin: top; }
       51%  { transform: scaleY(1); transform-origin: bottom; }
       100% { transform: scaleY(0); transform-origin: bottom; }
     }
-
     @keyframes hFadeUp {
       from { opacity:0; transform:translateY(20px); }
       to   { opacity:1; transform:translateY(0); }
     }
-    @keyframes hFadeIn {
-      from { opacity:0; } to { opacity:1; }
-    }
+    @keyframes hFadeIn { from { opacity:0; } to { opacity:1; } }
 
     /* ════════════════════════════════════════
        Info Strip
@@ -450,153 +407,223 @@
       background: var(--color-base-light);
       border-top: 1px solid var(--color-border);
       border-bottom: 1px solid var(--color-border);
-      padding: 0;
     }
-
     .info_strip_inner {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
     }
-
     .info_strip_item {
       padding: 2.4rem 2rem;
       border-right: 1px solid rgba(255,255,255,.08);
       text-align: center;
     }
-
     .info_strip_item:last-child { border-right: none; }
-
     .info_strip_item .val {
       font-family: var(--ff-en);
-      font-size: 2.4rem;
-      font-weight: 400;
+      font-size: 2.4rem; font-weight: 400;
       color: var(--color-accent);
-      line-height: 1;
-      letter-spacing: .06em;
+      line-height: 1; letter-spacing: .06em;
     }
-
     .info_strip_item .unit {
       font-family: var(--ff-body);
       font-size: .88rem;
       color: var(--color-accent);
     }
-
     .info_strip_item .lbl {
       display: block;
       font-family: var(--ff-sans);
-      font-size: .56rem;
-      font-weight: 400;
-      letter-spacing: .26em;
-      text-transform: uppercase;
+      font-size: .56rem; font-weight: 400;
+      letter-spacing: .26em; text-transform: uppercase;
       color: var(--color-text-dim);
       margin-top: .6rem;
     }
 
     /* ════════════════════════════════════════
-       Concept
+       About + SNS 2-Column Section（Shannons スタイル）
     ════════════════════════════════════════ */
-    #concept { padding: 180px 0; background: var(--color-base); }
-
-    .concept_grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
+    #about_sns {
+      padding: 120px 0;
+      background: var(--color-base);
+    }
+    .about_sns_wrap {
+      display: flex;
+      gap: 70px;
+      align-items: flex-start;
     }
 
-    .concept_images {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: 280px 180px;
-      gap: 8px;
+    /* --- Left: About --- */
+    .about_col {
+      flex: 0 0 55%;
+      min-width: 0;
     }
-
-    .concept_img_main {
-      grid-column: 1 / -1;
+    .about_main_img {
+      width: 100%; height: 360px;
       overflow: hidden;
+      margin-bottom: 2.8rem;
     }
-
-    .concept_img_main img,
-    .concept_img_sub img {
-      transition: transform .8s ease;
-    }
-
-    .concept_img_main:hover img,
-    .concept_img_sub:hover img {
-      transform: scale(1.05);
-      opacity: 1;
-    }
-
-    .concept_img_sub { overflow: hidden; }
+    .about_main_img img { transition: transform .8s ease; }
+    .about_main_img:hover img { transform: scale(1.04); opacity: 1; }
 
     .concept_tag {
       display: inline-block;
       font-family: var(--ff-sans);
-      font-size: .58rem;
-      font-weight: 400;
-      letter-spacing: .28em;
-      text-transform: uppercase;
+      font-size: .58rem; font-weight: 400;
+      letter-spacing: .28em; text-transform: uppercase;
       color: var(--color-accent);
       border-bottom: 1px solid var(--color-accent-dk);
       padding-bottom: 4px;
-      margin-bottom: 2rem;
+      margin-bottom: 1.6rem;
     }
-
     .concept_quote {
-      margin-top: 2.6rem;
-      padding: 1.8rem 2rem;
+      margin-top: 2rem;
+      padding: 1.6rem 2rem;
       border-left: 2px solid var(--color-accent-dk);
       background: var(--color-base-light);
     }
-
     .concept_quote p {
       font-family: var(--ff-en);
-      font-size: 1.25rem;
+      font-size: 1.1rem;
       font-style: italic;
       color: var(--color-accent-muted);
-      line-height: 1.85;
-      letter-spacing: .04em;
+      line-height: 1.85; letter-spacing: .04em;
     }
+
+    /* --- Right: SNS --- */
+    .sns_col {
+      flex: 1;
+      min-width: 0;
+    }
+    .sns_col_header {
+      margin-bottom: 1.8rem;
+      padding-bottom: 1.2rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .sns_col_title {
+      font-family: var(--ff-en);
+      font-size: 1.8rem; font-weight: 500;
+      letter-spacing: .12em;
+      color: var(--color-text-main);
+      margin-bottom: .8rem;
+    }
+    .sns_col_title span {
+      font-family: var(--ff-sans);
+      font-size: .58rem; font-weight: 400;
+      letter-spacing: .2em; text-transform: uppercase;
+      color: var(--color-text-dim);
+    }
+    .sns_account_links { display: flex; flex-direction: column; gap: .5rem; }
+    .sns_account_links a {
+      display: flex; align-items: center; gap: .7rem;
+      font-family: var(--ff-sans);
+      font-size: .7rem; font-weight: 400;
+      letter-spacing: .1em;
+      color: var(--color-text-muted);
+      transition: color var(--tr);
+    }
+    .sns_account_links a i { font-size: 1.1rem; color: var(--color-accent); }
+    .sns_account_links a:hover { color: var(--color-accent); opacity: 1; }
+
+    /* SNS Swiper */
+    .sns_swiper_wrap { position: relative; margin-bottom: 1.6rem; }
+    .sns_swiper { overflow: hidden; }
+
+    .sns_post_card { background: var(--color-card); }
+    .sns_post_img_link { display: block; }
+    .sns_post_img {
+      width: 100%; height: 260px;
+      overflow: hidden;
+    }
+    .sns_post_img img { transition: transform .6s ease; }
+    .sns_post_card:hover .sns_post_img img { transform: scale(1.05); opacity: 1; }
+
+    .sns_post_body { padding: 1.4rem 1.6rem 1.8rem; }
+    .sns_post_date {
+      font-family: var(--ff-sans);
+      font-size: .54rem; font-weight: 400;
+      letter-spacing: .2em;
+      color: var(--color-accent);
+      margin-bottom: .7rem;
+      display: flex; align-items: center; gap: .5rem;
+    }
+    .sns_post_caption {
+      font-family: var(--ff-body);
+      font-size: .9rem;
+      color: var(--color-text-muted);
+      line-height: 2.0;
+      margin-bottom: 1rem;
+    }
+    .sns_post_link {
+      font-family: var(--ff-sans);
+      font-size: .58rem; font-weight: 400;
+      letter-spacing: .15em; text-transform: uppercase;
+      color: var(--color-accent);
+      transition: color var(--tr);
+    }
+    .sns_post_link:hover { color: var(--color-accent-muted); opacity: 1; }
+
+    /* Swiper Nav Buttons */
+    .swiper_nav_btn {
+      position: absolute;
+      top: 37%;
+      transform: translateY(-50%);
+      z-index: 10;
+      width: 38px; height: 38px;
+      background: rgba(16,11,8,.85);
+      border: 1px solid var(--color-border);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      color: var(--color-accent);
+      font-size: .8rem;
+      transition: background var(--tr), color var(--tr);
+    }
+    .swiper_nav_btn:hover { background: var(--color-accent); color: #fff; }
+    .sns_swiper_prev { left: 0; }
+    .sns_swiper_next { right: 0; }
+    .swiper_nav_btn.swiper-button-disabled { opacity: .3; pointer-events: none; }
+
+    /* SNS Follow Buttons */
+    .sns_follow_wrap { display: flex; gap: .8rem; }
+    .sns_btn {
+      flex: 1;
+      display: flex; align-items: center; justify-content: center; gap: .5rem;
+      padding: .8rem 1rem;
+      font-family: var(--ff-sans);
+      font-size: .62rem; font-weight: 400;
+      letter-spacing: .14em; text-transform: uppercase;
+      transition: opacity var(--tr);
+    }
+    .sns_btn:hover { opacity: .8; }
+    .sns_btn_ig {
+      background: linear-gradient(135deg, #833ab4 0%, #fd1d1d 50%, #fcb045 100%);
+      color: #fff;
+    }
+    .sns_btn_x { background: #000; color: #fff; border: 1px solid rgba(255,255,255,.15); }
 
     /* ════════════════════════════════════════
        Menu
     ════════════════════════════════════════ */
-    #menu { padding: 180px 0; background: var(--color-base-light); }
+    #menu { padding: 120px 0; background: var(--color-base-light); }
 
-    /* Tab UI */
     .c_tabBtnList {
-      display: flex;
-      justify-content: center;
-      gap: 0;
-      margin-bottom: 60px;
+      display: flex; justify-content: center;
+      gap: 0; margin-bottom: 60px;
       border-bottom: 1px solid var(--color-border);
     }
-
     .c_tabBtnList button {
-      background: none;
-      border: none;
-      cursor: pointer;
+      background: none; border: none; cursor: pointer;
       font-family: var(--ff-sans);
-      font-size: .7rem;
-      font-weight: 400;
-      letter-spacing: .2em;
-      text-transform: uppercase;
+      font-size: .7rem; font-weight: 400;
+      letter-spacing: .2em; text-transform: uppercase;
       color: var(--color-muted);
       padding: .9rem 2.4rem;
-      position: relative;
-      transition: color var(--tr);
+      position: relative; transition: color var(--tr);
     }
-
     .c_tabBtnList button::after {
       content: '';
-      position: absolute;
-      bottom: -1px; left: 0; right: 0;
-      height: 2px;
-      background: var(--color-theme);
-      transform: scaleX(0);
-      transition: transform var(--tr);
+      position: absolute; bottom: -1px; left: 0; right: 0;
+      height: 2px; background: var(--color-theme);
+      transform: scaleX(0); transition: transform var(--tr);
     }
-
     .c_tabBtnList button.is_active,
     .c_tabBtnList button:hover { color: var(--color-text-main); }
     .c_tabBtnList button.is_active::after { transform: scaleX(1); }
@@ -604,7 +631,38 @@
     .c_tabPanel { display: none; }
     .c_tabPanel.is_active { display: block; }
 
-    /* Drink cards */
+    .c_section_title {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .c_section_title .en {
+      display: block;
+      font-family: var(--ff-sans);
+      font-size: .62rem; font-weight: 400;
+      letter-spacing: .38em; text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: .8rem;
+    }
+    .c_section_title h2 {
+      display: inline-block;
+      font-family: var(--ff-heading-jp);
+      font-size: 2.4rem; font-weight: 500;
+      letter-spacing: .12em;
+      color: var(--color-text-main);
+      position: relative;
+      padding-bottom: 24px;
+    }
+    .c_section_title h2::after {
+      content: '';
+      position: absolute; bottom: 0; left: 50%;
+      transform: translateX(-50%) scaleX(0);
+      transform-origin: center;
+      width: 40px; height: 1px;
+      background: var(--color-theme);
+      transition: transform .8s cubic-bezier(.25,.46,.45,.94);
+    }
+    .c_section_title h2.is_animated::after { transform: translateX(-50%) scaleX(1); }
+
     .drink_grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -612,161 +670,88 @@
       background: var(--color-border);
       border: 1px solid var(--color-border);
     }
-
     .drink_card {
       background: var(--color-card);
       padding: 3.2rem 2.8rem;
       transition: background var(--tr);
     }
-
     .drink_card:hover { background: var(--color-card-alt); }
-
     .drink_card .cat {
       font-family: var(--ff-sans);
-      font-size: .58rem;
-      font-weight: 400;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-      color: var(--color-theme);
-      margin-bottom: 1rem;
+      font-size: .58rem; font-weight: 400;
+      letter-spacing: .22em; text-transform: uppercase;
+      color: var(--color-theme); margin-bottom: 1rem;
     }
-
     .drink_card .name {
       font-family: var(--ff-en);
-      font-size: 1.6rem;
-      font-weight: 500;
+      font-size: 1.6rem; font-weight: 500;
       letter-spacing: .06em;
       color: var(--color-text-main);
-      margin-bottom: .3rem;
-      line-height: 1.2;
+      margin-bottom: .3rem; line-height: 1.2;
     }
-
     .drink_card .name_jp {
       font-family: var(--ff-body);
       font-size: .88rem;
       color: var(--color-text-muted);
-      margin-bottom: 1rem;
-      letter-spacing: .06em;
+      margin-bottom: 1rem; letter-spacing: .06em;
     }
-
     .drink_card .desc {
       font-family: var(--ff-body);
       font-size: .9rem;
       color: var(--color-text-muted);
       line-height: 2.1;
     }
+    .drink_card .sep { width: 20px; height: 1px; background: var(--color-theme); margin: 1rem 0; }
 
-    .drink_card .sep {
-      width: 20px; height: 1px;
-      background: var(--color-theme);
-      margin: 1rem 0;
-    }
-
-    /* Food section */
     .food_layout {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 70px;
-      align-items: center;
+      gap: 70px; align-items: center;
     }
-
-    .food_image {
-      position: relative;
-      height: 420px;
-      overflow: hidden;
-    }
-
+    .food_image { position: relative; height: 420px; overflow: hidden; }
     .food_image img { transition: transform .8s ease; }
     .food_image:hover img { transform: scale(1.04); opacity: 1; }
-
     .food_badge {
-      position: absolute;
-      top: 1.4rem; left: 1.4rem;
-      background: var(--color-theme);
-      color: #fff;
+      position: absolute; top: 1.4rem; left: 1.4rem;
+      background: var(--color-theme); color: #fff;
       font-family: var(--ff-sans);
-      font-size: .58rem;
-      font-weight: 400;
-      letter-spacing: .2em;
-      text-transform: uppercase;
+      font-size: .58rem; font-weight: 400;
+      letter-spacing: .2em; text-transform: uppercase;
       padding: .4rem 1rem;
     }
-
     .food_list { margin-top: 2rem; }
-
     .food_list li {
-      display: flex;
-      gap: 1rem;
+      display: flex; gap: 1rem;
       padding: 1.4rem 0;
       border-bottom: 1px solid var(--color-border);
       font-family: var(--ff-body);
-      font-size: 1rem;
-      color: var(--color-text-muted);
+      font-size: 1rem; color: var(--color-text-muted);
       align-items: flex-start;
     }
+    .food_list li::before { content: '・'; color: var(--color-theme); flex-shrink: 0; }
+    .food_list li strong { font-weight: 500; display: block; margin-bottom: .15rem; }
+    .food_list li span { font-size: .88rem; color: var(--color-muted); }
 
-    .food_list li::before {
-      content: '・';
-      color: var(--color-theme);
-      flex-shrink: 0;
-    }
-
-    .food_list li strong {
-      font-weight: 500;
-      display: block;
-      margin-bottom: .15rem;
-    }
-
-    .food_list li span {
-      font-size: .88rem;
-      color: var(--color-muted);
-    }
-
-    /* Photo Swiper in menu */
-    .menu_swiper_wrap {
-      margin-top: 90px;
-      position: relative;
-    }
-
-    .menu_swiper {
-      overflow: hidden;
-    }
-
-    .menu_swiper .swiper-slide {
-      width: 300px;
-      height: 220px;
-      overflow: hidden;
-    }
-
-    .menu_swiper .swiper-slide img {
-      transition: transform .6s ease;
-    }
-
+    .menu_swiper_wrap { margin-top: 90px; position: relative; }
+    .menu_swiper { overflow: hidden; }
+    .menu_swiper .swiper-slide { width: 300px; height: 220px; overflow: hidden; }
+    .menu_swiper .swiper-slide img { transition: transform .6s ease; }
     .menu_swiper .swiper-slide:hover img { transform: scale(1.06); opacity: 1; }
-
     .menu_swiper .swiper-scrollbar {
-      height: 2px;
-      background: var(--color-border);
-      bottom: -20px;
-      border-radius: 0;
+      height: 2px; background: var(--color-border);
+      bottom: -20px; border-radius: 0;
     }
-
-    .menu_swiper .swiper-scrollbar-drag {
-      background: var(--color-theme);
-      border-radius: 0;
-    }
+    .menu_swiper .swiper-scrollbar-drag { background: var(--color-theme); border-radius: 0; }
 
     /* ════════════════════════════════════════
        Gallery
     ════════════════════════════════════════ */
     #gallery { padding: 0; }
-
     .gallery_grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       grid-auto-rows: 280px;
     }
-
     .gallery_item { overflow: hidden; position: relative; }
     .gallery_item img { transition: transform .8s ease; }
     .gallery_item:hover img { transform: scale(1.06); opacity: 1; }
@@ -775,124 +760,62 @@
     /* ════════════════════════════════════════
        Access
     ════════════════════════════════════════ */
-    #access { padding: 180px 0; }
-
+    #access { padding: 120px 0; }
     .access_grid {
       display: grid;
       grid-template-columns: 1.1fr 1fr;
-      gap: 80px;
-      align-items: start;
+      gap: 80px; align-items: start;
     }
-
-    .access_map {
-      height: 380px;
-      overflow: hidden;
-      border: 1px solid var(--color-border);
-    }
-
-    .access_map iframe {
-      width: 100%; height: 100%;
-      border: 0;
-      filter: sepia(.3) saturate(.7);
-    }
-
+    .access_map { height: 380px; overflow: hidden; border: 1px solid var(--color-border); }
+    .access_map iframe { width: 100%; height: 100%; border: 0; filter: sepia(.3) saturate(.7); }
     .access_route {
       margin-top: 2rem;
       background: var(--color-base-light);
       padding: 2rem 2.4rem;
       border: 1px solid var(--color-border);
     }
-
     .access_route p {
       font-family: var(--ff-body);
-      font-size: .92rem;
-      color: var(--color-text-muted);
+      font-size: .92rem; color: var(--color-text-muted);
       line-height: 2.1;
-      display: flex;
-      gap: .6rem;
+      display: flex; gap: .6rem;
     }
-
     .access_route p + p {
-      margin-top: .6rem;
-      padding-top: .6rem;
+      margin-top: .6rem; padding-top: .6rem;
       border-top: 1px solid var(--color-border);
     }
+    .access_route .icon { color: var(--color-theme); flex-shrink: 0; }
 
-    .access_route .icon {
-      color: var(--color-theme);
-      flex-shrink: 0;
-    }
-
-    .info_table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    .info_table tr {
-      border-bottom: 1px solid var(--color-border);
-    }
-
+    .info_table { width: 100%; border-collapse: collapse; }
+    .info_table tr { border-bottom: 1px solid var(--color-border); }
     .info_table th {
       font-family: var(--ff-sans);
-      font-size: .62rem;
-      font-weight: 400;
-      letter-spacing: .2em;
-      text-transform: uppercase;
+      font-size: .62rem; font-weight: 400;
+      letter-spacing: .2em; text-transform: uppercase;
       color: var(--color-theme);
       text-align: left;
       padding: 1.2rem 1.4rem 1.2rem 0;
-      width: 34%;
-      vertical-align: top;
-      white-space: nowrap;
+      width: 34%; vertical-align: top; white-space: nowrap;
     }
-
     .info_table td {
       font-family: var(--ff-body);
-      font-size: .98rem;
-      color: var(--color-text-main);
-      padding: 1.4rem 0;
-      line-height: 2.0;
-      vertical-align: top;
+      font-size: .98rem; color: var(--color-text-main);
+      padding: 1.4rem 0; line-height: 2.0; vertical-align: top;
     }
-
-    .info_table td strong {
-      font-weight: 500;
-      display: block;
-    }
-
-    .info_table td small {
-      display: block;
-      font-size: .82rem;
-      color: var(--color-muted);
-      margin-top: .15rem;
-    }
-
+    .info_table td strong { font-weight: 500; display: block; }
+    .info_table td small { display: block; font-size: .82rem; color: var(--color-muted); margin-top: .15rem; }
     .badge_charge {
-      display: inline-block;
-      margin-top: .4rem;
+      display: inline-block; margin-top: .4rem;
       font-family: var(--ff-sans);
-      font-size: .6rem;
-      font-weight: 400;
-      letter-spacing: .1em;
-      color: var(--color-theme);
-      border: 1px solid var(--color-theme);
+      font-size: .6rem; font-weight: 400; letter-spacing: .1em;
+      color: var(--color-theme); border: 1px solid var(--color-theme);
       padding: .2rem .7rem;
     }
-
-    .card_list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: .4rem;
-      margin-top: .5rem;
-    }
-
+    .card_list { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .5rem; }
     .card_list li {
       font-family: var(--ff-sans);
-      font-size: .58rem;
-      font-weight: 400;
-      letter-spacing: .08em;
-      color: var(--color-muted);
-      border: 1px solid var(--color-border);
+      font-size: .58rem; font-weight: 400; letter-spacing: .08em;
+      color: var(--color-muted); border: 1px solid var(--color-border);
       padding: .15rem .55rem;
     }
 
@@ -900,63 +823,50 @@
        CTA Section
     ════════════════════════════════════════ */
     #cta {
-      position: relative;
-      padding: 200px 0;
-      text-align: center;
-      overflow: hidden;
+      position: relative; padding: 200px 0;
+      text-align: center; overflow: hidden;
     }
-
     .cta_bg {
       position: absolute; inset: 0;
       background-image: url('内装＋お酒/line_oa_chat_260324_152705_group_3.jpg');
-      background-size: cover;
-      background-position: center;
+      background-size: cover; background-position: center;
       filter: brightness(.28) saturate(.6);
     }
-
-    .cta_content {
-      position: relative;
-      z-index: 1;
-      color: #fff;
+    .cta_content { position: relative; z-index: 1; color: #fff; }
+    .cta_title {
+      font-family: var(--ff-sans);
+      font-size: .62rem; font-weight: 400;
+      letter-spacing: .38em; text-transform: uppercase;
+      color: var(--color-theme-lt);
+      margin-bottom: 1rem;
+      display: block;
     }
-
-    .cta_content .c_borderTitle { color: #fff; }
-    .cta_content .c_borderTitle::after { background: rgba(255,255,255,.5); }
-
-    .cta_content .en { color: var(--color-theme-lt); }
-
+    .cta_heading {
+      font-family: var(--ff-heading-jp);
+      font-size: 2.4rem; font-weight: 500;
+      letter-spacing: .12em; line-height: 1.3;
+      color: #fff; margin-bottom: 2.4rem;
+    }
     .cta_tel {
-      display: inline-flex;
-      align-items: center;
-      gap: 1rem;
+      display: inline-flex; align-items: center; gap: 1rem;
       font-family: var(--ff-en);
       font-size: clamp(2rem, 5vw, 3.2rem);
-      font-weight: 400;
-      letter-spacing: .1em;
-      color: #fff;
-      margin: 2rem 0 1rem;
+      font-weight: 400; letter-spacing: .1em;
+      color: #fff; margin-bottom: 1rem;
       transition: opacity var(--tr);
     }
-
     .cta_tel:hover { opacity: .7; }
-
     .cta_note {
       font-family: var(--ff-sans);
-      font-size: .65rem;
-      font-weight: 400;
-      letter-spacing: .18em;
-      text-transform: uppercase;
+      font-size: .65rem; font-weight: 400;
+      letter-spacing: .18em; text-transform: uppercase;
       color: rgba(255,255,255,.45);
     }
 
     /* ════════════════════════════════════════
        Footer
     ════════════════════════════════════════ */
-    #footer {
-      background: var(--color-footer);
-      padding: 60px 0 0;
-    }
-
+    #footer { background: var(--color-footer); padding: 60px 0 0; }
     .footer_top {
       display: grid;
       grid-template-columns: 1fr 2fr;
@@ -964,79 +874,67 @@
       padding-bottom: 50px;
       border-bottom: 1px solid rgba(255,255,255,.08);
     }
-
     .footer_logo {
       font-family: var(--ff-en);
-      font-size: 1.8rem;
-      font-weight: 600;
-      letter-spacing: .2em;
-      color: #fff;
+      font-size: 1.8rem; font-weight: 600;
+      letter-spacing: .2em; color: #fff;
     }
-
     .footer_logo small {
       display: block;
       font-family: var(--ff-sans);
-      font-size: .55rem;
-      font-weight: 300;
-      letter-spacing: .3em;
-      text-transform: uppercase;
+      font-size: .55rem; font-weight: 300;
+      letter-spacing: .3em; text-transform: uppercase;
       color: rgba(255,255,255,.35);
       margin-top: 4px;
     }
-
     .footer_addr {
       font-family: var(--ff-serif);
       font-size: .95rem;
       color: rgba(255,255,255,.45);
-      line-height: 1.9;
-      margin-top: 1.4rem;
+      line-height: 1.9; margin-top: 1.4rem;
     }
-
-    .footer_nav_group {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
+    .footer_sns_links {
+      display: flex; gap: 1.2rem;
+      margin-top: 1.6rem;
     }
+    .footer_sns_links a {
+      display: flex; align-items: center; justify-content: center;
+      width: 36px; height: 36px;
+      border: 1px solid rgba(255,255,255,.15);
+      color: rgba(255,255,255,.5);
+      font-size: .95rem;
+      transition: border-color var(--tr), color var(--tr);
+    }
+    .footer_sns_links a:hover { border-color: var(--color-accent); color: var(--color-accent); opacity: 1; }
+    .footer_sns_links .ig:hover { border-color: #e1306c; color: #e1306c; }
+    .footer_sns_links .x:hover  { border-color: #fff; color: #fff; }
 
+    .footer_nav_group { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
     .footer_nav_label {
       font-family: var(--ff-sans);
-      font-size: .58rem;
-      font-weight: 400;
-      letter-spacing: .22em;
-      text-transform: uppercase;
+      font-size: .58rem; font-weight: 400;
+      letter-spacing: .22em; text-transform: uppercase;
       color: rgba(255,255,255,.35);
-      margin-bottom: 1.2rem;
-      padding-bottom: .6rem;
+      margin-bottom: 1.2rem; padding-bottom: .6rem;
       border-bottom: 1px solid rgba(255,255,255,.08);
     }
-
-    .footer_nav_group ul li {
-      margin-bottom: .6rem;
-    }
-
+    .footer_nav_group ul li { margin-bottom: .6rem; }
     .footer_nav_group ul li a {
       font-family: var(--ff-serif);
-      font-size: .92rem;
-      color: rgba(255,255,255,.55);
+      font-size: .92rem; color: rgba(255,255,255,.55);
       transition: color var(--tr);
     }
-
     .footer_nav_group ul li a:hover { color: #fff; opacity: 1; }
 
     .footer_copy {
       background: var(--color-footer);
       border-top: 1px solid rgba(198,142,23,.08);
-      text-align: center;
-      padding: 1.6rem;
-      margin-top: 0;
+      text-align: center; padding: 1.6rem; margin-top: 0;
     }
-
     .footer_copy p {
       font-family: var(--ff-sans);
-      font-size: .56rem;
-      font-weight: 400;
-      letter-spacing: .18em;
-      text-transform: uppercase;
+      font-size: .56rem; font-weight: 400;
+      letter-spacing: .18em; text-transform: uppercase;
       color: var(--color-text-dim);
     }
 
@@ -1044,38 +942,25 @@
        Side Button
     ════════════════════════════════════════ */
     .side_btn {
-      position: fixed;
-      right: 0;
-      bottom: 8%;
-      z-index: 900;
+      position: fixed; right: 0; bottom: 8%; z-index: 900;
       writing-mode: vertical-rl;
-      background: var(--color-theme);
-      color: #fff;
+      background: var(--color-theme); color: #fff;
       font-family: var(--ff-sans);
-      font-size: .6rem;
-      font-weight: 400;
-      letter-spacing: .2em;
-      text-transform: uppercase;
+      font-size: .6rem; font-weight: 400;
+      letter-spacing: .2em; text-transform: uppercase;
       padding: 1.2rem .7rem;
       transition: background var(--tr);
     }
-
     .side_btn:hover { background: var(--color-accent-dk); opacity: 1; }
 
     /* ════════════════════════════════════════
        Scroll Reveal
     ════════════════════════════════════════ */
     .js_reveal {
-      opacity: 0;
-      transform: translateY(28px);
+      opacity: 0; transform: translateY(28px);
       transition: opacity .8s ease, transform .8s ease;
     }
-
-    .js_reveal.is_visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
+    .js_reveal.is_visible { opacity: 1; transform: translateY(0); }
     .js_reveal:nth-child(2) { transition-delay: .1s; }
     .js_reveal:nth-child(3) { transition-delay: .2s; }
     .js_reveal:nth-child(4) { transition-delay: .3s; }
@@ -1083,61 +968,56 @@
     /* ════════════════════════════════════════
        Responsive
     ════════════════════════════════════════ */
+    @media (max-width: 900px) {
+      .about_sns_wrap { flex-direction: column; gap: 60px; }
+      .about_col { flex: none; }
+      .sns_col { flex: none; }
+    }
+
     @media (max-width: 768px) {
       body { font-size: 1.2rem; }
-
       #header { padding: 0 20px; }
       .header_nav { display: none; }
+      .header_right .header_sns { display: none; }
       .header_reserve { display: none; }
       .header_hamburger { display: flex; }
 
-      .l_sect, .l_sect03 { padding: 100px 0; }
-      .l_sect02 { padding: 70px 0; }
+      #about_sns, #menu, #access { padding: 80px 0; }
 
-      .c_borderTitle { font-size: 2rem; }
+      .c_borderTitle { font-size: 1.9rem; }
 
-      .concept_grid,
-      .food_layout,
-      .access_grid,
-      .footer_top { grid-template-columns: 1fr; gap: 40px; }
-
-      .concept_images {
-        grid-template-rows: 220px 140px;
-        gap: 6px;
-      }
-
+      .food_layout, .access_grid, .footer_top { grid-template-columns: 1fr; gap: 40px; }
       .drink_grid { grid-template-columns: 1fr; }
-
-      .gallery_grid {
-        grid-template-columns: repeat(2, 1fr);
-        grid-auto-rows: 200px;
-      }
-
+      .gallery_grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 200px; }
       .gallery_item:nth-child(1) { grid-column: span 2; }
-
       .info_strip_inner { grid-template-columns: repeat(2, 1fr); }
       .info_strip_item:nth-child(2) { border-right: none; }
       .info_strip_item:nth-child(3) { border-top: 1px solid rgba(255,255,255,.08); }
       .info_strip_item:nth-child(4) { border-top: 1px solid rgba(255,255,255,.08); border-right: none; }
-
       .footer_nav_group { grid-template-columns: 1fr 1fr; }
-
       .side_btn { display: none; }
-
       .menu_swiper .swiper-slide { width: 240px; height: 180px; }
-
       .food_image { height: 280px; }
+      .about_main_img { height: 260px; }
+      .sns_post_img { height: 200px; }
     }
 
     @media (max-width: 480px) {
-      .c_tabBtnList { gap: 0; }
       .c_tabBtnList button { padding: .9rem 1.2rem; font-size: .62rem; }
       .gallery_grid { grid-template-columns: 1fr; }
       .gallery_item:nth-child(1) { grid-column: span 1; }
+      .sns_follow_wrap { flex-direction: column; }
     }
   </style>
 </head>
 <body>
+
+<!-- ══ LOADING SCREEN ══ -->
+<div id="js_loading">
+  <div class="loading_logo">BAR PEAT</div>
+  <div class="loading_sub">Bar &middot; Motoyawata</div>
+  <div class="loading_bar"></div>
+</div>
 
 <!-- ══ SIDE BTN ══ -->
 <a href="tel:0473783932" class="side_btn">Reserve &amp; Tel</a>
@@ -1149,12 +1029,22 @@
     <small>Bar &middot; Motoyawata</small>
   </a>
   <nav class="header_nav">
-    <a href="#concept">Concept</a>
+    <a href="#about_sns">Concept</a>
     <a href="menu.html">Menu</a>
     <a href="#gallery">Gallery</a>
     <a href="#access">Access</a>
   </nav>
-  <a href="tel:0473783932" class="header_reserve">047-378-3932</a>
+  <div class="header_right">
+    <div class="header_sns">
+      <a href="https://www.instagram.com/bar_peat_99/" target="_blank" rel="noopener" aria-label="Instagram">
+        <i class="fab fa-instagram"></i>
+      </a>
+      <a href="https://x.com/BARPEAT_1999" target="_blank" rel="noopener" aria-label="X">
+        <i class="fa-brands fa-x-twitter"></i>
+      </a>
+    </div>
+    <a href="tel:0473783932" class="header_reserve">047-378-3932</a>
+  </div>
   <button class="header_hamburger" aria-label="メニュー">
     <span></span><span></span><span></span>
   </button>
@@ -1215,34 +1105,30 @@
   </div>
 </div>
 
-<!-- ══════════════ CONCEPT ══════════════ -->
-<section id="concept" class="l_sect">
+<!-- ══════════════ ABOUT + SNS（Shannons スタイル 2カラム）══════════════ -->
+<section id="about_sns">
   <div class="l_container">
+    <div class="about_sns_wrap">
 
-    <div class="c_headingLv1 js_reveal">
-      <span class="en">Concept</span>
-      <h2 class="c_borderTitle">大人の隠れ家バー</h2>
-    </div>
+      <!-- Left: Concept / About -->
+      <div class="about_col js_reveal">
 
-    <div class="concept_grid">
-      <div class="concept_images js_reveal">
-        <div class="concept_img_main">
+        <div class="c_headingLv1">
+          <span class="en">Concept</span>
+          <h2 class="c_borderTitle">大人の隠れ家バー</h2>
+        </div>
+
+        <div class="about_main_img">
           <img src="内装＋お酒/line_oa_chat_260324_152705_group_1.jpg" alt="BAR PEAT 店内" />
         </div>
-        <div class="concept_img_sub">
-          <img src="内装＋お酒/line_oa_chat_260324_152705_group_4.jpg" alt="バックバー" />
-        </div>
-        <div class="concept_img_sub">
-          <img src="内装＋お酒/line_oa_chat_260324_152705_group_5.jpg" alt="ウイスキー" />
-        </div>
-      </div>
 
-      <div class="js_reveal">
         <span class="concept_tag">About BAR PEAT</span>
+
         <div class="c_headingLv2">
           <span class="en">A quiet sanctuary<br />for discerning adults</span>
           <span class="ja">静かな一夜を、あなたへ。</span>
         </div>
+
         <div class="c_lead">
           <p>
             本八幡駅南口から徒歩わずか2分。喧騒を抜けたビルの2階に、
@@ -1258,23 +1144,141 @@
             あなたの好みに寄り添いながら最良の一杯をお届けします。
           </p>
         </div>
+
         <blockquote class="concept_quote">
           <p>
             "From first-timers to seasoned whisky lovers —<br />
             at your own pace, at your own pleasure."
           </p>
         </blockquote>
-      </div>
-    </div>
 
+      </div>
+
+      <!-- Right: SNS Feed -->
+      <div class="sns_col js_reveal">
+
+        <div class="sns_col_header">
+          <h3 class="sns_col_title">SNS <span>/ Follow us</span></h3>
+          <div class="sns_account_links">
+            <a href="https://www.instagram.com/bar_peat_99/" target="_blank" rel="noopener">
+              <i class="fab fa-instagram"></i>
+              @bar_peat_99
+            </a>
+            <a href="https://x.com/BARPEAT_1999" target="_blank" rel="noopener">
+              <i class="fa-brands fa-x-twitter"></i>
+              @BARPEAT_1999
+            </a>
+          </div>
+        </div>
+
+        <!-- SNS Post Slider -->
+        <div class="sns_swiper_wrap">
+          <div class="swiper sns_swiper">
+            <div class="swiper-wrapper">
+
+              <div class="swiper-slide">
+                <div class="sns_post_card">
+                  <a href="https://www.instagram.com/bar_peat_99/" target="_blank" rel="noopener" class="sns_post_img_link">
+                    <div class="sns_post_img">
+                      <img src="内装＋お酒/line_oa_chat_260324_152705_group_0.jpg" alt="BAR PEAT 店内" />
+                    </div>
+                  </a>
+                  <div class="sns_post_body">
+                    <div class="sns_post_date"><i class="fab fa-instagram"></i> 2026.04</div>
+                    <p class="sns_post_caption">本八幡 南口から徒歩2分。静かな夜のひとときをどうぞ。全席喫煙可のオーセンティックバーです。</p>
+                    <a href="https://www.instagram.com/bar_peat_99/" class="sns_post_link" target="_blank" rel="noopener">View on Instagram →</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="swiper-slide">
+                <div class="sns_post_card">
+                  <a href="https://www.instagram.com/bar_peat_99/" target="_blank" rel="noopener" class="sns_post_img_link">
+                    <div class="sns_post_img">
+                      <img src="内装＋お酒/line_oa_chat_260324_152705_group_2.jpg" alt="BAR PEAT バックバー" />
+                    </div>
+                  </a>
+                  <div class="sns_post_body">
+                    <div class="sns_post_date"><i class="fab fa-instagram"></i> 2026.03</div>
+                    <p class="sns_post_caption">バックバーに約500種のボトル。シングルモルトからヴィンテージまで、あなたの一杯を見つけに来てください。</p>
+                    <a href="https://www.instagram.com/bar_peat_99/" class="sns_post_link" target="_blank" rel="noopener">View on Instagram →</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="swiper-slide">
+                <div class="sns_post_card">
+                  <a href="https://www.instagram.com/bar_peat_99/" target="_blank" rel="noopener" class="sns_post_img_link">
+                    <div class="sns_post_img">
+                      <img src="お酒/line_oa_chat_260324_152758_group_0.jpg" alt="BAR PEAT お酒" />
+                    </div>
+                  </a>
+                  <div class="sns_post_body">
+                    <div class="sns_post_date"><i class="fab fa-instagram"></i> 2026.03</div>
+                    <p class="sns_post_caption">スペイサイドモルトを中心に、オフィシャル・ボトラーズまで幅広く取り揃え。マスターにお気軽にご相談を。</p>
+                    <a href="https://www.instagram.com/bar_peat_99/" class="sns_post_link" target="_blank" rel="noopener">View on Instagram →</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="swiper-slide">
+                <div class="sns_post_card">
+                  <a href="https://www.instagram.com/bar_peat_99/" target="_blank" rel="noopener" class="sns_post_img_link">
+                    <div class="sns_post_img">
+                      <img src="お酒/line_oa_chat_260324_152758_group_2.jpg" alt="BAR PEAT お酒" />
+                    </div>
+                  </a>
+                  <div class="sns_post_body">
+                    <div class="sns_post_date"><i class="fab fa-instagram"></i> 2026.02</div>
+                    <p class="sns_post_caption">レア・ヴィンテージボトルも随時入荷。その時だけの出会いをお楽しみください。#BARPEAT #本八幡バー</p>
+                    <a href="https://www.instagram.com/bar_peat_99/" class="sns_post_link" target="_blank" rel="noopener">View on Instagram →</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="swiper-slide">
+                <div class="sns_post_card">
+                  <a href="https://www.instagram.com/bar_peat_99/" target="_blank" rel="noopener" class="sns_post_img_link">
+                    <div class="sns_post_img">
+                      <img src="内装＋お酒/line_oa_chat_260324_152705_group_4.jpg" alt="BAR PEAT" />
+                    </div>
+                  </a>
+                  <div class="sns_post_body">
+                    <div class="sns_post_date"><i class="fab fa-instagram"></i> 2026.02</div>
+                    <p class="sns_post_caption">カーブを描く10席のカウンター。お一人様でも、お連れ様とご一緒でも。あなたのペースでどうぞ。</p>
+                    <a href="https://www.instagram.com/bar_peat_99/" class="sns_post_link" target="_blank" rel="noopener">View on Instagram →</a>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div class="sns_swiper_prev swiper_nav_btn"><i class="fas fa-chevron-left"></i></div>
+          <div class="sns_swiper_next swiper_nav_btn"><i class="fas fa-chevron-right"></i></div>
+        </div>
+
+        <!-- Follow Buttons -->
+        <div class="sns_follow_wrap">
+          <a href="https://www.instagram.com/bar_peat_99/" target="_blank" rel="noopener" class="sns_btn sns_btn_ig">
+            <i class="fab fa-instagram"></i> Instagram
+          </a>
+          <a href="https://x.com/BARPEAT_1999" target="_blank" rel="noopener" class="sns_btn sns_btn_x">
+            <i class="fa-brands fa-x-twitter"></i>&ensp;X / Twitter
+          </a>
+        </div>
+
+      </div>
+      <!-- /sns_col -->
+
+    </div>
   </div>
 </section>
 
 <!-- ══════════════ MENU ══════════════ -->
-<section id="menu" class="l_sect">
+<section id="menu">
   <div class="l_container">
 
-    <div class="c_headingLv1 js_reveal">
+    <div class="c_section_title js_reveal">
       <span class="en">Menu</span>
       <h2 class="c_borderTitle">500種のボトルと確かな一杯</h2>
     </div>
@@ -1333,31 +1337,16 @@
         </div>
       </div>
 
-      <!-- Swiper photos -->
       <div class="menu_swiper_wrap js_reveal">
         <div class="swiper menu_swiper">
           <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <img src="お酒/line_oa_chat_260324_152758_group_0.jpg" alt="お酒" />
-            </div>
-            <div class="swiper-slide">
-              <img src="お酒/line_oa_chat_260324_152758_group_1.jpg" alt="お酒" />
-            </div>
-            <div class="swiper-slide">
-              <img src="お酒/line_oa_chat_260324_152758_group_2.jpg" alt="お酒" />
-            </div>
-            <div class="swiper-slide">
-              <img src="お酒/line_oa_chat_260324_152758_group_3.jpg" alt="お酒" />
-            </div>
-            <div class="swiper-slide">
-              <img src="お酒/line_oa_chat_260324_152758_group_4.jpg" alt="お酒" />
-            </div>
-            <div class="swiper-slide">
-              <img src="内装＋お酒/line_oa_chat_260324_152705_group_6.jpg" alt="お酒" />
-            </div>
-            <div class="swiper-slide">
-              <img src="内装＋お酒/line_oa_chat_260324_152705_group_8.jpg" alt="お酒" />
-            </div>
+            <div class="swiper-slide"><img src="お酒/line_oa_chat_260324_152758_group_0.jpg" alt="お酒" /></div>
+            <div class="swiper-slide"><img src="お酒/line_oa_chat_260324_152758_group_1.jpg" alt="お酒" /></div>
+            <div class="swiper-slide"><img src="お酒/line_oa_chat_260324_152758_group_2.jpg" alt="お酒" /></div>
+            <div class="swiper-slide"><img src="お酒/line_oa_chat_260324_152758_group_3.jpg" alt="お酒" /></div>
+            <div class="swiper-slide"><img src="お酒/line_oa_chat_260324_152758_group_4.jpg" alt="お酒" /></div>
+            <div class="swiper-slide"><img src="内装＋お酒/line_oa_chat_260324_152705_group_6.jpg" alt="お酒" /></div>
+            <div class="swiper-slide"><img src="内装＋お酒/line_oa_chat_260324_152705_group_8.jpg" alt="お酒" /></div>
           </div>
           <div class="swiper-scrollbar"></div>
         </div>
@@ -1381,30 +1370,10 @@
             <p>食へのこだわりが深いオーナーが手がける料理は、どれもお酒との相性を考えた逸品ばかり。シンプルながら素材の味が生きた一皿が、グラスの中の物語を豊かにします。</p>
           </div>
           <ul class="food_list">
-            <li>
-              <div>
-                <strong>生ハム（ハモンセラーノ）</strong>
-                <span>1番人気。ウイスキー・シェリー・ワインとの相性は抜群。</span>
-              </div>
-            </li>
-            <li>
-              <div>
-                <strong>パスタ各種</strong>
-                <span>その日の素材で仕上げる、やさしい一皿。</span>
-              </div>
-            </li>
-            <li>
-              <div>
-                <strong>ムール貝</strong>
-                <span>ワインやジンと合わせて。バルの気分で。</span>
-              </div>
-            </li>
-            <li>
-              <div>
-                <strong>その他おつまみ</strong>
-                <span>季節や仕入れによって随時ご用意。マスターへどうぞ。</span>
-              </div>
-            </li>
+            <li><div><strong>生ハム（ハモンセラーノ）</strong><span>1番人気。ウイスキー・シェリー・ワインとの相性は抜群。</span></div></li>
+            <li><div><strong>パスタ各種</strong><span>その日の素材で仕上げる、やさしい一皿。</span></div></li>
+            <li><div><strong>ムール貝</strong><span>ワインやジンと合わせて。バルの気分で。</span></div></li>
+            <li><div><strong>その他おつまみ</strong><span>季節や仕入れによって随時ご用意。マスターへどうぞ。</span></div></li>
           </ul>
         </div>
       </div>
@@ -1436,41 +1405,26 @@
 <!-- ══════════════ GALLERY ══════════════ -->
 <section id="gallery">
   <div class="gallery_grid">
-    <div class="gallery_item">
-      <img src="内装＋お酒/line_oa_chat_260324_152705_group_0.jpg" alt="BAR PEAT" />
-    </div>
-    <div class="gallery_item">
-      <img src="内装＋お酒/line_oa_chat_260324_152705_group_2.jpg" alt="BAR PEAT" />
-    </div>
-    <div class="gallery_item">
-      <img src="内装＋お酒/line_oa_chat_260324_152705_group_6.jpg" alt="BAR PEAT" />
-    </div>
-    <div class="gallery_item">
-      <img src="お酒/line_oa_chat_260324_152758_group_2.jpg" alt="BAR PEAT" />
-    </div>
-    <div class="gallery_item">
-      <img src="お酒/line_oa_chat_260324_152758_group_3.jpg" alt="BAR PEAT" />
-    </div>
-    <div class="gallery_item">
-      <img src="内装＋お酒/line_oa_chat_260324_152705_group_8.jpg" alt="BAR PEAT" />
-    </div>
-    <div class="gallery_item">
-      <img src="お酒/line_oa_chat_260324_152758_group_1.jpg" alt="BAR PEAT" />
-    </div>
+    <div class="gallery_item"><img src="内装＋お酒/line_oa_chat_260324_152705_group_0.jpg" alt="BAR PEAT" /></div>
+    <div class="gallery_item"><img src="内装＋お酒/line_oa_chat_260324_152705_group_2.jpg" alt="BAR PEAT" /></div>
+    <div class="gallery_item"><img src="内装＋お酒/line_oa_chat_260324_152705_group_6.jpg" alt="BAR PEAT" /></div>
+    <div class="gallery_item"><img src="お酒/line_oa_chat_260324_152758_group_2.jpg" alt="BAR PEAT" /></div>
+    <div class="gallery_item"><img src="お酒/line_oa_chat_260324_152758_group_3.jpg" alt="BAR PEAT" /></div>
+    <div class="gallery_item"><img src="内装＋お酒/line_oa_chat_260324_152705_group_8.jpg" alt="BAR PEAT" /></div>
+    <div class="gallery_item"><img src="お酒/line_oa_chat_260324_152758_group_1.jpg" alt="BAR PEAT" /></div>
   </div>
 </section>
 
 <!-- ══════════════ ACCESS ══════════════ -->
-<section id="access" class="l_sect l_bgGray">
+<section id="access" class="l_bgGray">
   <div class="l_container">
 
-    <div class="c_headingLv1 js_reveal">
+    <div class="c_section_title js_reveal">
       <span class="en">Access &amp; Information</span>
       <h2 class="c_borderTitle">店舗情報・アクセス</h2>
     </div>
 
     <div class="access_grid">
-
       <div class="js_reveal">
         <div class="access_map">
           <iframe
@@ -1495,67 +1449,29 @@
 
       <div class="js_reveal">
         <table class="info_table">
-          <tr>
-            <th>所在地</th>
-            <td>
-              千葉県市川市南八幡3-4-8<br />
-              HKアルファビル 2F
-            </td>
-          </tr>
-          <tr>
-            <th>電話</th>
-            <td>
-              <a href="tel:0473783932" style="color:var(--color-theme);letter-spacing:.08em;">047-378-3932</a>
-            </td>
-          </tr>
-          <tr>
-            <th>営業時間</th>
-            <td>
-              <strong>18:00 〜 翌03:00</strong>
-            </td>
-          </tr>
-          <tr>
-            <th>定休日</th>
-            <td>
-              <strong>毎週日曜日</strong>
-              <small>連休の場合は最終日が休業</small>
-            </td>
-          </tr>
+          <tr><th>所在地</th><td>千葉県市川市南八幡3-4-8<br />HKアルファビル 2F</td></tr>
+          <tr><th>電話</th><td><a href="tel:0473783932" style="color:var(--color-theme);letter-spacing:.08em;">047-378-3932</a></td></tr>
+          <tr><th>営業時間</th><td><strong>18:00 〜 翌03:00</strong></td></tr>
+          <tr><th>定休日</th><td><strong>毎週日曜日</strong><small>連休の場合は最終日が休業</small></td></tr>
           <tr>
             <th>チャージ</th>
-            <td>
-              500円
-              <span class="badge_charge">20時までのご来店は無料</span>
-            </td>
+            <td>500円<span class="badge_charge">20時までのご来店は無料</span></td>
           </tr>
-          <tr>
-            <th>予算目安</th>
-            <td>2,000円 〜 3,999円</td>
-          </tr>
+          <tr><th>予算目安</th><td>2,000円 〜 3,999円</td></tr>
           <tr>
             <th>お支払い</th>
-            <td>
-              クレジットカード可
+            <td>クレジットカード可
               <ul class="card_list">
                 <li>VISA</li><li>Master</li><li>JCB</li><li>AMEX</li><li>Diners</li>
               </ul>
             </td>
           </tr>
-          <tr>
-            <th>席数</th>
-            <td>
-              <strong>全18席</strong>
-              <small>カーブカウンター10席 ＋ 4人掛けテーブル×2卓</small>
-            </td>
-          </tr>
-          <tr>
-            <th>設備</th>
-            <td>全席喫煙可 ／ 貸切可<br /><small>※駐車場なし</small></td>
-          </tr>
+          <tr><th>席数</th><td><strong>全18席</strong><small>カーブカウンター10席 ＋ 4人掛けテーブル×2卓</small></td></tr>
+          <tr><th>設備</th><td>全席喫煙可 ／ 貸切可<br /><small>※駐車場なし</small></td></tr>
         </table>
       </div>
-
     </div>
+
   </div>
 </section>
 
@@ -1563,13 +1479,9 @@
 <section id="cta">
   <div class="cta_bg"></div>
   <div class="l_container cta_content js_reveal">
-    <div class="c_headingLv1">
-      <span class="en">Reservation &amp; Inquiry</span>
-      <h2 class="c_borderTitle" style="color:#fff;">ご予約・お問い合わせ</h2>
-    </div>
-    <a href="tel:0473783932" class="cta_tel">
-      ☎&ensp;047-378-3932
-    </a>
+    <span class="cta_title">Reservation &amp; Inquiry</span>
+    <h2 class="cta_heading">ご予約・お問い合わせ</h2>
+    <a href="tel:0473783932" class="cta_tel">&#9990;&ensp;047-378-3932</a>
     <p class="cta_note">営業時間内にお気軽にお電話ください &ensp;|&ensp; 貸切のご相談も承ります</p>
   </div>
 </section>
@@ -1589,12 +1501,20 @@
           HKアルファビル 2F<br />
           TEL: 047-378-3932
         </p>
+        <div class="footer_sns_links">
+          <a href="https://www.instagram.com/bar_peat_99/" target="_blank" rel="noopener" aria-label="Instagram" class="ig">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="https://x.com/BARPEAT_1999" target="_blank" rel="noopener" aria-label="X" class="x">
+            <i class="fa-brands fa-x-twitter"></i>
+          </a>
+        </div>
       </div>
       <div class="footer_nav_group">
         <div>
           <p class="footer_nav_label">Navigation</p>
           <ul>
-            <li><a href="#concept">コンセプト</a></li>
+            <li><a href="#about_sns">コンセプト</a></li>
             <li><a href="#menu">メニュー</a></li>
             <li><a href="#gallery">ギャラリー</a></li>
             <li><a href="#access">アクセス</a></li>
@@ -1610,10 +1530,10 @@
           </ul>
         </div>
         <div>
-          <p class="footer_nav_label">Access</p>
+          <p class="footer_nav_label">Follow us</p>
           <ul>
-            <li><a href="#access">本八幡駅より徒歩2分</a></li>
-            <li><a href="#access">京成八幡駅より徒歩6分</a></li>
+            <li><a href="https://www.instagram.com/bar_peat_99/" target="_blank" rel="noopener">Instagram</a></li>
+            <li><a href="https://x.com/BARPEAT_1999" target="_blank" rel="noopener">X / Twitter</a></li>
             <li><a href="tel:0473783932">047-378-3932</a></li>
           </ul>
         </div>
@@ -1628,6 +1548,13 @@
 <!-- ══════════════ JS ══════════════ -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
+  /* ── Loading Screen ── */
+  window.addEventListener('load', function () {
+    setTimeout(function () {
+      document.getElementById('js_loading').classList.add('is_hidden');
+    }, 1700);
+  });
+
   /* ── Hero Swiper ── */
   new Swiper('.hero_swiper', {
     loop: true,
@@ -1652,6 +1579,19 @@
         if (activeImg) activeImg.style.transform = 'scale(1.06)';
       }
     }
+  });
+
+  /* ── SNS Swiper ── */
+  new Swiper('.sns_swiper', {
+    loop: true,
+    speed: 800,
+    autoplay: { delay: 4500, disableOnInteraction: false },
+    slidesPerView: 1,
+    spaceBetween: 0,
+    navigation: {
+      nextEl: '.sns_swiper_next',
+      prevEl: '.sns_swiper_prev',
+    },
   });
 
   /* ── Menu photo Swiper ── */
@@ -1680,7 +1620,6 @@
   });
 
   /* ── Scroll Reveal ── */
-  const revealEls = document.querySelectorAll('.js_reveal');
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -1688,11 +1627,10 @@
         revealObserver.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.1 });
-  revealEls.forEach(el => revealObserver.observe(el));
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.js_reveal').forEach(el => revealObserver.observe(el));
 
   /* ── Border title animation ── */
-  const titleEls = document.querySelectorAll('.c_borderTitle');
   const titleObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -1701,7 +1639,7 @@
       }
     });
   }, { threshold: 0.5 });
-  titleEls.forEach(el => titleObserver.observe(el));
+  document.querySelectorAll('.c_borderTitle').forEach(el => titleObserver.observe(el));
 </script>
 
 </body>
