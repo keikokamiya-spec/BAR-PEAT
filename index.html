@@ -557,22 +557,23 @@
     .swiper_nav_btn.swiper-button-disabled { opacity: .3; pointer-events: none; }
 
     /* SNS Follow Buttons */
-    .sns_follow_wrap { display: flex; gap: .8rem; }
+    .sns_follow_wrap { display: flex; gap: .8rem; flex-wrap: wrap; }
     .sns_btn {
-      flex: 1;
-      display: flex; align-items: center; justify-content: center; gap: .5rem;
-      padding: .8rem 1rem;
+      display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+      padding: .7rem 1.4rem;
       font-family: var(--ff-sans);
-      font-size: .62rem; font-weight: 400;
-      letter-spacing: .14em; text-transform: uppercase;
-      transition: opacity var(--tr);
+      font-size: .6rem; font-weight: 400;
+      letter-spacing: .16em; text-transform: uppercase;
+      border: 1px solid var(--color-border-str);
+      color: var(--color-text-main);
+      background: transparent;
+      transition: background var(--tr), border-color var(--tr), color var(--tr);
+      white-space: nowrap;
     }
-    .sns_btn:hover { opacity: .8; }
-    .sns_btn_ig {
-      background: linear-gradient(135deg, #833ab4 0%, #fd1d1d 50%, #fcb045 100%);
-      color: #fff;
-    }
-    .sns_btn_x { background: #000; color: #fff; border: 1px solid rgba(255,255,255,.15); }
+    .sns_btn:hover { background: var(--color-accent); border-color: var(--color-accent); color: #fff; opacity: 1; }
+    .sns_btn_ig { color: var(--color-accent-muted); border-color: var(--color-accent-dk); }
+    .sns_btn_ig:hover { background: var(--color-accent); border-color: var(--color-accent); color: #fff; }
+    .sns_btn_x { color: var(--color-text-muted); }
 
     /* ════════════════════════════════════════
        Menu
@@ -992,7 +993,7 @@
     @media (max-width: 480px) {
       .c_tabBtnList button { padding: .9rem 1.2rem; font-size: .62rem; }
       .gallery_swiper { height: 70vw; }
-      .sns_follow_wrap { flex-direction: column; }
+      .sns_follow_wrap { flex-direction: row; }
     }
   </style>
 </head>
