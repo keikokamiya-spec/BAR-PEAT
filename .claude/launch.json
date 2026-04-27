@@ -3,24 +3,21 @@
   "configurations": [
     {
       "name": "Python HTTP Server",
-      "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server"],
-      "port": 8080,
-      "autoPort": true
+      "runtimeExecutable": "/opt/homebrew/bin/python3.12",
+      "runtimeArgs": ["-m", "http.server", "8080", "--directory", "/Users/kamiya/Desktop/BAR PEAT"],
+      "port": 8080
     },
     {
       "name": "npx serve",
       "runtimeExecutable": "npx",
-      "runtimeArgs": ["serve"],
-      "port": 3000,
-      "autoPort": true
+      "runtimeArgs": ["serve", "/Users/kamiya/Desktop/BAR PEAT", "-p", "3000"],
+      "port": 3000
     },
     {
       "name": "npx http-server",
       "runtimeExecutable": "npx",
-      "runtimeArgs": ["http-server", "--cors"],
-      "port": 3001,
-      "autoPort": true
+      "runtimeArgs": ["http-server", "/Users/kamiya/Desktop/BAR PEAT", "--cors", "-p", "3001"],
+      "port": 3001
     }
   ]
 }
